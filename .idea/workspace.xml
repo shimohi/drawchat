@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CCaseConfig">
+    <option name="checkoutReserved" value="false" />
+    <option name="markExternalChangeAsUpToDate" value="true" />
+    <option name="checkInUseHijack" value="true" />
+    <option name="useUcmModel" value="true" />
+    <option name="isOffline" value="false" />
+    <option name="synchOutside" value="false" />
+    <option name="isHistoryResticted" value="true" />
+    <option name="useIdenticalSwitch" value="true" />
+    <option name="lastScr" value="" />
+    <option name="scrTextFileName" value="" />
+    <option name="lastViewType" />
+    <option name="historyRevisionsNumber" value="4" />
+  </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="9bee9b55-037d-415e-8f71-a583c915116b" name="Default" comment="" />
+=======
+<<<<<<< HEAD
+    <list default="true" id="01312206-97d6-46d7-bc21-008018d347c6" name="Default" comment="" />
+=======
+    <list default="true" id="9bee9b55-037d-415e-8f71-a583c915116b" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatSession.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatThread.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatWebSocketServlet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawMessage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawMessages.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/catalina_ant.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_core_2_2_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/drawchat.iml" afterPath="$PROJECT_DIR$/drawchat.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
+>>>>>>> 47f258fcb8904de98ba148493e1d673d1a8f4579
     <ignored path="drawchat.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -11,6 +45,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -58,30 +97,69 @@
     <breakpoint_rules />
     <ui_properties />
   </component>
+  <component name="ErrorTreeViewConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="HIDE_WARNINGS" value="false" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="drawchat" />
   </component>
   <component name="FileEditorManager">
     <leaf>
+<<<<<<< HEAD
+      <file leaf-file-name="drawCanvas.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/ui/drawCanvas.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="47" selection-start="1746" selection-end="1746" vertical-scroll-proportion="12.423077" vertical-offset="1020" max-vertical-offset="2363">
+              <folding>
+                <marker date="1392544106130" expanded="true" signature="1066:2101" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1092:2090" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1124:2075" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1171:2056" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1219:1610" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1261:1583" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1309:1398" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1446:1552" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1655:2033" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1697:2006" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1745:1975" placeholder="..." />
+                <marker date="1392544106130" expanded="true" signature="1801:1940" placeholder="..." />
+              </folding>
+=======
       <file leaf-file-name="DrawMessage.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawMessage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="21" column="2" selection-start="442" selection-end="442" vertical-scroll-proportion="0.3255814" vertical-offset="0" max-vertical-offset="2565">
               <folding />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="drawchat-load.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/ui/js/drawchat-load.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="104" column="23" selection-start="2708" selection-end="2708" vertical-scroll-proportion="0.3548387" vertical-offset="1581" max-vertical-offset="2278">
+=======
       <file leaf-file-name="DrawMessages.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawMessages.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="51" column="0" selection-start="1176" selection-end="1176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="original.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/ui/css/original.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="22" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+              <folding />
+=======
       <file leaf-file-name="DrawChatThread.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatThread.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -89,10 +167,18 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="draw.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/ui/draw.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="74" selection-start="1280" selection-end="1280" vertical-scroll-proportion="13.269231" vertical-offset="872" max-vertical-offset="1360">
+              <folding />
+=======
       <file leaf-file-name="DrawChatSession.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatSession.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -104,16 +190,26 @@
                 <element signature="e#1406#1407#0" expanded="true" />
                 <element signature="e#1430#1431#0" expanded="true" />
               </folding>
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="drawchat.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/ui/js/drawchat.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="21" selection-start="1173" selection-end="1173" vertical-scroll-proportion="0.0" vertical-offset="489" max-vertical-offset="1666">
+              <folding>
+                <element signature="e#0#42#0" expanded="false" />
+=======
       <file leaf-file-name="DrawChatWebSocketServlet.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatWebSocketServlet.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="18" column="43" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
               <folding>
                 <element signature="imports" expanded="true" />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
               </folding>
             </state>
           </provider>
@@ -129,6 +225,28 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
+  <component name="HierarchyBrowserManager">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="SORT_ALPHABETICALLY" value="false" />
+    <option name="HIDE_CLASSES_WHERE_METHOD_NOT_IMPLEMENTED" value="false" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/web/ui/css/original.css" />
+        <option value="$PROJECT_DIR$/web/ui/draw.html" />
+        <option value="$PROJECT_DIR$/web/ui/js/drawchat.js" />
+        <option value="$PROJECT_DIR$/web/ui/drawCanvas.html" />
+        <option value="$PROJECT_DIR$/web/ui/js/drawchat-load.js" />
+      </list>
+    </option>
+  </component>
+  <component name="ModuleEditorState">
+    <option name="LAST_EDITED_MODULE_NAME" />
+    <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+=======
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
@@ -143,10 +261,12 @@
       </list>
     </option>
   </component>
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
-    <option name="width" value="1366" />
-    <option name="height" value="742" />
+    <option name="x" value="189" />
+    <option name="y" value="39" />
+    <option name="width" value="981" />
+    <option name="height" value="664" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -155,8 +275,28 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
+<<<<<<< HEAD
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
+    <ConfirmationsSetting value="0" id="Add" />
+=======
     <ConfirmationsSetting value="2" id="Add" />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
     <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectPane">
+    <subPane>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="drawchat" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="drawchat" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </subPane>
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="2" />
@@ -248,6 +388,64 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawchat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawchat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawchat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawchat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawchat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawchat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -256,10 +454,16 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_drawchat/web/Web" value="C:\Users\masashi\AppData\Local\Temp\webExplodedDir20628tmp" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+<<<<<<< HEAD
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+=======
     <property name="recentsLimit" value="5" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="preferences.pathVariables" />
@@ -280,6 +484,7 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="allnight.creathon.drawchat" />
     </key>
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 7.0.50">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
@@ -309,6 +514,19 @@
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -335,19 +553,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -504,14 +709,9 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
-    <configuration default="false" name="Tomcat 7.0.50" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.50" ALTERNATIVE_JRE_ENABLED="false">
-      <deployment>
-        <artifact name="drawchat:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
+    <configuration default="false" name="Tomcat 7.0.50" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/" />
+      <deployment />
       <server-settings />
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -519,11 +719,7 @@
       <predefined_log_file id="Tomcat Host Manager" enabled="false" />
       <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="drawchat:war exploded" />
-        </option>
-      </method>
+      <method />
     </configuration>
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Tomcat 7.0.50" />
@@ -534,23 +730,123 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="StarteamConfiguration">
+    <option name="SERVER" value="" />
+    <option name="PORT" value="49201" />
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="PROJECT" value="" />
+    <option name="VIEW" value="" />
+    <option name="ALTERNATIVE_WORKING_PATH" value="" />
+    <option name="LOCK_ON_CHECKOUT" value="false" />
+    <option name="UNLOCK_ON_CHECKIN" value="false" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="true" />
+    <option name="AUTOSCROLL_FROM_SOURCE" value="false" />
+    <option name="ACTIVE_ACTIONS" value="" />
+  </component>
+  <component name="SvnConfiguration">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="UPDATE_RUN_STATUS" value="false" />
+    <option name="UPDATE_RECURSIVELY" value="true" />
+    <option name="MERGE_DRY_RUN" value="false" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9bee9b55-037d-415e-8f71-a583c915116b" name="Default" comment="" />
+      <changelist id="01312206-97d6-46d7-bc21-008018d347c6" name="Default" comment="" />
       <created>1392525449614</created>
       <updated>1392525449614</updated>
+<<<<<<< HEAD
+      <workItem from="1392525454255" duration="52000" />
+      <workItem from="1392528147139" duration="16149000" />
+=======
       <workItem from="1392525454255" duration="7105000" />
+<<<<<<< HEAD
       <workItem from="1392536031072" duration="5611000" />
+=======
+      <workItem from="1392536031072" duration="5345000" />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
+>>>>>>> 47f258fcb8904de98ba148493e1d673d1a8f4579
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="12716000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1366" height="742" extended-state="6" />
+=======
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="16201000" />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+=======
+    <option name="totallyTimeSpent" value="12450000" />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="189" y="39" width="981" height="664" extended-state="0" />
+>>>>>>> 47f258fcb8904de98ba148493e1d673d1a8f4579
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32971016" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27357513" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -573,10 +869,11 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329429" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USERS">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
       <collection />
     </option>
   </component>
@@ -587,10 +884,52 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="false" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="false" />
+  </component>
+  <component name="VssConfiguration">
+    <option name="CLIENT_PATH" value="" />
+    <option name="SRCSAFEINI_PATH" value="" />
+    <option name="USER_NAME" value="" />
+    <option name="PWD" value="" />
+    <CheckoutOptions>
+      <option name="COMMENT" value="" />
+      <option name="DO_NOT_GET_LATEST_VERSION" value="false" />
+      <option name="REPLACE_WRITABLE" value="false" />
+      <option name="RECURSIVE" value="false" />
+    </CheckoutOptions>
+    <CheckinOptions>
+      <option name="COMMENT" value="" />
+      <option name="KEEP_CHECKED_OUT" value="false" />
+      <option name="RECURSIVE" value="false" />
+    </CheckinOptions>
+    <AddOptions>
+      <option name="STORE_ONLY_LATEST_VERSION" value="false" />
+      <option name="CHECK_OUT_IMMEDIATELY" value="false" />
+    </AddOptions>
+    <UndocheckoutOptions>
+      <option name="MAKE_WRITABLE" value="false" />
+      <option name="REPLACE_LOCAL_COPY" value="0" />
+      <option name="RECURSIVE" value="false" />
+    </UndocheckoutOptions>
+    <GetOptions>
+      <option name="REPLACE_WRITABLE" value="0" />
+      <option name="MAKE_WRITABLE" value="false" />
+      <option name="ANSWER_NEGATIVELY" value="false" />
+      <option name="ANSWER_POSITIVELY" value="false" />
+      <option name="RECURSIVE" value="false" />
+      <option name="VERSION" />
+    </GetOptions>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
+<<<<<<< HEAD
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/web/ui/css/original.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="22" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+=======
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
@@ -606,19 +945,46 @@
     <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawMessages.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="19" selection-start="741" selection-end="741" vertical-scroll-proportion="0.0" vertical-offset="283" max-vertical-offset="1260">
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/web/ui/js/handlebars-v1.3.0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.5875486" vertical-offset="816" max-vertical-offset="46784">
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+=======
     <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="0" selection-start="731" selection-end="731" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="735">
           <folding>
             <element signature="imports" expanded="true" />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/web/ui/drawCanvas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="47" selection-start="1746" selection-end="1746" vertical-scroll-proportion="12.423077" vertical-offset="1020" max-vertical-offset="2363">
+          <folding>
+            <marker date="1392544106130" expanded="true" signature="1066:2101" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1092:2090" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1124:2075" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1171:2056" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1219:1610" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1261:1583" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1309:1398" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1446:1552" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1655:2033" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1697:2006" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1745:1975" placeholder="..." />
+            <marker date="1392544106130" expanded="true" signature="1801:1940" placeholder="..." />
+=======
     <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatSession.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="13" selection-start="93" selection-end="93" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="360">
@@ -628,10 +994,25 @@
             <element signature="e#1087#1088#0" expanded="true" />
             <element signature="e#1406#1407#0" expanded="true" />
             <element signature="e#1430#1431#0" expanded="true" />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/web/ui/draw.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="74" selection-start="1280" selection-end="1280" vertical-scroll-proportion="13.269231" vertical-offset="872" max-vertical-offset="1360">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ui/js/drawchat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="21" selection-start="1173" selection-end="1173" vertical-scroll-proportion="0.0" vertical-offset="489" max-vertical-offset="1666">
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+=======
     <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatSession.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="11" selection-start="970" selection-end="970" vertical-scroll-proportion="0.0" vertical-offset="475" max-vertical-offset="2115">
@@ -650,10 +1031,16 @@
         <state line="26" column="109" selection-start="584" selection-end="584" vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="1005">
           <folding>
             <element signature="imports" expanded="true" />
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/web/ui/js/drawchat-load.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="104" column="23" selection-start="2708" selection-end="2708" vertical-scroll-proportion="0.3548387" vertical-offset="1581" max-vertical-offset="2278">
+=======
     <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawChatWebSocketServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="43" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
@@ -672,12 +1059,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/allnight/creathon/drawchat/DrawMessage.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state line="21" column="2" selection-start="442" selection-end="442" vertical-scroll-proportion="0.3255814" vertical-offset="0" max-vertical-offset="2565">
+=======
+        <state line="100" column="39" selection-start="1545" selection-end="1558" vertical-scroll-proportion="2.1162791" vertical-offset="0" max-vertical-offset="2565">
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
+>>>>>>> 47f258fcb8904de98ba148493e1d673d1a8f4579
           <folding />
         </state>
       </provider>
     </entry>
   </component>
+<<<<<<< HEAD
+=======
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
@@ -768,5 +1162,6 @@
       </state>
     </states>
   </component>
+>>>>>>> 64a3dfc751bbad4ba5948fcba858924d7328d187
 </project>
 

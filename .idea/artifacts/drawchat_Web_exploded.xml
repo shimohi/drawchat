@@ -1,0 +1,7 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="drawchat:Web exploded">
+    <root id="root">
+      <element id="javaee-facet-resources" facet="drawchat/web/Web" />
+    </root>
+  </artifact>
+</component>

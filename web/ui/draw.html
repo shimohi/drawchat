@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="./css/original.css" rel="stylesheet">
+    <script src="./js/jquery-2.1.0.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/drawchat.js"></script>
+    <title>drawArea | drawChat</title>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="span4">
+                    <h1>drawChat</h1>
+                </div>
+                <div class="span2">
+                    <div class="header-btn">
+                        <a class="btn btn-primary btn-lg" role="button">送　信</a>
+                    </div>
+                </div>
+            </div>
+            <p>白紙部分に文字を書いて“新規投稿”ボタンで投稿します。</p>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="span6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="span3">
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="userName">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="span2">
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="span6">
+                                    <div class="post-area">
+                                        <canvas id="canvassample" width="536" height="402"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary btn-lg" role="button">送　信</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
