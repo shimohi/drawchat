@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="catalina-ant">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/dev/apache-tomcat-7.0.50/lib/catalina-ant.jar!/" />
+      <root url="jar://$USER_HOME$/dev/apache-tomcat-7.0.50/lib/catalina-ha.jar!/" />
+      <root url="jar://$USER_HOME$/dev/apache-tomcat-7.0.50/lib/catalina-tribes.jar!/" />
+      <root url="jar://$USER_HOME$/dev/apache-tomcat-7.0.50/lib/catalina.jar!/" />
+      <root url="jar://$USER_HOME$/dev/apache-tomcat-7.0.50/lib/tomcat-coyote.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
