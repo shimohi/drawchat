@@ -1,12 +1,13 @@
 module.exports = {
-	entry: './src/entry.ts',
+	entry: './src/ts/entry.ts',
 	output: {
-		filename: './artifact/bundle.js'
+		filename: './artifact/app.js'
 	},
 	resolve: {
 		// Add `.ts` and `.tsx` as a resolvable extension.
 		extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
 	},
+	devtool: 'source-map',
 	module: {
 		loaders: [
 			// all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
