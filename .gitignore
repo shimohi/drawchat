@@ -9,6 +9,7 @@
 .idea/
 .recommenders/
 .settings/
+coverage/
 classes/
 node_modules/
 bin/
