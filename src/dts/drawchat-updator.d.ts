@@ -1,0 +1,6 @@
+declare namespace drawchat.updator {
+
+
+
+
+}
