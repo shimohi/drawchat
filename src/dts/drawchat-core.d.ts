@@ -2,21 +2,84 @@ declare namespace drawchat.core {
 
 	interface DrawHistory{
 
+		/**
+		 * 現在の履歴番号を取得します。
+		 */
+		getNowHistoryNumber():number;
 
+		/**
+		 * 最終履歴番号を取得します。
+		 */
+		getLastHistoryNumber():number;
 
+		/**
+		 * 初回の履歴番号を取得します。存在しない場合は-1が返ります。
+		 */
+		getFirstHistoryNumber():number;
 
+		/**
+		 * 指定された範囲の履歴を取得します。
+		 * @param from
+		 * @param to
+		 */
+		getMoments(from:number,to:number):DrawMoment[];
 
+		/**
+		 * 履歴番号を設定します。<br />
+		 * 現在の履歴番号に指定値の履歴番号が存在しない場合は指定値以下で最も大きい履歴番号が設定されます。
+		 * 以降の更新メソッドが発生した際、指定値より大きい履歴が削除されます。
+		 */
+		setHistoryNumber(historyNumber:number):DrawMoment[];
+
+		/**
+		 * 履歴を計算し、現在のDrawMessageを生成します。
+		 */
+		generateMessage():Message;
+
+		/**
+		 * 履歴をクリアします。
+		 */
+		clear():void;
+
+		/**
+		 * 新しいレイヤーを追加します。
+		 * @param layer
+		 */
+		addLayer(layer:Layer):DrawMoment;
+
+		/**
+		 * 指定されたIDのレイヤーを削除します。
+		 * @param layerId
+		 */
+		removeLayer(layerId:string):DrawMoment;
+
+		/**
+		 * 編集履歴を積み上げます。
+		 * @param canvasSequence
+		 * @param canvasMoments
+		 */
+		addMoment(
+			canvasSequence:string[],
+			canvasMoments:DrawLayerMoment[]
+		):DrawMoment;
 	}
 
 	/**
 	 * 履歴アイテム
 	 */
 	interface DrawMoment{
+
+		/**
+		 * 履歴番号
+		 */
+		getHistoryNumber():number;
+
 		/**
 		 * CanvasId毎の変更マッピング。
 		 */
 		getKeys():string[];
-		getCanvasMoment(key:string):DrawCanvasMoment;
+		getLayerMoment(key:string):DrawLayerMoment;
+
 		/**
 		 * Canvasの表示順　背面であるほど小さい添字。
 		 * 更新される毎に全件分設定され、ここにないCanvasは削除扱いとする。
@@ -27,25 +90,29 @@ declare namespace drawchat.core {
 	/**
 	 * Canvas毎の履歴アイテム
 	 */
-	interface DrawCanvasMoment{
+	interface DrawLayerMoment{
+
 		/**
 		 * CanvasId
 		 */
-		getCanvasId():string;
+		canvasId:string;
+
 		/**
 		 * Canvas全体の変形成分。
 		 * 変更がある場合は毎回全体上書き。
 		 */
-		getTransform():Transform;
+		transform:Transform;
+
 		/**
 		 * Canvasの切り抜き。
 		 * 変更がある場合は毎回全体上書き。<br />
 		 * 切り抜きしたくない場合はpathの値がnullな空のClipを設定する。
 		 */
-		getClip():Clip;
+		clip:Clip;
+
 		/**
 		 * 書き込み履歴（追加分のみ）
 		 */
-		getDraws():Draw[];
+		draws:Draw[];
 	}
 }

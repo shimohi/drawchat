@@ -9,9 +9,9 @@ declare namespace drawchat{
 		author?:string;
 		time?:number;
 		title?:string;
-		canvas?:Canvas[];
+		canvas?:Layer[];
 	}
-	interface Canvas{
+	interface Layer{
 		transform?:Transform;
 		clip?:Clip;
 		draws:Draw[];
