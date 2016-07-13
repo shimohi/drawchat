@@ -62,6 +62,14 @@ declare namespace drawchat.core {
 			canvasSequence:string[],
 			canvasMoments:DrawLayerMoment[]
 		):DrawMoment;
+
+		/**
+		 * 更新イベントを待ち受けるリスナーを設定します。
+		 * 指定されたcallBackは一度のみ呼び出されます。
+		 * 継続してイベントを受け取りたい場合は設定側で都度このメソッドを発行する必要があります。
+		 * @param callback
+		 */
+		awaitUpdate(callback:(historyNumber:number)=>void):void;
 	}
 
 	/**
