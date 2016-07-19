@@ -56,7 +56,7 @@ declare namespace drawchat{
 		cpx1:number;
 		cpy1:number;
 		cpx2:number;
-		cpy3:number;
+		cpy2:number;
 		x:number;
 		y:number;
 	}
@@ -76,10 +76,10 @@ declare namespace drawchat{
 	interface Fill{
 
 	}
-	interface FillColor{
+	interface FillColor extends Fill{
 		color:string;
 	}
-	interface FillLinerGradient{
+	interface FillLinerGradient extends Fill{
 		x0:number;
 		y0:number;
 		x1:number;
@@ -90,7 +90,7 @@ declare namespace drawchat{
 		offset:number;
 		color:string;
 	}
-	interface RadialGradient{
+	interface RadialGradient extends Fill{
 		x0:number;
 		y0:number;
 		r0:number;

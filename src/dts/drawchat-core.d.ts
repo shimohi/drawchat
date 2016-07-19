@@ -3,73 +3,85 @@ declare namespace drawchat.core {
 	interface DrawHistory{
 
 		/**
-		 * 現在の履歴番号を取得します。
+		 * 履歴番号の一覧を取得する。
+		 */
+		getHistoryNumbers():number[];
+
+		/**
+		 * 現在の履歴番号を取得する。
 		 */
 		getNowHistoryNumber():number;
 
 		/**
-		 * 最終履歴番号を取得します。
+		 * 最終履歴番号を取得する。
 		 */
 		getLastHistoryNumber():number;
 
 		/**
-		 * 初回の履歴番号を取得します。存在しない場合は-1が返ります。
+		 * 初回の履歴番号を取得する。存在しない場合は-1が返る。
 		 */
 		getFirstHistoryNumber():number;
 
 		/**
-		 * 指定された範囲の履歴を取得します。
+		 * 指定された範囲の履歴を取得する。
 		 * @param from
 		 * @param to
 		 */
 		getMoments(from:number,to:number):DrawMoment[];
 
 		/**
-		 * 履歴番号を設定します。<br />
-		 * 現在の履歴番号に指定値の履歴番号が存在しない場合は指定値以下で最も大きい履歴番号が設定されます。
-		 * 以降の更新メソッドが発生した際、指定値より大きい履歴が削除されます。
+		 * 履歴番号を設定する。<br />
+		 * 現在の履歴番号に指定値の履歴番号が存在しない場合は指定値以下で最も大きい履歴番号が設定される。
+		 * 以降の更新メソッドが発生した際、指定値より大きい履歴が削除される。
 		 */
-		setHistoryNumber(historyNumber:number):DrawMoment[];
+		setHistoryNumberNow(historyNumber:number):number;
 
 		/**
-		 * 履歴を計算し、現在のDrawMessageを生成します。
+		 * 履歴を計算し、現在のDrawMessageを生成する。
 		 */
 		generateMessage():Message;
 
 		/**
-		 * 履歴をクリアします。
+		 * 履歴をクリアする。
 		 */
 		clear():void;
 
 		/**
-		 * 新しいレイヤーを追加します。
+		 * 新しいレイヤーを追加する。
 		 * @param layer
 		 */
 		addLayer(layer:Layer):DrawMoment;
 
 		/**
-		 * 指定されたIDのレイヤーを削除します。
+		 * 指定されたIDのレイヤーを削除する。
 		 * @param layerId
 		 */
-		removeLayer(layerId:string):DrawMoment;
+		removeLayer(layerId:string):void;
 
 		/**
-		 * 編集履歴を積み上げます。
-		 * @param canvasSequence
-		 * @param canvasMoments
+		 * 編集履歴を積み上げる。
+		 * 結果はcommit時に反映する。
 		 */
-		addMoment(
-			canvasSequence:string[],
-			canvasMoments:DrawLayerMoment[]
-		):DrawMoment;
+		addMoment():DrawMomentBuilder;
 
 		/**
-		 * 更新イベントを待ち受けるリスナーを設定します。
-		 * 指定されたcallBackは一度のみ呼び出されます。
-		 * 継続してイベントを受け取りたい場合は設定側で都度このメソッドを発行する必要があります。
+		 * 更新イベントを待ち受けるリスナーを設定する。
+		 * 指定されたcallBackは一度のみ呼び出される。
+		 * 継続してイベントを受け取りたい場合は設定側で都度このメソッドを発行する必要がある。
 		 * @param callback
 		 */
 		awaitUpdate(callback:(historyNumber:number)=>void):void;
+	}
+
+	interface DrawMomentBuilder{
+
+		putLayerMoment(
+			key:string
+		):DrawLayerMomentBuilder;
+
+		setSequence(sequence:string[]):DrawMomentBuilder;
+
+		commit():DrawMoment
 	}
 
 	/**
@@ -88,11 +100,33 @@ declare namespace drawchat.core {
 		getKeys():string[];
 		getLayerMoment(key:string):DrawLayerMoment;
 
+
 		/**
 		 * Canvasの表示順　背面であるほど小さい添字。
 		 * 更新される毎に全件分設定され、ここにないCanvasは削除扱いとする。
 		 */
 		getSequence():string[];
+	}
+
+	interface DrawLayerMomentBuilder{
+
+		setTransForm(
+			transform:Transform
+		):DrawLayerMomentBuilder;
+
+		setClip(
+			clip:Clip
+		):DrawLayerMomentBuilder;
+
+		addDraw(
+			draw:Draw
+		):DrawLayerMomentBuilder;
+
+		addDraws(
+			draw:Draw[]
+		):DrawLayerMomentBuilder;
+
+		commit():DrawMomentBuilder;
 	}
 
 	/**
@@ -103,24 +137,24 @@ declare namespace drawchat.core {
 		/**
 		 * CanvasId
 		 */
-		canvasId:string;
+		getCanvasId():string;
 
 		/**
 		 * Canvas全体の変形成分。
 		 * 変更がある場合は毎回全体上書き。
 		 */
-		transform:Transform;
+		getTransform():Transform;
 
 		/**
 		 * Canvasの切り抜き。
 		 * 変更がある場合は毎回全体上書き。<br />
 		 * 切り抜きしたくない場合はpathの値がnullな空のClipを設定する。
 		 */
-		clip:Clip;
+		getClip():Clip;
 
 		/**
 		 * 書き込み履歴（追加分のみ）
 		 */
-		draws:Draw[];
+		getDraws():Draw[];
 	}
 }

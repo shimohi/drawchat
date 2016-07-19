@@ -1,14 +1,12 @@
 declare namespace drawchat.viewer {
 
-	import Renderer = drawchat.renderer.Renderer;
 	import DrawHistory = drawchat.core.DrawHistory;
+	import DrawchatRenderer = drawchat.renderer.DrawchatRenderer;
 
 	/**
 	 * 編集内容と描画をリアルタイムで結びつけるクラス。
 	 */
-	interface Viewer{
-		// renderer:Renderer;
-		// history:DrawHistory;
+	interface DrawchatViewer{
 
 		/**
 		 * 描画内容を全てクリアする。
@@ -35,10 +33,10 @@ declare namespace drawchat.viewer {
 		hide(target?:number[]):void;
 	}
 
-	interface ViewerFactory{
+	interface DrawchatViewerFactory{
 		createInstance(
-			renderer:Renderer,
+			renderer:DrawchatRenderer,
 			core?:DrawHistory
-		):Viewer;
+		):DrawchatViewer;
 	}
 }

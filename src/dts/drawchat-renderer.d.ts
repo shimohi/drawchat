@@ -1,6 +1,6 @@
 declare namespace drawchat.renderer {
 
-	interface Renderer{
+	interface DrawchatRenderer{
 
 		/**
 		 * レイヤーの数を取得します。
