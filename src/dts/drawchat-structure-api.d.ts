@@ -73,13 +73,19 @@ declare namespace drawchat{
 		stroke?:Stroke;
 		path:PathItem[]
 	}
-	interface Fill{
 
+	interface Fill{
+		color?:string;
+		linerGradient?:LinerGradient;
+		radialGradient?:RadialGradient;
 	}
-	interface FillColor extends Fill{
-		color:string;
-	}
-	interface FillLinerGradient extends Fill{
+	// interface FillColor extends Fill{
+	// 	color:string;
+	// }
+	// interface FillLinerGradient extends Fill{
+	// 	linerGradient:LinerGradient;
+	// }
+	interface LinerGradient{
 		x0:number;
 		y0:number;
 		x1:number;
@@ -90,6 +96,9 @@ declare namespace drawchat{
 		offset:number;
 		color:string;
 	}
+	// interface FillRadialGradient{
+	// 	radialGradient:RadialGradient;
+	// }
 	interface RadialGradient extends Fill{
 		x0:number;
 		y0:number;

@@ -9,8 +9,14 @@ import BezierCurveTo = drawchat.BezierCurveTo;
 import Transform = drawchat.Transform;
 import GraphicsDraw = drawchat.GraphicsDraw;
 import Graphic = drawchat.Graphic;
+import Fill = drawchat.Fill;
+import LinerGradient = drawchat.LinerGradient;
+import RadialGradient = drawchat.RadialGradient;
+import Stroke = drawchat.Stroke;
 class Renderer implements DrawchatRenderer{
 
+	static STROKE_COLOR_DEFAULT:string = "#FFF";
+	static FILL_COLOR_DEFAULT:string = "#000";
 
 	private canvasContainer:CanvasContainer;
 	// private canvas:CanvasRenderingContext2D;
@@ -83,8 +89,7 @@ class Renderer implements DrawchatRenderer{
 
 		//fill
 		if(graphics.fill){
-
-
+			this.setFill(context,graphics.fill);
 		}
 
 		//stroke
@@ -92,21 +97,184 @@ class Renderer implements DrawchatRenderer{
 
 		}
 
-
 		//path
-		if(graphics.path){
+		this.drawPathArray(context,graphics.path);
 
+		//fill
+		if(graphics.fill){
+			context.fill();
 		}
 
-
-
-		graphics.fill
-
-
-
-
+		//stroke
+		if(graphics.stroke){
+			context.stroke();
+		}
 	}
 
+	/**
+	 * 線スタイルの設定。
+	 * @param context
+	 * @param stroke
+	 */
+	private setStroke(
+		context:CanvasRenderingContext2D,
+		stroke:Stroke
+	):void{
+
+		//	塗りスタイル
+		this.setStrokeFill(context,stroke.fillStyle);
+
+		//	破線( offsetは未対応)
+		if(stroke.dash && stroke.dash.segments){
+			context.setLineDash(stroke.dash.segments);
+		}else{
+			context.setLineDash([]);
+		}
+
+		//
+		let style = stroke.style;
+		if(!style){
+			context.lineWidth = 1;
+			context.lineCap = "butt";
+			context.lineJoin = "miter";
+			context.miterLimit =  10.0;
+			return;
+		}
+
+		//	太さ
+		if(style.thickness){
+			context.lineWidth = style.thickness;
+		}else{
+			context.lineWidth = 1;
+		}
+
+		//	lineCap
+		if(style.caps){
+			context.lineCap = style.caps;
+		}else{
+			context.lineCap = "butt";
+		}
+
+		//	miter
+
+		//	miterLimit
+	}
+
+	/**
+	 * 線スタイルの設定。
+	 * @param context
+	 * @param fill
+	 */
+	private setStrokeFill(
+		context:CanvasRenderingContext2D,
+		fill?:Fill
+	):void{
+
+		//	指定なし（デフォルト）
+		if(!fill){
+			context.strokeStyle = Renderer.STROKE_COLOR_DEFAULT;
+			return;
+		}
+
+		//	ベタ塗り
+		if(fill.color){
+			context.strokeStyle = fill.color;
+			return;
+		}
+
+		//	線形グラデーション
+		if(fill.linerGradient){
+			context.strokeStyle = this.createLineGradient(context,fill.linerGradient);
+			return;
+		}
+
+		//	円形グラデーション
+		if(fill.radialGradient){
+			context.strokeStyle = this.createRadialGradient(context,fill.radialGradient);
+			return;
+		}
+		context.strokeStyle = Renderer.STROKE_COLOR_DEFAULT;
+	}
+
+	/**
+	 * 塗りスタイルの設定。
+	 * @param context
+	 * @param fill
+	 */
+	private setFill(
+		context:CanvasRenderingContext2D,
+		fill:Fill
+	):void{
+
+		//	ベタ塗り
+		if(fill.color){
+			context.fillStyle = fill.color;
+			return;
+		}
+
+		//	線形グラデーション
+		if(fill.linerGradient){
+			context.fillStyle = this.createLineGradient(context,fill.linerGradient);
+			return;
+		}
+
+		if(fill.radialGradient){
+			context.fillStyle = this.createRadialGradient(context,fill.radialGradient);
+		}
+		fill.color =  Renderer.FILL_COLOR_DEFAULT;
+	}
+
+	/**
+	 * 線形グラデーションの構築。
+	 * @param context
+	 * @param linerGradient
+	 * @returns {CanvasGradient}
+	 */
+	private createLineGradient(
+		context:CanvasRenderingContext2D,
+		linerGradient:LinerGradient
+	):CanvasGradient{
+		let liner = context.createLinearGradient(
+			linerGradient.x0,
+			linerGradient.y0,
+			linerGradient.x1,
+			linerGradient.y1
+		);
+		if(!linerGradient.colorStops){
+			return liner;
+		}
+		for(let stop of linerGradient.colorStops){
+			liner.addColorStop(stop.offset,stop.color);
+		}
+		return liner;
+	}
+
+	/**
+	 * 線形グラデーションの構築。
+	 * @param context
+	 * @param radialGradient
+	 * @returns {CanvasGradient}
+	 */
+	private createRadialGradient(
+		context:CanvasRenderingContext2D,
+		radialGradient:RadialGradient
+	):CanvasGradient{
+		let radial = context.createRadialGradient(
+			radialGradient.x0,
+			radialGradient.y0,
+			radialGradient.r0,
+			radialGradient.x1,
+			radialGradient.y1,
+			radialGradient.r1
+		);
+		if(!radialGradient.colorStops){
+			return radial;
+		}
+		for(let stop of radialGradient.colorStops){
+			radial.addColorStop(stop.offset,stop.color);
+		}
+		return radial;
+	}
 
 	private setTransform(
 		context:CanvasRenderingContext2D,
