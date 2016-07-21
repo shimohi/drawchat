@@ -125,8 +125,6 @@ declare namespace drawchat{
 		ignoreScale?:number;
 	}
 	interface TextDraw extends Draw{
-		transform?:Transform;
-		compositeOperation:number;
 		text:Text;
 	}
 	interface Text{
