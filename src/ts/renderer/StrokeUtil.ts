@@ -1,6 +1,8 @@
 import Stroke = drawchat.Stroke;
 import Fill = drawchat.Fill;
+
 import {FillUtil} from "./FillUtil";
+
 export class StrokeUtil{
 
 	static STROKE_COLOR_DEFAULT:string = "#FFF";

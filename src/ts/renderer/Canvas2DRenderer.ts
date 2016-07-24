@@ -1,5 +1,4 @@
 import DrawchatRenderer = drawchat.renderer.DrawchatRenderer;
-import {CanvasContainer} from "./CanvasContainer";
 import PathItem = drawchat.PathItem;
 import MoveTo = drawchat.MoveTo;
 import ArcTo = drawchat.ArcTo;
@@ -13,21 +12,27 @@ import Fill = drawchat.Fill;
 import LinerGradient = drawchat.LinerGradient;
 import RadialGradient = drawchat.RadialGradient;
 import Stroke = drawchat.Stroke;
+import TextDraw = drawchat.TextDraw;
+
+import {CanvasContainer} from "./CanvasContainer";
 import {TransformContainer} from "./TransformContainer";
 import {ClipUtil} from "./ClipUtil";
 import {GraphicsUtil} from "./GraphicsUtil";
 import {TextUtil} from "./TextUtil";
-import TextDraw = drawchat.TextDraw;
-class Renderer implements DrawchatRenderer{
 
+class Renderer implements DrawchatRenderer{
 
 	private canvasContainer:CanvasContainer;
 	private transformContainer:TransformContainer = new TransformContainer();
 
 	constructor(
-		parent:Element
+		parent:Element,
+		width?:number,
+		height?:number
 	){
-		this.canvasContainer = new CanvasContainer(parent);
+		this.canvasContainer = new CanvasContainer(
+			parent,width,height
+		);
 	}
 
 	size():number {
@@ -61,7 +66,7 @@ class Renderer implements DrawchatRenderer{
 			return;
 		}
 
-		context.clearRect(0,0,300,300);
+		context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
 		this.transformContainer.setBaseTransform(transform);
 
 		//	切り抜きの設定
@@ -92,8 +97,8 @@ class Renderer implements DrawchatRenderer{
 		this.canvasContainer.clear();
 	}
 
-	createImageDataURL():string {
-		return null;
+	createImageDataURI():string {
+		return this.canvasContainer.combineDataImage();
 	}
 
 	show(target?:number[]):void {
@@ -151,3 +156,14 @@ class Renderer implements DrawchatRenderer{
 		return result;
 	}
 }
+
+export class Factory {
+	static createInstance(
+		parent:Element,
+		width?:number,
+		height?:number
+	):DrawchatRenderer{
+		return new Renderer(parent,width,height);
+	}
+}
+export default Factory;

@@ -62,7 +62,7 @@ declare namespace drawchat.renderer {
 		/**
 		 * 画像をbase64化したデータを取得する。
 		 */
-		createImageDataURL():string;
+		createImageDataURI():string;
 
 		/**
 		 * 指定された添字のレイヤーを表示状態に設定する。

@@ -16,7 +16,7 @@ declare namespace drawchat.viewer {
 		/**
 		 * 画像をbase64化したデータを取得する。
 		 */
-		createImageDataURL():string;
+		createImageDataURI():string;
 
 		/**
 		 * 指定された添字のレイヤーを表示状態に設定する。
@@ -38,5 +38,9 @@ declare namespace drawchat.viewer {
 			renderer:DrawchatRenderer,
 			core?:DrawHistory
 		):DrawchatViewer;
+	}
+
+	interface NamedLayer extends Layer{
+		layerId:string;
 	}
 }

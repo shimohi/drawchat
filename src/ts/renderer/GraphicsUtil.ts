@@ -1,8 +1,9 @@
 import Graphic = drawchat.Graphic;
+import GraphicsDraw = drawchat.GraphicsDraw;
+
 import {FillUtil} from "./FillUtil";
 import {StrokeUtil} from "./StrokeUtil";
 import {PathUtil} from "./PathUtil";
-import GraphicsDraw = drawchat.GraphicsDraw;
 import {TransformContainer} from "./TransformContainer";
 import {CompositeOperationUtil} from "./CompositeOperationUtil";
 export class GraphicsUtil{

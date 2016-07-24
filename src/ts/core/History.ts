@@ -1,7 +1,8 @@
 import DrawHistory = drawchat.core.DrawHistory;
 import DrawMoment = drawchat.core.DrawMoment;
-import {Moment} from "./Moment";
 import DrawLayerMoment = drawchat.core.DrawLayerMoment;
+
+import {Moment} from "./Moment";
 import {MomentBuilder} from "./MomentBuilder";
 import {HistoryNumberGenerator} from "./HistoryNumberGenerator";
 import {LayerNumberGenerator} from "./LayerNumberGenerator";

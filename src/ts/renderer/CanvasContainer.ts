@@ -1,16 +1,25 @@
+import * as CombineCanvasUtil from "./CombineCanvasUtil";
+
 export class CanvasContainer{
 
 	/**
 	 * 親要素
 	 */
 	private parent:Element;
-
-	private elementList:Element[] = [];
-
+	private elementList:HTMLCanvasElement[] = [];
 	private contextList:CanvasRenderingContext2D[] = [];
 
-	constructor(parent:Element){
+	width:number;
+	height:number;
+
+	constructor(
+		parent:Element,
+		width?:number,
+		height?:number
+	){
 		this.parent = parent;
+		this.width = width ? width : parent.clientWidth;
+		this.height = height ? height : parent.clientHeight;
 	}
 
 	getSize():number{
@@ -25,9 +34,22 @@ export class CanvasContainer{
 		let element:HTMLCanvasElement = this.parent.ownerDocument.createElement("canvas");
 		this.parent.appendChild(element);
 
+		element.width = this.width;
+		element.height = this.height;
+		element.style.position = "absolute";
+
 		this.elementList.push(element);
 		this.contextList.push(element.getContext("2d"));
 		return this.elementList.length - 1;
+	}
+
+	combineDataImage():string{
+		return CombineCanvasUtil.combine(
+			this.width,
+			this.height,
+			this.elementList[0],
+			this.contextList
+		);
 	}
 
 	removeCanvas(index:number):void{

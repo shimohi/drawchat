@@ -2,9 +2,9 @@ import DrawMoment = drawchat.core.DrawMoment;
 import Message = drawchat.Message;
 import Layer = drawchat.Layer;
 
-export class DrawMessageBuilderStatic {
+export class DrawMessageBuilder {
 
-	createDrawMessage(
+	static createDrawMessage(
 		historyNumbers:number[],
 		map:{[key:number]:DrawMoment}
 	):Message{
@@ -17,7 +17,7 @@ export class DrawMessageBuilderStatic {
 			if(moment.getSequence()){
 				sequences = moment.getSequence();
 			}
-			this.parseMoment(
+			DrawMessageBuilder.parseMoment(
 				resultTo,
 				moment
 			);
@@ -34,7 +34,7 @@ export class DrawMessageBuilderStatic {
 		}
 	}
 
-	parseMoment(
+	static parseMoment(
 		resultTo:{[key:string]:Layer},
 		moment:DrawMoment
 	):void{
@@ -63,5 +63,4 @@ export class DrawMessageBuilderStatic {
 		}
 	}
 }
-export var DrawMessageBuilder:DrawMessageBuilderStatic = new DrawMessageBuilderStatic();
 export default DrawMessageBuilder;
