@@ -43,4 +43,8 @@ declare namespace drawchat.viewer {
 	interface NamedLayer extends Layer{
 		layerId:string;
 	}
+
+	interface LayerMap{
+		[key:string]:NamedLayer;
+	}
 }

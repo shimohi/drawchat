@@ -1,6 +1,12 @@
 import NamedLayer = drawchat.viewer.NamedLayer;
 export class CheckStateUtils{
 
+	/**
+	 * 変更前後のID順序からRendererに設定するソートオーダーを計算する。
+	 * @param beforeLayers
+	 * @param afterLayers
+	 * @returns {Array}
+	 */
 	static createSortOrder(
 		beforeLayers:string[],
 		afterLayers:string[]
@@ -20,6 +26,12 @@ export class CheckStateUtils{
 		return result;
 	}
 
+	/**
+	 * 変更区分を計算する。
+	 * @param beforeLayers
+	 * @param afterLayers
+	 * @returns {{}}
+	 */
 	static checkState(
 		beforeLayers:string[],
 		afterLayers:NamedLayer[]
@@ -45,7 +57,11 @@ export class CheckStateUtils{
 				map[layer.layerId] = UpdateState.ADD;
 				continue;
 			}
-			if(layer.clip || layer.draws.length > 0){
+			if(layer.clip != null || layer.transform != null){
+				map[layer.layerId] = UpdateState.UPDATE_ALL;
+				continue;
+			}
+			if(layer.draws.length > 0){
 				map[layer.layerId] = UpdateState.UPDATE;
 				continue;
 			}

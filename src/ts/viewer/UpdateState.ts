@@ -4,6 +4,7 @@ interface UpdateStateMap{
 enum UpdateState{
 	NON,
 	UPDATE,
+	UPDATE_ALL,
 	DELETE,
 	ADD
 }

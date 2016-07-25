@@ -2,26 +2,31 @@ import DrawchatRenderer = drawchat.renderer.DrawchatRenderer;
 import {MapMomentUtil} from "./MapMomentUtil";
 import {CheckStateUtils} from "./CheckStateUtils";
 import NamedLayer = drawchat.viewer.NamedLayer;
-export class Forward{
+import LayerMap = drawchat.viewer.LayerMap;
+import DrawMoment = drawchat.core.DrawMoment;
+export class Backward{
 
 	static updateView(
 		renderer:DrawchatRenderer,
 		sequencesNow:string[],
-		layers:NamedLayer[]
+		pastMoments:DrawMoment[],
+		futureMoments:DrawMoment[]
 	):string[]{
 
+		let pastLayers = MapMomentUtil.mapToMomentsArray(pastMoments);
 		let layerIds = [];
-		for(let layer of layers){
+		for(let layer of pastLayers){
 			layerIds.push(layer.layerId);
 		}
 
+		let layers = MapMomentUtil.mapToMomentsArray(futureMoments,layerIds);
 		let updateStateMap = CheckStateUtils.checkState(
 			sequencesNow,
 			layers
 		);
 
 		//レイヤーの補完
-		Forward.complementLayer(renderer,sequencesNow,updateStateMap);
+		Backward.complementLayer(renderer,sequencesNow,updateStateMap);
 
 		//表示順の変更
 		renderer.sortLayer(CheckStateUtils.createSortOrder(sequencesNow,layerIds));
@@ -29,11 +34,14 @@ export class Forward{
 		//更新の反映
 		let i = 0 | 0;
 		let layer;
-		while(i < layers.length){
-			layer = layers[i];
+		let state;
+
+		while(i < pastLayers.length){
+			layer = pastLayers[i];
 			i = (i + 1) | 0;
 
-			if(layer.clip == null && layer.transform == null && layer.draws.length === 0){
+			state = updateStateMap[layer.layerId];
+			if(state === UpdateState.ADD || state === UpdateState.NON){
 				continue;
 			}
 
@@ -46,7 +54,7 @@ export class Forward{
 		renderer:DrawchatRenderer,
 		layerIds:string[],
 		updateStateMap:UpdateStateMap
-	):void{
+	):string[]{
 
 		let i = (layerIds.length - 1) | 0;
 		let state:UpdateState;
@@ -81,5 +89,6 @@ export class Forward{
 			renderer.addLayer();
 			result.push(key);
 		}
+		return result;
 	}
 }

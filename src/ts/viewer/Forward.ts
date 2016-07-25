@@ -1,15 +1,34 @@
 import DrawchatRenderer = drawchat.renderer.DrawchatRenderer;
-import {MapMomentUtil} from "./MapMomentUtil";
 import {CheckStateUtils} from "./CheckStateUtils";
 import NamedLayer = drawchat.viewer.NamedLayer;
+import LayerMap = drawchat.viewer.LayerMap;
+import {MapMomentUtil} from "./MapMomentUtil";
+import DrawMoment = drawchat.core.DrawMoment;
+
+/**
+ * 前方向への更新
+ */
 export class Forward{
 
+	/**
+	 * Rendererを更新する。
+	 * @param renderer
+	 * @param sequencesNow
+	 * @param pastMoments
+	 * @param futureMoments
+	 * @returns {Array}
+	 */
 	static updateView(
 		renderer:DrawchatRenderer,
 		sequencesNow:string[],
-		layers:NamedLayer[]
+		pastMoments:DrawMoment[],
+		futureMoments:DrawMoment[]
+		// pastMap:LayerMap,
+		// layers:NamedLayer[]
 	):string[]{
 
+		let pastMap = MapMomentUtil.mapToLayerMap(pastMoments);
+		let layers = MapMomentUtil.mapToMomentsArray(futureMoments,sequencesNow);
 		let layerIds = [];
 		for(let layer of layers){
 			layerIds.push(layer.layerId);
@@ -21,10 +40,10 @@ export class Forward{
 		);
 
 		//レイヤーの補完
-		Forward.complementLayer(renderer,sequencesNow,updateStateMap);
+		let sequences = Forward.complementLayer(renderer,sequencesNow,updateStateMap);
 
 		//表示順の変更
-		renderer.sortLayer(CheckStateUtils.createSortOrder(sequencesNow,layerIds));
+		renderer.sortLayer(CheckStateUtils.createSortOrder(sequences,layerIds));
 
 		//更新の反映
 		let i = 0 | 0;
@@ -33,10 +52,16 @@ export class Forward{
 			layer = layers[i];
 			i = (i + 1) | 0;
 
-			if(layer.clip == null && layer.transform == null){
+			if(updateStateMap[layer.layerId] === UpdateState.NON){
+				continue;
+			}
+			if(
+				updateStateMap[layer.layerId] === UpdateState.UPDATE
+			||	updateStateMap[layer.layerId] === UpdateState.ADD){
 				renderer.renderDiff(i,layer.draws);
 				continue;
 			}
+			layer = MapMomentUtil.concatLayer(pastMap[layer.layerId],layer);
 			renderer.render(i,layer.draws,layer.transform,layer.clip);
 		}
 		return layerIds;
@@ -46,7 +71,7 @@ export class Forward{
 		renderer:DrawchatRenderer,
 		layerIds:string[],
 		updateStateMap:UpdateStateMap
-	):void{
+	):string[]{
 
 		let i = (layerIds.length - 1) | 0;
 		let state:UpdateState;
@@ -81,5 +106,6 @@ export class Forward{
 			renderer.addLayer();
 			result.push(key);
 		}
+		return result;
 	}
 }

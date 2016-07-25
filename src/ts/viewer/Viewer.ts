@@ -40,7 +40,7 @@ export class Viewer implements DrawchatViewer{
 			return;
 		}
 		let moments = this.history.getMoments(this.now,number);
-		let layers =  MapMomentUtil.mapMoments(moments,this.sequencesNow);
+		let layers =  MapMomentUtil.mapToMomentsArray(moments,this.sequencesNow);
 		let layerIds = [];
 		for(let layer of layers){
 			layerIds.push(layer.layerId);
