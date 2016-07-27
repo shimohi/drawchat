@@ -9,17 +9,18 @@ export class Backward{
 	static updateView(
 		renderer:DrawchatRenderer,
 		sequencesNow:string[],
+		sequencesPrev:string[],
 		pastMoments:DrawMoment[],
 		futureMoments:DrawMoment[]
 	):string[]{
 
-		let pastLayers = MapMomentUtil.mapToMomentsArray(pastMoments);
-		let layerIds = [];
-		for(let layer of pastLayers){
-			layerIds.push(layer.layerId);
-		}
+		let pastLayers = MapMomentUtil.mapToMomentsArray(pastMoments,sequencesPrev);
+		// let layerIds = [];
+		// for(let layer of pastLayers){
+		// 	layerIds.push(layer.layerId);
+		// }
 
-		let layers = MapMomentUtil.mapToMomentsArray(futureMoments,layerIds);
+		let layers = MapMomentUtil.mapToMomentsArray(futureMoments,sequencesPrev);
 		let updateStateMap = CheckStateUtils.checkState(
 			sequencesNow,
 			layers
@@ -29,7 +30,7 @@ export class Backward{
 		Backward.complementLayer(renderer,sequencesNow,updateStateMap);
 
 		//表示順の変更
-		renderer.sortLayer(CheckStateUtils.createSortOrder(sequencesNow,layerIds));
+		renderer.sortLayer(CheckStateUtils.createSortOrder(sequencesNow,sequencesPrev));
 
 		//更新の反映
 		let i = 0 | 0;
@@ -47,7 +48,7 @@ export class Backward{
 
 			renderer.render(i,layer.draws,layer.transform,layer.clip);
 		}
-		return layerIds;
+		return sequencesPrev;
 	}
 
 	static complementLayer(

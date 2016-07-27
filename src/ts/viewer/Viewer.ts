@@ -4,17 +4,28 @@ import DrawHistory = drawchat.core.DrawHistory;
 import DrawMoment = drawchat.core.DrawMoment;
 import DrawLayerMoment = drawchat.core.DrawLayerMoment;
 import Layer = drawchat.Layer;
-import {LayerMoment} from "../core/LayerMoment";
-import {MapMomentUtil} from "./MapMomentUtil";
 import NamedLayer = drawchat.viewer.NamedLayer;
+import {Backward} from "./Backward";
+import {Forward} from "./Forward";
 export class Viewer implements DrawchatViewer{
 
 	private history:DrawHistory;
 	private renderer:DrawchatRenderer;
 
-	private sequencesNow:string[];
+	private sequencesNow:string[] = null;
 
 	private now:number;
+
+	constructor(
+		history:DrawHistory,
+		renderer:DrawchatRenderer
+	){
+		this.history = history;
+		this.renderer = renderer;
+		this.now = -1;
+	}
+
+	private start:boolean = false;
 
 	clear():void {
 		this.renderer.clear();
@@ -32,40 +43,54 @@ export class Viewer implements DrawchatViewer{
 		this.hide(target);
 	}
 
-	private updateView():void{
+	start():void{
+		this.start = true;
+		try {
+			this.updateView();
+			this.renderer.refresh();
+		} catch (e) {
+			console.warn(e);
+		}
+		this.history.awaitUpdate(()=>{
+			if(this.start){
+				this.start();
+			}
+		});
+	}
+
+	stop():void{
+		this.start = false;
+	}
+
+	updateView():void{
 
 		let number = this.history.getNowHistoryNumber();
-
 		if(this.now === number){
 			return;
 		}
-		let moments = this.history.getMoments(this.now,number);
-		let layers =  MapMomentUtil.mapToMomentsArray(moments,this.sequencesNow);
-		let layerIds = [];
-		for(let layer of layers){
-			layerIds.push(layer.layerId);
-		}
 
-		let updateStateMap = Viewer.checkState(
-			this.sequencesNow,
-			layers
-		);
-
-		//通常の更新
-		if(this.now < number){
-
-			//レイヤーの補完
-			this.complementLayer(this.sequencesNow,updateStateMap);
-
-			//表示順の変更
-			this.renderer.sortLayer(this.createSortOrder(this.sequencesNow,layerIds));
-
-			//更新の反映
-
+		//過去へ戻る（Undoなど）
+		if(this.now > number){
+			this.sequencesNow = Backward.updateView(
+				this.renderer,
+				this.sequencesNow,
+				this.history.getLayers(number),
+				this.history.getMoments(this.history.getFirstHistoryNumber(),number),
+				this.history.getMoments(number,this.now)
+			);
+			this.now = number;
 			return;
 		}
 
-		//Undo
+		//進む
+		this.sequencesNow = Forward.updateView(
+			this.renderer,
+			this.sequencesNow,
+			this.history.getLayers(number),
+			this.history.getMoments(this.history.getFirstHistoryNumber(),this.now),
+			this.history.getMoments(this.now,number)
+		);
+		this.now = number;
 	}
-
 }
+export default Viewer;

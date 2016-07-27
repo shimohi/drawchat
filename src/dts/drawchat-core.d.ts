@@ -59,6 +59,12 @@ declare namespace drawchat.core {
 		removeLayer(layerId:string):void;
 
 		/**
+		 * 指定されたhistoryNumber時点のレイヤーリストを取得する。
+		 * @param historyNumber
+		 */
+		getLayers(historyNumber?:number):string[];
+
+		/**
 		 * 編集履歴を積み上げる。
 		 * 結果はcommit時に反映する。
 		 */
@@ -71,6 +77,11 @@ declare namespace drawchat.core {
 		 * @param callback
 		 */
 		awaitUpdate(callback:(historyNumber:number)=>void):void;
+
+		pushHistory(
+			layerMoments?:{[key:string]:DrawLayerMoment},
+			sequences?:string[]
+		):DrawMoment;
 	}
 
 	interface DrawMomentBuilder{

@@ -13,12 +13,12 @@ export class MapMomentUtil{
 	 */
 	static mapToMomentsArray(
 		moments:DrawMoment[],
-		sequences?:string[]
+		sequences:string[]
 	):NamedLayer[]{
-		let seq = MapMomentUtil.getLatestSequences(moments,sequences);
-		let layerMap = MapMomentUtil.mapMoments(moments,seq);
+		// let seq = MapMomentUtil.getLatestSequences(moments,sequences);
+		let layerMap = MapMomentUtil.mapMoments(moments,sequences);
 		let result = [];
-		for(let layerId of seq){
+		for(let layerId of sequences){
 			result.push(layerMap[layerId]);
 		}
 		return result;
@@ -32,10 +32,10 @@ export class MapMomentUtil{
 	 */
 	static mapToLayerMap(
 		moments:DrawMoment[],
-		sequences?:string[]
+		sequences:string[]
 	):LayerMap{
-		let seq = MapMomentUtil.getLatestSequences(moments,sequences);
-		return MapMomentUtil.mapMoments(moments,seq);
+		// let seq = MapMomentUtil.getLatestSequences(moments,sequences);
+		return MapMomentUtil.mapMoments(moments,sequences);
 	}
 
 	/**
@@ -81,31 +81,31 @@ export class MapMomentUtil{
 		}
 		return layerMap;
 	}
-
-	/**
-	 * 最新のLayer順序を取得する。
-	 * @param moments
-	 * @param sequences
-	 * @returns {any}
-	 */
-	static getLatestSequences(
-		moments:DrawMoment[],
-		sequences?:string[]
-	):string[]{
-
-		if(moments == null || moments.length === 0){
-			return sequences ? sequences : [];
-		}
-
-		let i = moments.length - 1;
-		while( i >= 0){
-			if(moments[i].getSequence() != null){
-				return moments[i].getSequence();
-			}
-			i = (i + 1) | 0;
-		}
-		return sequences ? sequences : [];
-	}
+	//
+	// /**
+	//  * 最新のLayer順序を取得する。
+	//  * @param moments
+	//  * @param sequences
+	//  * @returns {any}
+	//  */
+	// static getLatestSequences(
+	// 	moments:DrawMoment[],
+	// 	sequences?:string[]
+	// ):string[]{
+	//
+	// 	if(moments == null || moments.length === 0){
+	// 		return sequences ? sequences : [];
+	// 	}
+	//
+	// 	let i = moments.length - 1;
+	// 	while( i >= 0){
+	// 		if(moments[i].getSequence() != null){
+	// 			return moments[i].getSequence();
+	// 		}
+	// 		i = (i + 1) | 0;
+	// 	}
+	// 	return sequences ? sequences : [];
+	// }
 
 	/**
 	 * LayerId毎にDraw履歴を再統合する。

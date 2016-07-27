@@ -7,11 +7,14 @@ import {MomentBuilder} from "./MomentBuilder";
 import {HistoryNumberGenerator} from "./HistoryNumberGenerator";
 import {LayerNumberGenerator} from "./LayerNumberGenerator";
 import {DrawMessageBuilder} from "./DrawMessageBuilder";
+import {HistoryNumberUtil} from "./HistoryNumberUtil";
 export class History implements DrawHistory{
 
 	private historyNumberNow:number = - 1;
 
 	private historyNumbers:number[] = [];
+	private sequencesHistoryNumbers:number[] = [];
+
 	private map:{[key:number]:DrawMoment} = {};
 	private listeners:any[] = [];
 
@@ -26,55 +29,20 @@ export class History implements DrawHistory{
 		this.layerNumberGenerator = layerNumberGenerator;
 	}
 
-	private getLayers(historyNumber?:number):string[]{
-		let i = (this.historyNumbers.length - 1) | 0;
+	getLayers(historyNumber?:number):string[]{
+		var historyNum = historyNumber;
+		if(historyNum !== 0 && (!historyNum || historyNum < 0 )){
+			historyNum = this.historyNumberNow;
+		}
+		let i = (this.sequencesHistoryNumbers.length - 1) | 0;
 		if(historyNumber){
-			i = this.getHistoryIndex(historyNumber);
+			i = HistoryNumberUtil.getHistoryIndex(this.sequencesHistoryNumbers,historyNum);
 		}
-		while(i >= 0){
-			let moment = this.map[this.historyNumbers[i]];
-			if(moment.getSequence()){
-				return moment.getSequence();
-			}
-			i = (i - 1)|0;
+		if(i < 0){
+			return [];
 		}
-		return [];
-	}
-
-	private getHistoryIndex(historyNumber:number):number{
-
-		if(historyNumber < 0){
-			return -1;
-		}
-
-		//	２分木探索で特定
-		let min = 0 | 0;
-		let max = (this.historyNumbers.length - 1) | 0;
-		let index = -1;
-
-		while(max >= min){
-
-			index = min + (((max - min) / 2) | 0);
-			let number1 = this.historyNumbers[index];
-
-			if(number1 === historyNumber){
-				return index;
-			}
-
-			if(number1 > historyNumber){
-				max = number1;
-				continue;
-			}
-			min = number1;
-		}
-
-		if(index < 0){
-			return index;
-		}
-		if(this.historyNumbers[index] > historyNumber){
-			return index - 1;
-		}
-		return index;
+		let moment = this.map[this.historyNumbers[i]];
+		return moment ? moment.getSequence() : [];
 	}
 
 	private noticeUpdate():void{
@@ -113,11 +81,11 @@ export class History implements DrawHistory{
 		from:number,
 		to:number
 	):drawchat.core.DrawMoment[] {
-		let fromIndex = this.getHistoryIndex(from);
+		let fromIndex = HistoryNumberUtil.getHistoryIndex(this.historyNumbers,from);
 		if(fromIndex < 0){
 			return [];
 		}
-		let toIndex = this.getHistoryIndex(to);
+		let toIndex = HistoryNumberUtil.getHistoryIndex(this.historyNumbers,to);
 		if(toIndex < 0){
 			return [];
 		}
@@ -133,7 +101,7 @@ export class History implements DrawHistory{
 	setHistoryNumberNow(
 		historyNumber:number
 	):number {
-		let index = this.getHistoryIndex(historyNumber);
+		let index = HistoryNumberUtil.getHistoryIndex(this.historyNumbers,historyNumber);
 		if(index < 0){
 			return index;
 		}
@@ -206,12 +174,38 @@ export class History implements DrawHistory{
 		layerMoments?:{[key:string]:DrawLayerMoment},
 		sequences?:string[]
 	):Moment{
+		this.cleanupHistory();
 		let num = this.numberGenerator.getNumber();
 		let moment = new Moment(num,layerMoments,sequences);
 		this.map[num] = moment;
 		this.historyNumbers.push(num);
+		if(moment.getSequence() != null){
+			this.sequencesHistoryNumbers.push(num);
+		}
 		this.historyNumberNow = num;
 		this.noticeUpdate();
 		return moment;
+	}
+
+	private cleanupHistory(){
+		let index = HistoryNumberUtil.getHistoryIndex(this.historyNumbers,this.historyNumberNow);
+		if(index >= this.historyNumbers.length){
+			return;
+		}
+
+		// 全編集履歴の更新
+		let deleted = this.historyNumbers.slice(index + 1,this.historyNumbers.length);
+		let i = 0 | 0;
+		while(i < deleted.length){
+			this.map[deleted[i]] = null;
+		}
+		this.historyNumbers = this.historyNumbers.slice(0,index + 1);
+
+		// sequencesの更新
+		index = HistoryNumberUtil.getHistoryIndex(this.sequencesHistoryNumbers,this.historyNumberNow);
+		if(index >= this.sequencesHistoryNumbers.length){
+			return;
+		}
+		this.sequencesHistoryNumbers = this.sequencesHistoryNumbers.slice(0,index + 1);
 	}
 }
