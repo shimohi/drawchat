@@ -1,5 +1,4 @@
 import Transform = drawchat.Transform;
-import transpile = ts.transpile;
 export class TransformContainer{
 
 	private static ROUND_DIGITS = 5;
@@ -84,7 +83,7 @@ export class TransformContainer{
 		}
 	}
 
-	private static round(number){
+	private static round(number:number){
 		var number1 = number * TransformContainer.ROUND_NUMBER;
 		number1 = Math.round(number1);
 		return number1/TransformContainer.ROUND_NUMBER;

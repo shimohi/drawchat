@@ -12,14 +12,14 @@ export class CheckStateUtils{
 		afterLayers:string[]
 	):number[]{
 
-		let map = {};
+		let map:{[key:string]:number} = {};
 		let i = 0 | 0;
 		while( i < beforeLayers.length){
 			map[beforeLayers[i]] = i;
 		}
 
 		i = 0 | 0;
-		let result = [];
+		let result:number[] = [];
 		while( i < afterLayers.length){
 			result.push(map[afterLayers[i]]);
 		}
@@ -37,7 +37,7 @@ export class CheckStateUtils{
 		afterLayers:NamedLayer[]
 	):UpdateStateMap{
 
-		let map = {};
+		let map:{[key:string]:UpdateState} = {};
 
 		let i = 0 | 0;
 		let len = beforeLayers.length;

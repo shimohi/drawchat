@@ -130,6 +130,10 @@ declare namespace drawchat{
 	interface Text{
 		x:number;
 		y:number;
+		fontFamily?:string;
+		size?:number;
+		weight?:number;
+		style?:number;
 		fill?:Fill;
 		stroke?:Stroke;
 		align?:string;

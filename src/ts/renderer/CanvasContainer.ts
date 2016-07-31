@@ -66,8 +66,8 @@ export class CanvasContainer{
 			this.parent.removeChild(element);
 		}
 
-		let elementList1 = [];
-		let canvasList1 = [];
+		let elementList1:HTMLCanvasElement[] = [];
+		let canvasList1:CanvasRenderingContext2D[] = [];
 
 		let i = 0 | 0;
 		while(i < this.elementList.length){

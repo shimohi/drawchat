@@ -1,12 +1,14 @@
 import DrawMoment = drawchat.core.DrawMoment;
 import Message = drawchat.Message;
 import Layer = drawchat.Layer;
+import DrawLayerMoment = drawchat.core.DrawLayerMoment;
 
 export class DrawMessageBuilder {
 
 	static createDrawMessage(
 		historyNumbers:number[],
-		map:{[key:number]:DrawMoment}
+		map:{[key:number]:DrawMoment},
+		localLayers:{[key:string]:string}
 	):Message{
 
 		let resultTo:{[key:string]:Layer} = {};
@@ -19,9 +21,13 @@ export class DrawMessageBuilder {
 			}
 			DrawMessageBuilder.parseMoment(
 				resultTo,
-				moment
+				moment,
+				localLayers
 			);
 		}
+		sequences = DrawMessageBuilder.removeLocalLayer(
+			sequences,localLayers
+		);
 
 		let layers:Layer[] = [];
 		for(let sequence of sequences){
@@ -34,19 +40,53 @@ export class DrawMessageBuilder {
 		}
 	}
 
+	static removeLocalLayer(
+		layers:string[],
+		localLayers:{[key:string]:string}
+	):string[]{
+		if(localLayers == null){
+			return layers;
+		}
+		let result:string[] = [];
+		let i = 0 | 0;
+		while( i < layers.length){
+			if(localLayers[layers[i]] != null){
+				result.push(layers[i]);
+			}
+			i = ( i + 1) | 0;
+		}
+		return result;
+	}
+
+	/**
+	 * 編集履歴をレイヤー毎のマップに挿入する。
+	 * @param resultTo
+	 * @param moment
+	 * @param localLayers
+	 */
 	static parseMoment(
 		resultTo:{[key:string]:Layer},
-		moment:DrawMoment
+		moment:DrawMoment,
+		localLayers:{[key:string]:string}
 	):void{
 
 		let keys = moment.getKeys();
-		for(let key of keys){
-			let layerMoment = moment.getLayerMoment(key);
-			let layer:Layer = resultTo[layerMoment.getCanvasId()];
+		let key:string;
+		let i = 0 | 0;
+		let layerMoment:DrawLayerMoment;
+		let layer:Layer;
+
+		while( i < keys.length){
+			key = keys[i];
+			i = (i + 1)|0;
+			if(localLayers != null && localLayers[key] != null){
+				continue;
+			}
+			layerMoment = moment.getLayerMoment(keys[i]);
+			layer = resultTo[layerMoment.getCanvasId()];
 			if(!layer){
 				layer = {draws:[]};
 			}
-
 			if(layerMoment.getClip()){
 				layer.clip = layerMoment.getClip();
 			}

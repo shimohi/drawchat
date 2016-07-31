@@ -5,13 +5,13 @@ declare namespace drawchat.updator {
 		/**
 		 * レイヤーを追加し、追加されたレイヤーのIDを取得する。
 		 */
-		addLayer():string;
+		addLayer():Promise<string>;
 
 		/**
 		 * 指定されたレイヤーを削除する。
 		 * @param layerId
 		 */
-		removeLayer(layerId:string):void;
+		removeLayer(layerId:string):Promise<any>;
 
 		/**
 		 * レイヤーIDのリストを取得する。
@@ -20,32 +20,42 @@ declare namespace drawchat.updator {
 
 		/**
 		 * 変形トランザクションを開始する。
+		 * @param layerId
+		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
+		 * デフォルト値はtrue
 		 */
-		beginTransform():TransformTransaction;
+		beginTransform(layerId:string,commit?:boolean):Promise<TransformTransaction>;
 
 		/**
 		 * 切り抜きトランザクションを開始する。
 		 * @param layerId
+		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
+		 * デフォルト値はtrue
 		 */
-		beginClip(layerId:string):ClipTransaction;
+		beginClip(layerId:string,commit?:boolean):Promise<ClipTransaction>;
 
 		/**
 		 * 描画トランザクションを開始する。
 		 * @param layerId
+		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
+		 * デフォルト値はtrue
 		 */
-		beginPath(layerId:string):PathTransaction;
+		beginPath(layerId:string,commit?:boolean):Promise<PathTransaction>;
 
 		/**
 		 * テキストトランザクションを開始する。
 		 * @param layerId
+		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
+		 * デフォルト値はtrue
 		 */
-		beginText(layerId:string):TextTransaction;
+		beginText(layerId:string,commit?:boolean):Promise<TextTransaction>;
 
 		/**
 		 * 表示順変更トランザクションを開始する。
-		 * @param layerId
+		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
+		 * デフォルト値はtrue
 		 */
-		beginChangeSequence(layerId:string):ChangeSequenceTransaction;
+		beginChangeSequence(commit?:boolean):Promise<ChangeSequenceTransaction>;
 
 		/**
 		 * Undoが可能かどうかの判定
@@ -60,18 +70,34 @@ declare namespace drawchat.updator {
 		/**
 		 * 一つ前の状態に戻す。
 		 */
-		undo():void;
+		undo():Promise<any>;
 
 		/**
 		 * 戻した変更を進める。
 		 */
-		redo():void;
+		redo():Promise<any>;
+	}
+
+	/**
+	 * トランザクション
+	 */
+	interface DrawTransaction{
+
+		/**
+		 * 変更内容をキャンセルする。
+		 */
+		cancel():void;
+
+		/**
+		 * 変更内容を確定する。
+		 */
+		commit():void;
 	}
 
 	/**
 	 * 変形トランザクション
 	 */
-	interface TransformTransaction{
+	interface TransformTransaction extends DrawTransaction{
 
 		/**
 		 * 変形成分を設定
@@ -82,18 +108,18 @@ declare namespace drawchat.updator {
 		/**
 		 * 変更内容をキャンセルする。
 		 */
-		cancel():TransformTransaction;
+		cancel():void;
 
 		/**
 		 * 変更内容を確定する。
 		 */
-		commit():TransformTransaction;
+		commit():void;
 	}
 
 	/**
 	 * 線描画トランザクション
 	 */
-	interface ClipTransaction{
+	interface ClipTransaction extends DrawTransaction{
 
 		/**
 		 * 現在の起点を移動する。何もしなければ最初は0,0
@@ -158,7 +184,7 @@ declare namespace drawchat.updator {
 			cpx1:number,
 			cpy1:number,
 			cpx2:number,
-			cpy3:number,
+			cpy2:number,
 			x:number,
 			y:number
 		):ClipTransaction;
@@ -166,18 +192,18 @@ declare namespace drawchat.updator {
 		/**
 		 * 変更内容をキャンセルする。
 		 */
-		cancel():ClipTransaction;
+		cancel():void;
 
 		/**
 		 * 変更内容を確定する。
 		 */
-		commit():ClipTransaction;
+		commit():void;
 	}
 
 	/**
 	 * 線描画トランザクション
 	 */
-	interface PathTransaction {
+	interface PathTransaction extends DrawTransaction{
 
 		/**
 		 * 塗りの色を設定する。
@@ -185,7 +211,7 @@ declare namespace drawchat.updator {
 		 * @param color
 		 */
 		setFill(
-			color:number
+			color:string
 		):PathTransaction;
 
 		/**
@@ -323,7 +349,7 @@ declare namespace drawchat.updator {
 			cpx1:number,
 			cpy1:number,
 			cpx2:number,
-			cpy3:number,
+			cpy2:number,
 			x:number,
 			y:number
 		):PathTransaction;
@@ -331,18 +357,18 @@ declare namespace drawchat.updator {
 		/**
 		 * 変更内容をキャンセルする。
 		 */
-		cancel():PathTransaction;
+		cancel():void;
 
 		/**
 		 * 変更内容を確定する。
 		 */
-		commit():PathTransaction;
+		commit():void;
 	}
 
 	/**
 	 * 全面、背面入れ替えのトランザクション
 	 */
-	interface ChangeSequenceTransaction{
+	interface ChangeSequenceTransaction extends DrawTransaction{
 
 		/**
 		 * 指定されたレイヤーを最前面へ移動する。
@@ -374,24 +400,27 @@ declare namespace drawchat.updator {
 		/**
 		 * 変更内容をキャンセルする。
 		 */
-		cancel():ChangeSequenceTransaction;
+		cancel():void;
 		/**
 		 * 変更内容を確定する。
 		 */
-		commit():ChangeSequenceTransaction;
+		commit():void;
 	}
 
 	/**
 	 * テキスト編集トランザクション
 	 */
-	interface TextTransaction{
+	interface TextTransaction extends DrawTransaction{
+
+		setPosition(x:number,y:number):TextTransaction;
+
 		/**
 		 * テキストの塗りを設定する。
 		 * 線形・円形グラデーション・ベタ塗りは混在は混在しない。
 		 * @param color
 		 */
 		setFill(
-			color:number
+			color:string
 		):TextTransaction;
 		/**
 		 * テキストの線形グラデーションを設定する。
@@ -459,13 +488,37 @@ declare namespace drawchat.updator {
 		):TextTransaction;
 
 		/**
+		 * フォントファミリーを設定する。
+		 * @param fontFamily
+		 */
+		setFontFamily(fontFamily:string):TextTransaction;
+
+		/**
+		 * フォントサイズを設定する。
+		 * @param size
+		 */
+		setSize(size:number):TextTransaction;
+
+		/**
+		 * フォント太さを設定する。
+		 * @param weight
+		 */
+		setWeight(weight:number):TextTransaction;
+
+		/**
+		 * フォントスタイルを設定する。
+		 * @param style
+		 */
+		setStyle(style:number):TextTransaction;
+
+		/**
 		 * 変更内容をキャンセルする。
 		 */
-		cancel():TextTransaction;
+		cancel():void;
 
 		/**
 		 * 変更内容を確定する。
 		 */
-		commit():TextTransaction;
+		commit():void;
 	}
 }

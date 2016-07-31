@@ -1,9 +1,10 @@
 import DrawchatRenderer = drawchat.renderer.DrawchatRenderer;
-import {MapMomentUtil} from "./MapMomentUtil";
-import {CheckStateUtils} from "./CheckStateUtils";
 import NamedLayer = drawchat.viewer.NamedLayer;
 import LayerMap = drawchat.viewer.LayerMap;
 import DrawMoment = drawchat.core.DrawMoment;
+
+import {MapMomentUtil} from "./MapMomentUtil";
+import {CheckStateUtils} from "./CheckStateUtils";
 export class Backward{
 
 	static updateView(
@@ -15,11 +16,6 @@ export class Backward{
 	):string[]{
 
 		let pastLayers = MapMomentUtil.mapToMomentsArray(pastMoments,sequencesPrev);
-		// let layerIds = [];
-		// for(let layer of pastLayers){
-		// 	layerIds.push(layer.layerId);
-		// }
-
 		let layers = MapMomentUtil.mapToMomentsArray(futureMoments,sequencesPrev);
 		let updateStateMap = CheckStateUtils.checkState(
 			sequencesNow,
@@ -34,8 +30,8 @@ export class Backward{
 
 		//更新の反映
 		let i = 0 | 0;
-		let layer;
-		let state;
+		let layer:NamedLayer;
+		let state:UpdateState;
 
 		while(i < pastLayers.length){
 			layer = pastLayers[i];
@@ -60,7 +56,7 @@ export class Backward{
 		let i = (layerIds.length - 1) | 0;
 		let state:UpdateState;
 		let key:string;
-		let result = [];
+		let result:string[] = [];
 
 		//	削除を抽出
 		while( i >= 0){
@@ -78,7 +74,7 @@ export class Backward{
 
 		//	追加を実行
 		let keys = Object.keys(updateStateMap);
-		let i = 0 | 0;
+		i = 0 | 0;
 
 		while( i  < keys.length){
 			key = layerIds[i];

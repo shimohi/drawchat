@@ -135,7 +135,7 @@ class Renderer implements DrawchatRenderer{
 	}
 
 	private getCanvasList(targets?:number[]):CanvasRenderingContext2D[]{
-		let result = [];
+		let result:CanvasRenderingContext2D[] = [];
 		if(!targets){
 			return this.getCanvasAll();
 		}
@@ -146,7 +146,7 @@ class Renderer implements DrawchatRenderer{
 	}
 
 	private getCanvasAll():CanvasRenderingContext2D[]{
-		let result = [];
+		let result:CanvasRenderingContext2D[] = [];
 		let size = this.canvasContainer.getSize();
 		let i = 0|0;
 		while(i < size){

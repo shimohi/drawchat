@@ -1,6 +1,6 @@
 export class CompositeOperationUtil{
 
-	private static COMPOSITE_OPERATIONS = {
+	private static COMPOSITE_OPERATIONS:{[key:string]:string} = {
 		0:"source-over",
 		1:"source-atop",
 		2:"source-in",

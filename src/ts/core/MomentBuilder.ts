@@ -1,14 +1,15 @@
 import DrawMomentBuilder = drawchat.core.DrawMomentBuilder;
 import {LayerMomentBuilder} from "./LayerMomentBuilder";
 import {LayerMoment} from "./LayerMoment";
+import {HistorySession} from "./HistorySession";
 export class MomentBuilder implements DrawMomentBuilder{
 
 	layerMap:{[key:string]:LayerMoment};
 	sequences:string[];
-	private history:History;
+	private session:HistorySession;
 
-	constructor(history:History){
-		this.history = history;
+	constructor(session:HistorySession){
+		this.session = session;
 	}
 
 	putLayerMoment(key:string):drawchat.core.DrawLayerMomentBuilder {
@@ -21,6 +22,6 @@ export class MomentBuilder implements DrawMomentBuilder{
 	}
 
 	commit():drawchat.core.DrawMoment {
-		return this.history.pushHistory(this.layerMap,this.sequences);
+		return this.session.pushHistory(this.layerMap,this.sequences);
 	}
 }

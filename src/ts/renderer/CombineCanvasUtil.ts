@@ -26,7 +26,7 @@ export function combine(
 	let i = 0 | 0;
 	let len = contextList.length;
 	while(i < len){
-		let image = context[i].getImageData(0,0,width,height);
+		let image = contextList[i].getImageData(0,0,width,height);
 		if(i === 0){
 			updateColor(output,image);
 			i = (i + 1) | 0;

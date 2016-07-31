@@ -1,8 +1,10 @@
 import DrawMoment = drawchat.core.DrawMoment;
 import Layer = drawchat.Layer;
-import {LayerMoment} from "../core/LayerMoment";
 import NamedLayer = drawchat.viewer.NamedLayer;
 import LayerMap = drawchat.viewer.LayerMap;
+
+import DrawLayerMoment = drawchat.core.DrawLayerMoment;
+
 export class MapMomentUtil{
 
 	/**
@@ -15,9 +17,8 @@ export class MapMomentUtil{
 		moments:DrawMoment[],
 		sequences:string[]
 	):NamedLayer[]{
-		// let seq = MapMomentUtil.getLatestSequences(moments,sequences);
 		let layerMap = MapMomentUtil.mapMoments(moments,sequences);
-		let result = [];
+		let result:NamedLayer[] = [];
 		for(let layerId of sequences){
 			result.push(layerMap[layerId]);
 		}
@@ -34,7 +35,6 @@ export class MapMomentUtil{
 		moments:DrawMoment[],
 		sequences:string[]
 	):LayerMap{
-		// let seq = MapMomentUtil.getLatestSequences(moments,sequences);
 		return MapMomentUtil.mapMoments(moments,sequences);
 	}
 
@@ -44,9 +44,9 @@ export class MapMomentUtil{
 	 * @param layer2
 	 */
 	static concatLayer(
-		layer1?:Layer = {draws:[]},
-		layer2?:Layer = {draws:[]}
-	):Layer{
+		layer1:NamedLayer = {layerId:null,draws:[]},
+		layer2:NamedLayer = {layerId:null,draws:[]}
+	):NamedLayer{
 		if(layer2.clip){
 			layer1.clip = layer2.clip;
 		}
@@ -58,6 +58,9 @@ export class MapMomentUtil{
 		while(i < layer2.draws.length){
 			layer1.draws.push(layer2.draws[i]);
 			i = (i + 1) | 0;
+		}
+		if(layer1.layerId == null){
+			layer1.layerId = layer2.layerId;
 		}
 		return layer1;
 	}
@@ -72,7 +75,7 @@ export class MapMomentUtil{
 		moments:DrawMoment[],
 		sequences:string[]
 	):LayerMap{
-		let layerMap = {};
+		let layerMap:LayerMap = {};
 		for(let layerId of sequences){
 			layerMap[layerId] = {layerId:layerId,draws:[]};
 		}
@@ -81,31 +84,6 @@ export class MapMomentUtil{
 		}
 		return layerMap;
 	}
-	//
-	// /**
-	//  * 最新のLayer順序を取得する。
-	//  * @param moments
-	//  * @param sequences
-	//  * @returns {any}
-	//  */
-	// static getLatestSequences(
-	// 	moments:DrawMoment[],
-	// 	sequences?:string[]
-	// ):string[]{
-	//
-	// 	if(moments == null || moments.length === 0){
-	// 		return sequences ? sequences : [];
-	// 	}
-	//
-	// 	let i = moments.length - 1;
-	// 	while( i >= 0){
-	// 		if(moments[i].getSequence() != null){
-	// 			return moments[i].getSequence();
-	// 		}
-	// 		i = (i + 1) | 0;
-	// 	}
-	// 	return sequences ? sequences : [];
-	// }
 
 	/**
 	 * LayerId毎にDraw履歴を再統合する。
@@ -117,9 +95,8 @@ export class MapMomentUtil{
 		let keys = moment.getKeys();
 		let i = 0 | 0;
 		let len = keys.length;
-		// let needsPast = false;
-		var layerMoment;
-		var layer;
+		var layerMoment:DrawLayerMoment;
+		var layer:NamedLayer;
 
 		while(i < len){
 			layerMoment = moment.getLayerMoment(keys[i]);
@@ -129,16 +106,13 @@ export class MapMomentUtil{
 				continue;
 			}
 			if(layerMoment.getClip() != null){
-				// needsPast = true;
 				layer.clip = layerMoment.getClip();
 			}
 			if(layerMoment.getTransform() != null){
-				// needsPast = true;
 				layer.transform = layerMoment.getTransform();
 			}
 			MapMomentUtil.addDrawsToLayer(layerMoment,layer);
 		}
-		// return needsPast;
 	}
 
 	/**
@@ -146,7 +120,7 @@ export class MapMomentUtil{
 	 * @param layerMoment
 	 * @param layer
 	 */
-	private static  addDrawsToLayer(layerMoment:LayerMoment,layer:Layer){
+	private static  addDrawsToLayer(layerMoment:DrawLayerMoment,layer:Layer){
 		let draws = layerMoment.getDraws();
 		if(draws == null || draws.length === 0){
 			return;

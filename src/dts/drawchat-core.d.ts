@@ -27,48 +27,49 @@ declare namespace drawchat.core {
 		 * @param from
 		 * @param to
 		 */
-		getMoments(from:number,to:number):DrawMoment[];
+		getMoments(from:number,to:number,ignoreLocal?:boolean):DrawMoment[];
 
-		/**
-		 * 履歴番号を設定する。<br />
-		 * 現在の履歴番号に指定値の履歴番号が存在しない場合は指定値以下で最も大きい履歴番号が設定される。
-		 * 以降の更新メソッドが発生した際、指定値より大きい履歴が削除される。
-		 */
-		setHistoryNumberNow(historyNumber:number):number;
+		// /**
+		//  * 履歴番号を設定する。<br />
+		//  * 現在の履歴番号に指定値の履歴番号が存在しない場合は指定値以下で最も大きい履歴番号が設定される。
+		//  * 以降の更新メソッドが発生した際、指定値より大きい履歴が削除される。
+		//  */
+		// setHistoryNumberNow(historyNumber:number):number;
 
 		/**
 		 * 履歴を計算し、現在のDrawMessageを生成する。
 		 */
-		generateMessage():Message;
+		generateMessage(ignoreLocal?:boolean):Message;
 
-		/**
-		 * 履歴をクリアする。
-		 */
-		clear():void;
-
-		/**
-		 * 新しいレイヤーを追加する。
-		 * @param layer
-		 */
-		addLayer(layer:Layer):DrawMoment;
-
-		/**
-		 * 指定されたIDのレイヤーを削除する。
-		 * @param layerId
-		 */
-		removeLayer(layerId:string):void;
+		// /**
+		//  * 履歴をクリアする。
+		//  */
+		// clear():void;
+		//
+		// /**
+		//  * 新しいレイヤーを追加する。
+		//  * @param layer
+		//  * @param isLocal
+		//  */
+		// addLayer(layer:Layer,isLocal?:boolean):DrawMoment;
+		//
+		// /**
+		//  * 指定されたIDのレイヤーを削除する。
+		//  * @param layerId
+		//  */
+		// removeLayer(layerId:string):void;
 
 		/**
 		 * 指定されたhistoryNumber時点のレイヤーリストを取得する。
 		 * @param historyNumber
 		 */
-		getLayers(historyNumber?:number):string[];
+		getLayers(historyNumber?:number,ignoreLocal?:boolean):string[];
 
-		/**
-		 * 編集履歴を積み上げる。
-		 * 結果はcommit時に反映する。
-		 */
-		addMoment():DrawMomentBuilder;
+		// /**
+		//  * 編集履歴を積み上げる。
+		//  * 結果はcommit時に反映する。
+		//  */
+		// addMoment():DrawMomentBuilder;
 
 		/**
 		 * 更新イベントを待ち受けるリスナーを設定する。
@@ -78,10 +79,52 @@ declare namespace drawchat.core {
 		 */
 		awaitUpdate(callback:(historyNumber:number)=>void):void;
 
-		pushHistory(
-			layerMoments?:{[key:string]:DrawLayerMoment},
-			sequences?:string[]
-		):DrawMoment;
+		/**
+		 * 編集セッションを開始する。
+		 * @param noWait 現在ロックしている編集セッションを強制的に解除するかどうか。
+		 */
+		lock(noWait?:boolean):Promise<DrawHistoryEditSession>;
+	}
+
+	interface DrawHistoryEditSession{
+
+		/**
+		 * 履歴番号を設定する。<br />
+		 * 現在の履歴番号に指定値の履歴番号が存在しない場合は指定値以下で最も大きい履歴番号が設定される。
+		 * 以降の更新メソッドが発生した際、指定値より大きい履歴が削除される。
+		 * @param historyNumber
+		 * @param clearFuture 指定されたhistoryNumberより先の履歴を削除するかどうか。デフォルト値はfalse
+		 */
+		setHistoryNumberNow(historyNumber:number,clearFuture?:boolean):number;
+
+		/**
+		 * 履歴をクリアする。
+		 */
+		clear():void;
+
+		/**
+		 * 新しいレイヤーを追加する。
+		 * @param layer
+		 * @param isLocal
+		 */
+		addLayer(layer:Layer,isLocal?:boolean):DrawMoment;
+
+		/**
+		 * 指定されたIDのレイヤーを削除する。
+		 * @param layerId
+		 */
+		removeLayer(layerId:string):void;
+
+		/**
+		 * 編集履歴を積み上げる。
+		 * 結果はcommit時に反映する。
+		 */
+		addMoment():DrawMomentBuilder;
+
+		/**
+		 * 編集セッションを解放する。
+		 */
+		release():void;
 	}
 
 	interface DrawMomentBuilder{
@@ -110,7 +153,6 @@ declare namespace drawchat.core {
 		 */
 		getKeys():string[];
 		getLayerMoment(key:string):DrawLayerMoment;
-
 
 		/**
 		 * Canvasの表示順　背面であるほど小さい添字。

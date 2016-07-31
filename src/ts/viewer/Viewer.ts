@@ -25,7 +25,7 @@ export class Viewer implements DrawchatViewer{
 		this.now = -1;
 	}
 
-	private start:boolean = false;
+	private _start:boolean = false;
 
 	clear():void {
 		this.renderer.clear();
@@ -44,7 +44,7 @@ export class Viewer implements DrawchatViewer{
 	}
 
 	start():void{
-		this.start = true;
+		this._start = true;
 		try {
 			this.updateView();
 			this.renderer.refresh();
@@ -59,7 +59,7 @@ export class Viewer implements DrawchatViewer{
 	}
 
 	stop():void{
-		this.start = false;
+		this._start = false;
 	}
 
 	updateView():void{
@@ -76,7 +76,7 @@ export class Viewer implements DrawchatViewer{
 				this.sequencesNow,
 				this.history.getLayers(number),
 				this.history.getMoments(this.history.getFirstHistoryNumber(),number),
-				this.history.getMoments(number,this.now)
+				this.history.getMoments(number + 1,this.now)
 			);
 			this.now = number;
 			return;
@@ -88,7 +88,7 @@ export class Viewer implements DrawchatViewer{
 			this.sequencesNow,
 			this.history.getLayers(number),
 			this.history.getMoments(this.history.getFirstHistoryNumber(),this.now),
-			this.history.getMoments(this.now,number)
+			this.history.getMoments(this.now + 1,number)
 		);
 		this.now = number;
 	}
