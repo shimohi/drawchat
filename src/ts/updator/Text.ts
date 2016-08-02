@@ -1,4 +1,4 @@
-import TextTransaction = drawchat.updator.TextTransaction;
+import TextTransaction = drawchat.updater.TextTransaction;
 import DrawHistory = drawchat.core.DrawHistory;
 import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
 import Fill = drawchat.Fill;
@@ -36,7 +36,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 
 	setFill(
 		color:string
-	):drawchat.updator.TextTransaction {
+	):TextTransaction {
 		this.init();
 		this.fill = <Fill>{
 			color:color
@@ -51,7 +51,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		x1:number,
 		y1:number,
 		colorStops?:drawchat.ColorStop[]
-	):drawchat.updator.TextTransaction {
+	):TextTransaction {
 		this.init();
 		this.fill = <Fill>{
 			linerGradient:{
@@ -74,7 +74,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		y1:number,
 		r1:number,
 		colorStops?:drawchat.ColorStop[]
-	):drawchat.updator.TextTransaction {
+	):TextTransaction {
 		this.init();
 		this.fill = <Fill>{
 			radialGradient:{
@@ -93,7 +93,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 
 	setStrokeColor(
 		color:string
-	):drawchat.updator.TextTransaction {
+	):TextTransaction {
 		this.init();
 		this.stroke ={
 			fillStyle:{
@@ -106,7 +106,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 
 	push(
 		text:string
-	):drawchat.updator.TextTransaction {
+	):TextTransaction {
 		this.init();
 		this.text = this.text == null ? text : this.text + text;
 		this.doUpdate(this.getEditBuilder());
@@ -115,7 +115,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 
 	setBaseline(
 		baseline?:string
-	):drawchat.updator.TextTransaction {
+	):TextTransaction {
 		this.init();
 		this.baseline = baseline;
 		this.doUpdate(this.getEditBuilder());
@@ -124,7 +124,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 
 	setAlign(
 		align?:string
-	):drawchat.updator.TextTransaction {
+	):TextTransaction {
 		this.init();
 		this.align = align;
 		this.doUpdate(this.getEditBuilder());
@@ -134,7 +134,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 	setPosition(
 		x:number,
 		y:number
-	):drawchat.updator.TextTransaction {
+	):TextTransaction {
 		this.init();
 		this.x = x;
 		this.y = y;
@@ -142,28 +142,28 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		return this;
 	}
 
-	setFontFamily(fontFamily:string):drawchat.updator.TextTransaction {
+	setFontFamily(fontFamily:string):TextTransaction {
 		this.init();
 		this.fontFamily = fontFamily;
 		this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
-	setSize(size:number):drawchat.updator.TextTransaction {
+	setSize(size:number):TextTransaction {
 		this.init();
 		this.size = size;
 		this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
-	setWeight(weight:number):drawchat.updator.TextTransaction {
+	setWeight(weight:number):TextTransaction {
 		this.init();
 		this.weight = weight;
 		this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
-	setStyle(style:number):drawchat.updator.TextTransaction {
+	setStyle(style:number):TextTransaction {
 		this.init();
 		this.style = style;
 		this.doUpdate(this.getEditBuilder());

@@ -1,25 +1,27 @@
-import DrawchatUpdator = drawchat.updator.DrawchatUpdator;
+import DrawchatUpdator = drawchat.updater.DrawchatUpdater;
 import DrawHistory = drawchat.core.DrawHistory;
-import DrawTransaction = drawchat.updator.DrawTransaction;
-import TransformTransaction = drawchat.updator.TransformTransaction;
-import ClipTransaction = drawchat.updator.ClipTransaction;
-import PathTransaction = drawchat.updator.PathTransaction;
-import TextTransaction = drawchat.updator.TextTransaction;
-import ChangeSequenceTransaction = drawchat.updator.ChangeSequenceTransaction;
+import DrawTransaction = drawchat.updater.DrawTransaction;
+import TransformTransaction = drawchat.updater.TransformTransaction;
+import ClipTransaction = drawchat.updater.ClipTransaction;
+import PathTransaction = drawchat.updater.PathTransaction;
+import TextTransaction = drawchat.updater.TextTransaction;
+import ChangeSequenceTransaction = drawchat.updater.ChangeSequenceTransaction;
 import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
+import DrawchatUpdater = drawchat.updater.DrawchatUpdater;
 
 import {Transform} from "./Transform";
 import {Clip} from "./Clip";
 import {Path} from "./Path";
 import {Text} from "./Text";
 import {ChangeSequence} from "./ChangeSequence";
-export class Updator implements DrawchatUpdator{
+import {TransformMap} from "./TransformMap";
+export class Updater implements DrawchatUpdater{
 
 	private history:DrawHistory;
 	private currentTransaction:DrawTransaction = null;
-	private updatorStartPoint:number;
-
+	private updaterStartPoint:number;
 	private editorLayerId:string = null;
+	private transformMap:TransformMap = new TransformMap();
 
 	constructor(
 		history:DrawHistory,
@@ -59,7 +61,7 @@ export class Updator implements DrawchatUpdator{
 
 	beginClip(layerId:string,commit:boolean = true):Promise<ClipTransaction> {
 		return this.before().then((session)=>{
-			let transaction = new Clip(session,this.history,layerId,this.editorLayerId);
+			let transaction = new Clip(session,this.history,layerId,this.editorLayerId,this.transformMap);
 			this.currentTransaction = transaction;
 			return transaction;
 		});
@@ -67,7 +69,7 @@ export class Updator implements DrawchatUpdator{
 
 	beginPath(layerId:string,commit:boolean = true):Promise<PathTransaction> {
 		return this.before().then((session)=>{
-			let transaction = new Path(session,this.history,layerId,this.editorLayerId);
+			let transaction = new Path(session,this.history,layerId,this.editorLayerId,this.transformMap);
 			this.currentTransaction = transaction;
 			return transaction;
 		});
@@ -102,7 +104,7 @@ export class Updator implements DrawchatUpdator{
 	undo():Promise<any> {
 		return this.before(true).then((session)=>{
 			let now = this.history.getNowHistoryNumber() | 0;
-			if(now <= this.updatorStartPoint){
+			if(now <= this.updaterStartPoint){
 				return null;
 			}
 			let numbers = this.history.getHistoryNumbers();
@@ -153,7 +155,7 @@ export class Updator implements DrawchatUpdator{
 			}
 			let moment = session.addLayer({draws:[]},true);
 			this.editorLayerId = moment.getKeys()[0];
-			this.updatorStartPoint = this.history.getNowHistoryNumber();
+			this.updaterStartPoint = this.history.getNowHistoryNumber();
 			return session;
 		});
 	}

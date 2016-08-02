@@ -1,4 +1,4 @@
-import TransformTransaction = drawchat.updator.TransformTransaction;
+import TransformTransaction = drawchat.updater.TransformTransaction;
 import DrawHistory = drawchat.core.DrawHistory;
 import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
 export abstract class AbstractTransaction implements AbstractTransaction{

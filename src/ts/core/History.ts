@@ -50,6 +50,10 @@ export class History implements DrawHistory{
 		return this.prop.historyNumbers[0];
 	}
 
+	isAvailable(historyNumber?:number):boolean {
+		return this.prop.map[historyNumber] != null;
+	}
+
 	getMoments(
 		from:number,
 		to:number

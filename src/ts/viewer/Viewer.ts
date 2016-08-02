@@ -68,6 +68,10 @@ export class Viewer implements DrawchatViewer{
 		if(this.now === number){
 			return;
 		}
+		if(!this.history.isAvailable(this.now)){
+			this.now = -1;
+			this.renderer.clear();
+		}
 
 		//過去へ戻る（Undoなど）
 		if(this.now > number){

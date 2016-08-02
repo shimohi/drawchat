@@ -1,4 +1,4 @@
-import ChangeSequenceTransaction = drawchat.updator.ChangeSequenceTransaction;
+import ChangeSequenceTransaction = drawchat.updater.ChangeSequenceTransaction;
 import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
 import DrawHistory = drawchat.core.DrawHistory;
 
@@ -19,7 +19,7 @@ export class ChangeSequence extends AbstractTransaction implements ChangeSequenc
 		this.session.addMoment().setSequence(this.sequences).commit();
 	}
 
-	toFirst(layerId:string):drawchat.updator.ChangeSequenceTransaction {
+	toFirst(layerId:string):ChangeSequenceTransaction {
 		let result:string[] = [];
 		result.push(layerId);
 		if(!this.filterUnMatch(result,layerId)){
@@ -28,7 +28,7 @@ export class ChangeSequence extends AbstractTransaction implements ChangeSequenc
 		return this.doUpdate(result);
 	}
 
-	toPrev(layerId:string):drawchat.updator.ChangeSequenceTransaction {
+	toPrev(layerId:string):ChangeSequenceTransaction {
 		let i = this.findIndex(layerId)| 0;
 		if( i <= 0){
 			return this;
@@ -39,7 +39,7 @@ export class ChangeSequence extends AbstractTransaction implements ChangeSequenc
 		return this.doUpdate(this.sequences);
 	}
 
-	toBack(layerId:string):drawchat.updator.ChangeSequenceTransaction {
+	toBack(layerId:string):ChangeSequenceTransaction {
 		let i = this.findIndex(layerId)| 0;
 		if( i >= this.sequences.length - 1 || i < 0){
 			return this;
@@ -50,7 +50,7 @@ export class ChangeSequence extends AbstractTransaction implements ChangeSequenc
 		return this.doUpdate(this.sequences);
 	}
 
-	toLast(layerId:string):drawchat.updator.ChangeSequenceTransaction {
+	toLast(layerId:string):ChangeSequenceTransaction {
 		let result:string[] = [];
 		if(!this.filterUnMatch(result,layerId)){
 			return this;
@@ -59,7 +59,7 @@ export class ChangeSequence extends AbstractTransaction implements ChangeSequenc
 		return this.doUpdate(result);
 	}
 
-	toMove(layerId:string, index:number):drawchat.updator.ChangeSequenceTransaction {
+	toMove(layerId:string, index:number):ChangeSequenceTransaction {
 		if(this.sequences.length  <= index || index < 0){
 			return this;
 		}

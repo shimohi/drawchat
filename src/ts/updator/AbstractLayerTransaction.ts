@@ -1,15 +1,16 @@
-import {AbstractTransaction} from "./AbstractTransaction";
-import TextTransaction = drawchat.updator.TextTransaction;
+import TextTransaction = drawchat.updater.TextTransaction;
 import DrawHistory = drawchat.core.DrawHistory;
 import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
 import Fill = drawchat.Fill;
 import Stroke = drawchat.Stroke;
 import TextDraw = drawchat.TextDraw;
 import DrawLayerMomentBuilder = drawchat.core.DrawLayerMomentBuilder;
+
+import {AbstractTransaction} from "./AbstractTransaction";
 export abstract class AbstractLayerTransaction extends AbstractTransaction{
 
+	layerId:string;
 	private editLayerId:string;
-	private layerId:string;
 	private reservedPoint:number;
 
 	constructor(

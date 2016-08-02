@@ -1,6 +1,6 @@
-declare namespace drawchat.updator {
+declare namespace drawchat.updater {
 
-	interface DrawchatUpdator{
+	interface DrawchatUpdater{
 
 		/**
 		 * レイヤーを追加し、追加されたレイヤーのIDを取得する。

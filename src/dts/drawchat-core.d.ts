@@ -29,47 +29,16 @@ declare namespace drawchat.core {
 		 */
 		getMoments(from:number,to:number,ignoreLocal?:boolean):DrawMoment[];
 
-		// /**
-		//  * 履歴番号を設定する。<br />
-		//  * 現在の履歴番号に指定値の履歴番号が存在しない場合は指定値以下で最も大きい履歴番号が設定される。
-		//  * 以降の更新メソッドが発生した際、指定値より大きい履歴が削除される。
-		//  */
-		// setHistoryNumberNow(historyNumber:number):number;
-
 		/**
 		 * 履歴を計算し、現在のDrawMessageを生成する。
 		 */
 		generateMessage(ignoreLocal?:boolean):Message;
-
-		// /**
-		//  * 履歴をクリアする。
-		//  */
-		// clear():void;
-		//
-		// /**
-		//  * 新しいレイヤーを追加する。
-		//  * @param layer
-		//  * @param isLocal
-		//  */
-		// addLayer(layer:Layer,isLocal?:boolean):DrawMoment;
-		//
-		// /**
-		//  * 指定されたIDのレイヤーを削除する。
-		//  * @param layerId
-		//  */
-		// removeLayer(layerId:string):void;
 
 		/**
 		 * 指定されたhistoryNumber時点のレイヤーリストを取得する。
 		 * @param historyNumber
 		 */
 		getLayers(historyNumber?:number,ignoreLocal?:boolean):string[];
-
-		// /**
-		//  * 編集履歴を積み上げる。
-		//  * 結果はcommit時に反映する。
-		//  */
-		// addMoment():DrawMomentBuilder;
 
 		/**
 		 * 更新イベントを待ち受けるリスナーを設定する。
@@ -78,6 +47,12 @@ declare namespace drawchat.core {
 		 * @param callback
 		 */
 		awaitUpdate(callback:(historyNumber:number)=>void):void;
+
+		/**
+		 * 有効な履歴かどうか
+		 * @param historyNumber
+		 */
+		isAvailable(historyNumber?:number):boolean;
 
 		/**
 		 * 編集セッションを開始する。
