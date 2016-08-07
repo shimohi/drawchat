@@ -22,6 +22,7 @@ export class Updater implements DrawchatUpdater{
 	private updaterStartPoint:number;
 	private editorLayerId:string = null;
 	private transformMap:TransformMap = new TransformMap();
+	private queue:Promise<any>;
 
 	constructor(
 		history:DrawHistory,
@@ -29,20 +30,23 @@ export class Updater implements DrawchatUpdater{
 	){
 		this.history = history;
 		this.editorLayerId = editorLayerId;
+		this.queue = Promise.resolve('success');
 	}
 
 	addLayer():Promise<string> {
-		return this.before().then((session)=>{
+		this.queue = this.before().then((session)=>{
 			let moment = session.addLayer({draws:[]},false);
 			return moment.getKeys()[0];
 		});
+		return this.queue;
 	}
 
 	removeLayer(layerId:string):Promise<any> {
-		return this.before().then((session)=>{
+		this.queue = this.before().then((session)=>{
 			session.removeLayer(layerId);
 			return null;
 		});
+		return this.queue;
 	}
 
 	getLayers():string[] {
@@ -52,43 +56,48 @@ export class Updater implements DrawchatUpdater{
 	}
 
 	beginTransform(layerId:string,commit:boolean = true):Promise<TransformTransaction> {
-		return this.before().then((session)=>{
+		this.queue =  this.before().then((session)=>{
 			let transaction = new Transform(session,this.history,layerId);
 			this.currentTransaction = transaction;
 			return transaction;
 		});
+		return this.queue;
 	}
 
 	beginClip(layerId:string,commit:boolean = true):Promise<ClipTransaction> {
-		return this.before().then((session)=>{
+		this.queue =  this.before().then((session)=>{
 			let transaction = new Clip(session,this.history,layerId,this.editorLayerId,this.transformMap);
 			this.currentTransaction = transaction;
 			return transaction;
 		});
+		return this.queue;
 	}
 
 	beginPath(layerId:string,commit:boolean = true):Promise<PathTransaction> {
-		return this.before().then((session)=>{
+		this.queue =  this.before().then((session)=>{
 			let transaction = new Path(session,this.history,layerId,this.editorLayerId,this.transformMap);
 			this.currentTransaction = transaction;
 			return transaction;
 		});
+		return this.queue;
 	}
 
 	beginText(layerId:string,commit:boolean = true):Promise<TextTransaction> {
-		return this.before().then((session)=>{
+		this.queue = this.before().then((session)=>{
 			let transaction = new Text(session,this.history,layerId,this.editorLayerId);
 			this.currentTransaction = transaction;
 			return transaction;
 		});
+		return this.queue;
 	}
 
 	beginChangeSequence(commit:boolean = true):Promise<ChangeSequenceTransaction> {
-		return this.before().then((session)=>{
+		this.queue = this.before().then((session)=>{
 			let transaction =  new ChangeSequence(session,this.history);
 			this.currentTransaction = transaction;
 			return transaction;
 		});
+		return this.queue;
 	}
 
 	canUndo():boolean {
@@ -102,71 +111,109 @@ export class Updater implements DrawchatUpdater{
 	}
 
 	undo():Promise<any> {
-		return this.before(true).then((session)=>{
-			let now = this.history.getNowHistoryNumber() | 0;
-			if(now <= this.updaterStartPoint){
-				return null;
-			}
-			let numbers = this.history.getHistoryNumbers();
-			let i = numbers.length - 1 | 0;
-			while(i >= 0){
-				if(numbers[i] === now){
-					i = (i - 1) |0;
-					break;
+		this.queue = this.before(true).then((session)=>{
+			try {
+				let now = this.history.getNowHistoryNumber() | 0;
+				if (now <= this.updaterStartPoint) {
+					return null;
 				}
-				i = (i - 1) |0;
+				let numbers = this.history.getHistoryNumbers();
+				let i = numbers.length - 1 | 0;
+				while (i >= 0) {
+					if (numbers[i] === now) {
+						i = (i - 1) | 0;
+						break;
+					}
+					i = (i - 1) | 0;
+				}
+				if (i < 0) {
+					return null;
+				}
+				session.setHistoryNumberNow(numbers[i]);
+			} finally {
+				session.release();
 			}
-			if(i < 0){
-				return null;
-			}
-			session.setHistoryNumberNow(numbers[i]);
 			return null;
 		});
+		return this.queue;
 	}
 
 	redo():Promise<any> {
-		return this.before(false).then((session)=>{
-			let now = this.history.getNowHistoryNumber() | 0;
-			let numbers = this.history.getHistoryNumbers();
-			let i = 0 | 0;
-			while(i < numbers.length){
-				if(numbers[i] === now){
-					i = (i + 1) |0;
-					break;
+		this.queue = this.before(false).then((session)=>{
+			try {
+				let now = this.history.getNowHistoryNumber() | 0;
+				let numbers = this.history.getHistoryNumbers();
+				let i = 0 | 0;
+				while (i < numbers.length) {
+					if (numbers[i] === now) {
+						i = (i + 1) | 0;
+						break;
+					}
+					i = (i + 1) | 0;
 				}
-				i = (i + 1) |0;
+				if (i >= numbers.length) {
+					return null;
+				}
+				session.setHistoryNumberNow(numbers[i]);
+			} finally {
+				session.release();
 			}
-			if(i >= numbers.length){
-				return null;
-			}
-			session.setHistoryNumberNow(numbers[i]);
 			return null;
 		});
+		return this.queue;
 	}
 
 	private before(
 		commit:boolean = true
 	):Promise<DrawHistoryEditSession>{
-		this.cleanTransaction(commit);
 
-		return this.history.lock().then((session)=>{
-			if(this.editorLayerId != null){
-				return session;
+		var finish = false;
+
+		//前タスクとの同期
+		this.queue =  this.queue.then(()=>{
+			if(this.currentTransaction == null){
+				finish = true;
+				return null;
 			}
-			let moment = session.addLayer({draws:[]},true);
-			this.editorLayerId = moment.getKeys()[0];
-			this.updaterStartPoint = this.history.getNowHistoryNumber();
-			return session;
+			if(commit){
+				this.currentTransaction.commit();
+				this.currentTransaction = null;
+				finish = true;
+				return null;
+			}
+			this.currentTransaction.cancel();
+			this.currentTransaction = null;
+			finish = true;
+			return null;
 		});
+
+		//同期している場合は一度Promiseをクリア
+		if(finish){
+			this.queue = Promise.resolve('success');
+		}
+		this.queue = this.queue.then(()=>{
+			return this.history.lock().then((session:DrawHistoryEditSession)=>{
+				if(this.editorLayerId != null){
+					return session;
+				}
+				let moment = session.addLayer({draws:[]},true);
+				this.editorLayerId = moment.getKeys()[0];
+				this.updaterStartPoint = this.history.getNowHistoryNumber();
+				return session;
+			}).catch(()=>{
+				return null;
+			});
+		});
+		return this.queue;
 	}
 
-	private cleanTransaction(
-		commit:boolean
-	):void{
-		if(commit){
-			this.currentTransaction.commit();
-			return;
-		}
-		this.currentTransaction.cancel();
-	}
+	// private cleanTransaction(
+	// 	commit:boolean
+	// ):void{
+	// 	if(commit){
+	// 		this.currentTransaction.commit();
+	// 		return;
+	// 	}
+	// 	this.currentTransaction.cancel();
+	// }
 }

@@ -1,5 +1,13 @@
-import DrawchatMode = drawchat.editor.DrawchatMode;
-export class Mode implements DrawchatMode{
+import DrawchatModeChanger = drawchat.editor.DrawchatModeChanger;
+export class Changer implements DrawchatModeChanger{
+
+	/**
+	 * モードチェンジ中
+	 */
+	get CHANGING():number{
+		return CHANGING;
+	}
+
 	/**
 	 * 消しゴムツールを示す定数
 	 */
@@ -38,7 +46,7 @@ export class Mode implements DrawchatMode{
 	/**
 	 * 変形ツールを示す定数
 	 */
-	get TRANSFORM_MODE():number{
+	get HAND_TOOL_MODE():number{
 		return TRANSFORM_MODE;
 	}
 
@@ -55,9 +63,15 @@ export class Mode implements DrawchatMode{
 		return this.mode;
 	}
 
-	changeMode(mode:number):void {
-		this.mode = mode;
+	changeMode(mode:number):Promise<any> {
+		this.mode = this.CHANGING;
+
+		return null;
 	}
+
+// changeMode(mode:number):void {
+	// 	this.mode = mode;
+	// }
 }
 
 var ERASER_MODE:number = 0;
@@ -67,3 +81,4 @@ var CLIP_MODE:number = 3;
 var TEXT_MODE:number = 4;
 var TRANSFORM_MODE:number = 5;
 var EYEDROPPER_MODE:number = 6;
+var CHANGING:number = 7;

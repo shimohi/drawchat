@@ -24,12 +24,16 @@ export class Layers implements DrawchatLayers{
 	showAll():void {
 	}
 
-	remove(index:number):void {
+
+	remove(index:number):Promise<any> {
+		return null;
 	}
 
-	addLayer():void {
+	addLayer():Promise<any> {
+		return null;
 	}
 
-	moveTo(index:number):void {
+	moveTo(index:number):Promise<any> {
+		return null;
 	}
 }

@@ -48,7 +48,12 @@ declare namespace drawchat.editor {
 		pathType:number;
 	}
 
-	interface DrawchatMode{
+	interface DrawchatModeChanger{
+
+		/**
+		 * モードチェンジ中
+		 */
+		CHANGING:number;
 
 		/**
 		 * 消しゴムツールを示す定数
@@ -76,9 +81,9 @@ declare namespace drawchat.editor {
 		TEXT_MODE:number;
 
 		/**
-		 * 変形ツールを示す定数
+		 * 手のひらツールを示す定数
 		 */
-		TRANSFORM_MODE:number;
+		HAND_TOOL_MODE:number;
 
 		/**
 		 * スポイトツールを示す定数
@@ -93,8 +98,7 @@ declare namespace drawchat.editor {
 		/**
 		 * モード変更
 		 */
-		changeMode(mode:number):void;
-
+		changeMode(mode:number):Promise<any>
 	}
 
 	interface DrawchatLayers{
@@ -141,36 +145,21 @@ declare namespace drawchat.editor {
 		 * レイヤーの削除
 		 * @param index
 		 */
-		remove(index:number):void;
+		remove(index:number):Promise<any>;
 
 		/**
 		 *  レイヤーの追加
 		 */
-		addLayer():void;
+		addLayer():Promise<any>;
 
 		/**
 		 * レイヤーの順序移動
 		 * @param index
 		 */
-		moveTo(index:number):void;
+		moveTo(index:number):Promise<any>;
 	}
 
 	interface DrawchatCanvas{
-
-		/**
-		 * Canvasの編集を区切る
-		 */
-		commit():void;
-
-		/**
-		 * Canvasの幅
-		 */
-		getWidth():number;
-
-		/**
-		 * Canvasの高さ
-		 */
-		getHeight():number;
 
 		/**
 		 * Canvasの左上を0,0とした座標を設定する。
@@ -199,14 +188,29 @@ declare namespace drawchat.editor {
 	interface DrawchatEditor{
 
 		/**
+		 * Canvasの編集を区切る
+		 */
+		commit():void;
+
+		/**
+		 * Canvasの幅
+		 */
+		getWidth():number;
+
+		/**
+		 * Canvasの高さ
+		 */
+		getHeight():number;
+
+		/**
 		 * Undo
 		 */
-		undo():void;
+		undo():Promise<any>;
 
 		/**
 		 * Redo
 		 */
-		redo():void;
+		redo():Promise<any>;
 
 		/**
 		 * メインキャンバス
@@ -221,7 +225,7 @@ declare namespace drawchat.editor {
 		/**
 		 * モードチェンジャー
 		 */
-		mode:DrawchatMode;
+		mode:DrawchatModeChanger;
 	}
 }
 

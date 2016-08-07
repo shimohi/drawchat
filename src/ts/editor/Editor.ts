@@ -1,7 +1,7 @@
 import DrawchatEditor = drawchat.editor.DrawchatEditor;
-import DrawchatMode = drawchat.editor.DrawchatMode;
 import DrawchatEditorProperties = drawchat.editor.DrawchatEditorProperties;
 import DrawchatCanvas = drawchat.editor.DrawchatCanvas;
+import DrawchatModeChanger = drawchat.editor.DrawchatModeChanger;
 export class Editor implements DrawchatEditor{
 	/**
 	 * メインキャンバス
@@ -16,11 +16,25 @@ export class Editor implements DrawchatEditor{
 	/**
 	 * モードチェンジャー
 	 */
-	mode:DrawchatMode;
+	mode:DrawchatModeChanger;
 
-	undo():void {
+
+	commit():void {
 	}
 
-	redo():void {
+	getWidth():number {
+		return null;
+	}
+
+	getHeight():number {
+		return null;
+	}
+
+	undo():Promise<any> {
+		return null;
+	}
+
+	redo():Promise<any> {
+		return null;
 	}
 }
