@@ -10,7 +10,7 @@ declare namespace drawchat.editor {
 		/**
 		 * 線の太さ
 		 */
-		thickness:string;
+		thickness:number;
 
 		/**
 		 * フォントサイズ

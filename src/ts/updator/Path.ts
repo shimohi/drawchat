@@ -1,4 +1,3 @@
-import PathTransaction = drawchat.updater.PathTransaction;
 import ColorStop = drawchat.ColorStop;
 import Fill = drawchat.Fill;
 import Stroke = drawchat.Stroke;
@@ -18,7 +17,8 @@ import Transform = drawchat.Transform;
 import {TransformMap} from "./TransformMap";
 import {AbstractLayerTransaction} from "./AbstractLayerTransaction";
 import {TransformCalculator} from "./TransformCalculator";
-export class Path extends AbstractLayerTransaction implements PathTransaction{
+import DrawPathTransaction = drawchat.updater.DrawPathTransaction;
+export class Path extends AbstractLayerTransaction implements DrawPathTransaction{
 
 	private fill:Fill;
 	private strokeFill:Fill;
@@ -47,7 +47,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 
 	setFill(
 		color:string
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -67,7 +67,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 		x1:number,
 		y1:number,
 		colorStops?:ColorStop[]
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -98,7 +98,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 		y1:number,
 		r1:number,
 		colorStops?:ColorStop[]
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -125,7 +125,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 
 	setStrokeColor(
 		color:string
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -142,7 +142,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 	setStrokeDash(
 		segments?:number[],
 		offset?:number
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -163,7 +163,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 		joints?:number,
 		miterLimit?:number,
 		ignoreScale?:number
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -183,7 +183,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 	moveTo(
 		x:number,
 		y:number
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -208,7 +208,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 		x2:number,
 		y2:number,
 		radius:number
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -234,7 +234,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 	lineTo(
 		x:number,
 		y:number
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -258,7 +258,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 		cpy:number,
 		x:number,
 		y:number
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);
@@ -288,7 +288,7 @@ export class Path extends AbstractLayerTransaction implements PathTransaction{
 		cpy2:number,
 		x:number,
 		y:number
-	):PathTransaction {
+	):DrawPathTransaction {
 		this.init();
 
 		this.transformMap.updateMap(this.history);

@@ -9,7 +9,7 @@ export class EditorProperties implements DrawchatEditorProperties{
 	/**
 	 * 線の太さ
 	 */
-	thickness:string;
+	thickness:number;
 
 	/**
 	 * フォントサイズ

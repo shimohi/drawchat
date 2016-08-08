@@ -140,6 +140,10 @@ export class HistorySession implements DrawHistoryEditSession{
 		return moment;
 	}
 
+	isAlive(): boolean {
+		return this.alive;
+	}
+
 	/**
 	 * 編集セッション切れ通知
  	 */

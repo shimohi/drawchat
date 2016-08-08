@@ -40,7 +40,7 @@ declare namespace drawchat.updater {
 		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
 		 * デフォルト値はtrue
 		 */
-		beginPath(layerId:string,commit?:boolean):Promise<PathTransaction>;
+		beginPath(layerId:string,commit?:boolean):Promise<DrawPathTransaction>;
 
 		/**
 		 * テキストトランザクションを開始する。
@@ -84,6 +84,11 @@ declare namespace drawchat.updater {
 	interface DrawTransaction{
 
 		/**
+		 * トランザクションが有効かどうか
+		 */
+		isAlive():boolean;
+
+		/**
 		 * 変更内容をキャンセルする。
 		 */
 		cancel():void;
@@ -92,6 +97,16 @@ declare namespace drawchat.updater {
 		 * 変更内容を確定する。
 		 */
 		commit():void;
+
+		/**
+		 * savePointを設定する。
+		 */
+		setSavePoint():void;
+
+		/**
+		 * savePointに戻す。
+		 */
+		restoreSavePoint():void;
 	}
 
 	/**
@@ -119,7 +134,81 @@ declare namespace drawchat.updater {
 	/**
 	 * 線描画トランザクション
 	 */
-	interface ClipTransaction extends DrawTransaction{
+	interface PathTransaction extends DrawTransaction{
+
+		/**
+		 * 現在の起点を移動する。何もしなければ最初は0,0
+		 * @param x
+		 * @param y
+		 */
+		moveTo(
+			x:number,
+			y:number
+		):PathTransaction;
+
+		/**
+		 * 円弧を描画する。
+		 * @param x1
+		 * @param y1
+		 * @param x2
+		 * @param y2
+		 * @param radius
+		 */
+		arcTo(
+			x1:number,
+			y1:number,
+			x2:number,
+			y2:number,
+			radius:number
+		):PathTransaction;
+
+		/**
+		 * 直線を描画する。
+		 * @param x
+		 * @param y
+		 */
+		lineTo(
+			x:number,
+			y:number
+		):PathTransaction;
+
+		/**
+		 * 2次ベジェ曲線を描画する。
+		 * @param cpx
+		 * @param cpy
+		 * @param x
+		 * @param y
+		 */
+		quadraticCurveTo (
+			cpx:number,
+			cpy:number,
+			x:number,
+			y:number
+		):PathTransaction;
+
+		/**
+		 * 3次ベジェ曲線を描画する。
+		 * @param cpx1
+		 * @param cpy1
+		 * @param cpx2
+		 * @param cpy3
+		 * @param x
+		 * @param y
+		 */
+		bezierCurveTo (
+			cpx1:number,
+			cpy1:number,
+			cpx2:number,
+			cpy2:number,
+			x:number,
+			y:number
+		):PathTransaction;
+	}
+
+	/**
+	 * 線描画トランザクション
+	 */
+	interface ClipTransaction extends PathTransaction{
 
 		/**
 		 * 現在の起点を移動する。何もしなければ最初は0,0
@@ -203,7 +292,7 @@ declare namespace drawchat.updater {
 	/**
 	 * 線描画トランザクション
 	 */
-	interface PathTransaction extends DrawTransaction{
+	interface DrawPathTransaction extends PathTransaction{
 
 		/**
 		 * 塗りの色を設定する。
@@ -212,7 +301,7 @@ declare namespace drawchat.updater {
 		 */
 		setFill(
 			color:string
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 線形グラデーションを設定する。
@@ -229,7 +318,7 @@ declare namespace drawchat.updater {
 			x1:number,
 			y1:number,
 			colorStops?:ColorStop[]
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 円形グラデーションを設定する。
@@ -250,7 +339,7 @@ declare namespace drawchat.updater {
 			y1:number,
 			r1:number,
 			colorStops?:ColorStop[]
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 線の色を設定する。
@@ -258,7 +347,7 @@ declare namespace drawchat.updater {
 		 */
 		setStrokeColor(
 			color:string
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 破線を設定。引数がいずれもnullの場合は破線なし。
@@ -268,7 +357,7 @@ declare namespace drawchat.updater {
 		setStrokeDash(
 			segments?:number[],
 			offset?:number
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 線スタイルを設定。
@@ -284,7 +373,7 @@ declare namespace drawchat.updater {
 			joints?:number,
 			miterLimit?:number,
 			ignoreScale?:number
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 現在の起点を移動する。何もしなければ最初は0,0
@@ -294,7 +383,7 @@ declare namespace drawchat.updater {
 		moveTo(
 			x:number,
 			y:number
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 円弧を描画する。
@@ -310,7 +399,7 @@ declare namespace drawchat.updater {
 			x2:number,
 			y2:number,
 			radius:number
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 直線を描画する。
@@ -320,7 +409,7 @@ declare namespace drawchat.updater {
 		lineTo(
 			x:number,
 			y:number
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 2次ベジェ曲線を描画する。
@@ -334,7 +423,7 @@ declare namespace drawchat.updater {
 			cpy:number,
 			x:number,
 			y:number
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 3次ベジェ曲線を描画する。
@@ -352,7 +441,7 @@ declare namespace drawchat.updater {
 			cpy2:number,
 			x:number,
 			y:number
-		):PathTransaction;
+		):DrawPathTransaction;
 
 		/**
 		 * 変更内容をキャンセルする。

@@ -64,6 +64,11 @@ declare namespace drawchat.core {
 	interface DrawHistoryEditSession{
 
 		/**
+		 * セッションが有効かどうか
+		 */
+		isAlive():boolean;
+
+		/**
 		 * 履歴番号を設定する。<br />
 		 * 現在の履歴番号に指定値の履歴番号が存在しない場合は指定値以下で最も大きい履歴番号が設定される。
 		 * 以降の更新メソッドが発生した際、指定値より大きい履歴が削除される。

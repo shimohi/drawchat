@@ -3,7 +3,6 @@ import DrawHistory = drawchat.core.DrawHistory;
 import DrawTransaction = drawchat.updater.DrawTransaction;
 import TransformTransaction = drawchat.updater.TransformTransaction;
 import ClipTransaction = drawchat.updater.ClipTransaction;
-import PathTransaction = drawchat.updater.PathTransaction;
 import TextTransaction = drawchat.updater.TextTransaction;
 import ChangeSequenceTransaction = drawchat.updater.ChangeSequenceTransaction;
 import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
@@ -15,6 +14,7 @@ import {Path} from "./Path";
 import {Text} from "./Text";
 import {ChangeSequence} from "./ChangeSequence";
 import {TransformMap} from "./TransformMap";
+import DrawPathTransaction = drawchat.updater.DrawPathTransaction;
 export class Updater implements DrawchatUpdater{
 
 	private history:DrawHistory;
@@ -73,7 +73,7 @@ export class Updater implements DrawchatUpdater{
 		return this.queue;
 	}
 
-	beginPath(layerId:string,commit:boolean = true):Promise<PathTransaction> {
+	beginPath(layerId:string,commit:boolean = true):Promise<DrawPathTransaction> {
 		this.queue =  this.before().then((session)=>{
 			let transaction = new Path(session,this.history,layerId,this.editorLayerId,this.transformMap);
 			this.currentTransaction = transaction;
