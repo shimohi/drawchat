@@ -1,11 +1,17 @@
 declare namespace drawchat.editor {
 
+	interface Color{
+		r:number;
+		g:number;
+		b:number;
+	}
+
 	interface DrawchatEditorProperties{
 
 		/**
 		 * 線の色
 		 */
-		color:string;
+		color:Color;
 
 		/**
 		 * 線の太さ
@@ -162,11 +168,27 @@ declare namespace drawchat.editor {
 	interface DrawchatCanvas{
 
 		/**
+		 * MouseDownもしくはTouchStartイベントを通知する。
 		 * Canvasの左上を0,0とした座標を設定する。
 		 * @param x
 		 * @param y
 		 */
-		setPoint(x:number,y:number):void;
+		touchStart(x:number,y:number):void;
+
+		/**
+		 * ドラッグもしくはTouchMoveイベントを通知する。
+		 * @param x
+		 * @param y
+		 */
+		touchMove(x:number,y:number):void;
+
+		/**
+		 * MouseUpもしくはTouchEndイベントを取得する。
+		 * Canvasの左上を0,0とした座標を設定する。
+		 * @param x
+		 * @param y
+		 */
+		touchEnd(x:number,y:number):void;
 
 		/**
 		 * テキストを設定する。
@@ -179,18 +201,18 @@ declare namespace drawchat.editor {
 		 */
 		backward():void;
 
-		/**
-		 * 座標設定の履歴を進める。
-		 */
-		forward():void;
+	}
+
+	interface UpdateListener{
+		(): void;
 	}
 
 	interface DrawchatEditor{
 
-		/**
-		 * Canvasの編集を区切る
-		 */
-		commit():void;
+		// /**
+		//  * Canvasの編集を区切る
+		//  */
+		// commit():void;
 
 		/**
 		 * Canvasの幅
@@ -208,9 +230,19 @@ declare namespace drawchat.editor {
 		undo():Promise<any>;
 
 		/**
+		 * Undoが可能かどうか
+		 */
+		canUndo():boolean;
+
+		/**
 		 * Redo
 		 */
 		redo():Promise<any>;
+
+		/**
+		 * Redoが可能かどうか
+		 */
+		canRedo():boolean;
 
 		/**
 		 * メインキャンバス
@@ -223,9 +255,26 @@ declare namespace drawchat.editor {
 		properties:DrawchatEditorProperties;
 
 		/**
+		 * レイヤー
+		 */
+		layers:DrawchatLayers;
+
+		/**
 		 * モードチェンジャー
 		 */
 		mode:DrawchatModeChanger;
+
+		/**
+		 * 更新通ちを受け取るリスナーを削除する。
+		 * @param listener
+		 */
+		off(listener:UpdateListener):void;
+
+		/**
+		 * 更新通知を受け取るリスナーを設定する。
+		 * @param listener
+		 */
+		on(listener:UpdateListener):void;
 	}
 }
 

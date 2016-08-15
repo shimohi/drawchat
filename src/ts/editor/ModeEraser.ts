@@ -1,15 +1,28 @@
 import DrawchatCanvas = drawchat.editor.DrawchatCanvas;
-export class ModeEraser implements DrawchatCanvas{
+import ClipTransaction = drawchat.updater.ClipTransaction;
+import DrawPathTransaction = drawchat.updater.DrawPathTransaction;
+import {EditorProperties} from "./EditorProperties";
+import {AbstractModeStroke} from "./AbstractModeStroke";
 
-	setPoint(x:number, y:number):void {
+export class ModeEraser extends AbstractModeStroke<DrawPathTransaction> {
+
+	private prop:EditorProperties;
+
+	constructor(
+		tran:DrawPathTransaction,
+		prop:EditorProperties
+	){
+		super(tran,prop);
+		this.prop = prop;
+	}
+
+	protected setProperty(tran: drawchat.updater.DrawPathTransaction): void {
+		tran.setCompositeOperation(6);
+		tran.setStrokeColor(`rgb(0,0,0,0)`);
 	}
 
 	setText(text:string):void {
-	}
-
-	backward():void {
-	}
-
-	forward():void {
+		//処理なし。
 	}
 }
+

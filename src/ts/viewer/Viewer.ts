@@ -62,6 +62,14 @@ export class Viewer implements DrawchatViewer{
 		this._start = false;
 	}
 
+	getPixelColor(
+		x: number,
+		y: number,
+		layerIndex:number
+	): number[] {
+		return this.renderer.getPixelColor(x,y,layerIndex);
+	}
+
 	updateView():void{
 
 		let number = this.history.getNowHistoryNumber();

@@ -1,16 +1,18 @@
 import DrawchatCanvas = drawchat.editor.DrawchatCanvas;
 import ClipTransaction = drawchat.updater.ClipTransaction;
+import DrawPathTransaction = drawchat.updater.DrawPathTransaction;
+import PathTransaction = drawchat.updater.PathTransaction;
+
 import {EditorProperties} from "./EditorProperties";
 import {PathDrawer} from "./PathDrawer";
-import DrawPathTransaction = drawchat.updater.DrawPathTransaction;
-export class ModeFill implements DrawchatCanvas {
+import {Point} from "./PointArray";
+export abstract class AbstractModeFill<T extends PathTransaction> implements DrawchatCanvas {
 
-	private tran:DrawPathTransaction;
-	private prop:EditorProperties;
+	private tran:T;
 	private pathDrawer:PathDrawer;
 
 	constructor(
-		tran:DrawPathTransaction,
+		tran:T,
 		prop:EditorProperties
 	){
 		this.tran = tran;
@@ -29,7 +31,12 @@ export class ModeFill implements DrawchatCanvas {
 	private wPointY:number;
 	private waiting:boolean;
 
-	setPoint(x:number, y:number):void {
+
+	touchStart(x: number, y: number): void {
+		this.touchMove(x,y);
+	}
+
+	touchMove(x: number, y: number): void {
 		if(!this.tran.isAlive()){
 			return;
 		}
@@ -55,6 +62,10 @@ export class ModeFill implements DrawchatCanvas {
 		this.doFill(x,y);
 	}
 
+	touchEnd(x: number, y: number): void {
+		this.touchMove(x,y);
+	}
+
 	private setWait():void {
 		if (this.waiting) {
 			return;
@@ -73,7 +84,7 @@ export class ModeFill implements DrawchatCanvas {
 				this.setWait();
 				return;
 			}
-			this.doFill(this.lPointX,this.lPointY);
+			this.doFill(this.wPointX,this.wPointY);
 		}, 100);
 	}
 
@@ -82,18 +93,31 @@ export class ModeFill implements DrawchatCanvas {
 		this.lPointX = x;
 		this.lPointY = y;
 		this.tran.restoreSavePoint();
-		this.tran.setFill(`rgb(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
+		this.setProperty(this.tran);
+
+		if(x < 0 && y < 0){
+			this.pathDrawer.doPlot(true);
+			return;
+		}
 		this.pathDrawer.push(this.lPointX,this.lPointY).doPlot(true);
 	}
+
+	protected abstract setProperty(tran:T):void;
 
 	setText(text:string):void {
 		//処理なし。
 	}
 
 	backward():void {
-	}
-
-	forward():void {
+		this.pathDrawer.pop();
+		let point:Point = this.pathDrawer.pop();
+		if(point != null){
+			point = {
+				x:-100,
+				y:-100
+			};
+		}
+		this.doFill(point.x,point.y);
 	}
 }
 

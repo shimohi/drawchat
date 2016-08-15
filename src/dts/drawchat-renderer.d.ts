@@ -2,6 +2,9 @@ declare namespace drawchat.renderer {
 
 	interface DrawchatRenderer{
 
+		width:number;
+		height:number;
+
 		/**
 		 * レイヤーの数を取得します。
 		 */
@@ -77,5 +80,15 @@ declare namespace drawchat.renderer {
 		 * @param target
 		 */
 		hide(target?:number[]):void;
+
+		/**
+		 * 指定されたピクセル座標の色成分を取得する。
+		 * r,g,b,aの配列を返す。
+		 */
+		getPixelColor(
+			x:number,
+			y:number,
+			layerIndex:number
+		):number[];
 	}
 }

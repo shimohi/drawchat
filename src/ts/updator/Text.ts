@@ -20,6 +20,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 	private size:number;
 	private weight:number;
 	private style:number;
+	private compositeOperation:number;
 
 	constructor(
 		session:DrawHistoryEditSession,
@@ -170,10 +171,17 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		return this;
 	}
 
+	setCompositeOperation(compositeOperation: number): drawchat.updater.TextTransaction {
+		this.init();
+		this.compositeOperation = compositeOperation;
+		this.doUpdate(this.getEditBuilder());
+		return this;
+	}
+
 	private doUpdate(layerBuilder:DrawLayerMomentBuilder):void{
 		layerBuilder.addDraw(
 			<TextDraw>{
-				compositeOperation: 0,
+				compositeOperation: this.compositeOperation,
 				text: {
 					x: this.x,
 					y: this.y,

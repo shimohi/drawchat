@@ -53,6 +53,8 @@
     "webpack": "^1.13.0"
   },
   "dependencies": {
-    "jquery": "^3.1.0"
+    "eventemitter3": "^1.2.0",
+    "jquery": "^3.1.0",
+    "react-toolbox": "^1.1.2"
   }
 }

@@ -6,6 +6,7 @@
   },
   "globalDependencies": {
     "empower": "registry:dt/empower#0.0.0+20160317120654",
+    "eventemitter3": "registry:dt/eventemitter3#1.1.1+20151208234524",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "mocha": "registry:dt/mocha#2.2.5+20160720003353",
     "power-assert": "registry:dt/power-assert#0.0.0+20160316155526",

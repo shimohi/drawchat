@@ -1,8 +1,9 @@
 import DrawchatCanvas = drawchat.editor.DrawchatCanvas;
 import ClipTransaction = drawchat.updater.ClipTransaction;
+import PathTransaction = drawchat.updater.PathTransaction;
 import {EditorProperties} from "./EditorProperties";
 import {SplinePlotter} from "./SplinePlotter";
-import PathTransaction = drawchat.updater.PathTransaction;
+import {Point} from "./PointArray";
 export class PathDrawer {
 
 	/**
@@ -18,31 +19,57 @@ export class PathDrawer {
 		prop:EditorProperties
 	){
 		this.tran = tran;
-		this.tran.setSavePoint();
+		// this.tran.setSavePoint();
 		this.prop = prop;
 		if(this.tran.isAlive()){
 			PathDrawer.SPLINE.inputList.init();
 		}
 	}
 
-	pushPoint(x:number, y:number):PathDrawer {
+	pop():Point{
+		if(this.tran.isAlive()){
+			PathDrawer.SPLINE.inputList.init();
+		}
+		if(PathDrawer.SPLINE.inputList.size() === 0){
+			return null;
+		}
+		let index = (PathDrawer.SPLINE.inputList.size() - 1) | 0;
+		let point:Point = {
+			x:PathDrawer.SPLINE.inputList.item(index).x,
+			y:PathDrawer.SPLINE.inputList.item(index).y
+		};
+		PathDrawer.SPLINE.inputList.remove(index);
+		return point;
+	}
+
+	clear():PathDrawer{
+		if(this.tran.isAlive()){
+			PathDrawer.SPLINE.inputList.init();
+		}
+		return this;
+	}
+
+	push(x:number, y:number):PathDrawer {
 		this.checkList();
 		PathDrawer.SPLINE.inputList.push(x,y);
 		// this.doPlot();
 		return this;
 	}
 
-	doPlot(x:number = -1,y:number = - 1):PathDrawer{
+	doPlot(closePath:boolean = false):PathDrawer{
 
-		this.tran.restoreSavePoint();
+		// this.tran.restoreSavePoint();
 		if(PathDrawer.SPLINE.inputList.size() === 0){
 			// let result = PathDrawer.SPLINE.resultList;
 			this.firstCircle();
 			return this;
 		}
 
-		if(x >= 0 && y >= 0){
-			PathDrawer.SPLINE.inputList.push(x,y);
+		if(closePath){
+			PathDrawer.SPLINE.inputList.push(
+				PathDrawer.SPLINE.inputList.item(0).x,
+				PathDrawer.SPLINE.inputList.item(0).y
+			);
 		}
 
 		PathDrawer.SPLINE.calc();
@@ -60,7 +87,7 @@ export class PathDrawer {
 			);
 			i = (i + 1) | 0;
 		}
-		if(x >= 0 && y >= 0){
+		if(closePath){
 			PathDrawer.SPLINE.inputList.remove(PathDrawer.SPLINE.inputList.size() - 1);
 		}
 		return this;

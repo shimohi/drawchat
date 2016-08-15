@@ -28,6 +28,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 	private path:PathItem[] = [];
 
 	private transformMap:TransformMap;
+	private compositeOperation:number;
 	// private transform:Transform;
 
 	constructor(
@@ -290,7 +291,6 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		y:number
 	):DrawPathTransaction {
 		this.init();
-
 		this.transformMap.updateMap(this.history);
 		let transform = this.transformMap.getTransForm(this.layerId);
 		let invert = TransformCalculator.invert(transform);
@@ -313,9 +313,17 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		return this;
 	}
 
+	setCompositeOperation(compositeOperation: number): drawchat.updater.DrawPathTransaction {
+		this.init();
+		this.compositeOperation = compositeOperation;
+		this.doUpdate(this.getEditBuilder());
+		return this;
+	}
+
 	private doUpdate(layerBuilder:DrawLayerMomentBuilder):void{
 		layerBuilder.addDraw(
 			<drawchat.GraphicsDraw>{
+				compositeOperation:this.compositeOperation,
 				graphics:[<Graphic>{
 					fill:this.fill,
 					stroke:{

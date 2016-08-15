@@ -1,15 +1,35 @@
 import DrawchatCanvas = drawchat.editor.DrawchatCanvas;
-export class ModeStroke implements DrawchatCanvas{
+import ClipTransaction = drawchat.updater.ClipTransaction;
+import DrawPathTransaction = drawchat.updater.DrawPathTransaction;
 
-	setPoint(x:number, y:number):void {
+import {EditorProperties} from "./EditorProperties";
+import {AbstractModeStroke} from "./AbstractModeStroke";
+
+export class ModeStroke extends AbstractModeStroke<DrawPathTransaction>{
+
+	private prop:EditorProperties;
+
+	constructor(
+		tran:DrawPathTransaction,
+		prop:EditorProperties
+	){
+		super(tran,prop);
+		this.prop = prop;
 	}
 
-	setText(text:string):void {
-	}
-
-	backward():void {
-	}
-
-	forward():void {
+	protected setProperty(tran: drawchat.updater.DrawPathTransaction): void {
+		tran.setStrokeColor(`rgb(${
+			this.prop.color.r
+		},${
+			this.prop.color.g
+		},${
+			this.prop.color.b
+		},${
+			this.prop.alpha
+		})`);
+		tran.setStrokeStyle(
+			this.prop.thickness
+		);
 	}
 }
+

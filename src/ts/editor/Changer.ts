@@ -1,5 +1,20 @@
 import DrawchatModeChanger = drawchat.editor.DrawchatModeChanger;
+import DrawchatUpdater = drawchat.updater.DrawchatUpdater;
+import DrawchatCanvas = drawchat.editor.DrawchatCanvas;
+import DrawchatViewer = drawchat.viewer.DrawchatViewer;
+import {Layers} from "./Layers";
+import {ModeEraser} from "./ModeEraser";
+import {EditorProperties} from "./EditorProperties";
+import {ModeFill} from "./ModeFill";
+import {ModeStroke} from "./ModeStroke";
+import {ModeClip} from "./ModeClip";
+import {ModeText} from "./ModeText";
+import {ModeHandTool} from "./ModeHandTool";
+import {ModeEyedropper} from "./ModeEyedropper";
+import {ModeChanging} from "./ModeChanging";
 export class Changer implements DrawchatModeChanger{
+
+	private static EMPTY_CANVAS = new ModeChanging();
 
 	/**
 	 * モードチェンジ中
@@ -57,7 +72,27 @@ export class Changer implements DrawchatModeChanger{
 		return EYEDROPPER_MODE;
 	}
 
+	private updater:DrawchatUpdater;
+
+	private layers:Layers;
+
+	private prop:EditorProperties;
+
+	private viewer:DrawchatViewer;
+
+	constructor(
+		layers:Layers,
+		prop:EditorProperties
+	){
+		this.updater = layers.updater;
+		this.prop = prop;
+		this.viewer = layers.viewer;
+	}
 	private mode:number;
+
+	private reservedMode:number;
+
+	canvas:DrawchatCanvas;
 
 	getMode():number {
 		return this.mode;
@@ -65,8 +100,54 @@ export class Changer implements DrawchatModeChanger{
 
 	changeMode(mode:number):Promise<any> {
 		this.mode = this.CHANGING;
+		this.reservedMode = mode;
+		this.canvas = Changer.EMPTY_CANVAS;
+		let currentId = this.layers.currentId;
 
+		switch (mode){
+			case this.ERASER_MODE:
+				return this.updater.beginPath(currentId).then((tran)=>{
+					return this.doChangeMode(this.ERASER_MODE,new ModeEraser(tran,this.prop));
+				});
+			case this.FILL_MODE:
+				return this.updater.beginPath(currentId).then((tran)=>{
+					return this.doChangeMode(this.FILL_MODE,new ModeFill(tran,this.prop));
+				});
+			case this.STROKE_MODE:
+				return this.updater.beginPath(currentId).then((tran)=>{
+					return this.doChangeMode(this.STROKE_MODE,new ModeStroke(tran,this.prop));
+				});
+			case this.CLIP_MODE:
+				return this.updater.beginClip(currentId).then((tran)=>{
+					return this.doChangeMode(this.CLIP_MODE,new ModeClip(tran,this.prop));
+				});
+			case this.TEXT_MODE:
+				return this.updater.beginText(currentId).then((tran)=>{
+					return this.doChangeMode(this.TEXT_MODE,new ModeText(tran,this.prop));
+				});
+			case this.HAND_TOOL_MODE:
+				return this.updater.beginTransform(currentId).then((tran)=>{
+					return this.doChangeMode(this.HAND_TOOL_MODE,new ModeHandTool(tran));
+				});
+			case this.EYEDROPPER_MODE:
+				return Promise.resolve(this.doChangeMode(this.EYEDROPPER_MODE,new ModeEyedropper(
+					this.layers.getCurrent(),
+					this.viewer,
+					this.prop
+				)));
+			default:
+				break;
+		}
 		return null;
+	}
+
+	private doChangeMode(mode:number,canvas:DrawchatCanvas):DrawchatCanvas{
+		if(this.reservedMode === mode){
+			return null;
+		}
+		this.mode = mode;
+		this.canvas = canvas;
+		return this.canvas;
 	}
 
 // changeMode(mode:number):void {

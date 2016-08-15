@@ -91,12 +91,12 @@ declare namespace drawchat.updater {
 		/**
 		 * 変更内容をキャンセルする。
 		 */
-		cancel():void;
+		cancel(duration?:boolean):void;
 
 		/**
 		 * 変更内容を確定する。
 		 */
-		commit():void;
+		commit(duration?:boolean):void;
 
 		/**
 		 * savePointを設定する。
@@ -121,14 +121,69 @@ declare namespace drawchat.updater {
 		setMatrix(transform:Transform):TransformTransaction;
 
 		/**
-		 * 変更内容をキャンセルする。
+		 * 変換マトリックスに並行移動を加えます。
+		 * @param tx
+		 * @param ty
+		 * @returns {Transform}
 		 */
-		cancel():void;
+		translate(tx:number,ty:number):TransformTransaction;
 
 		/**
-		 * 変更内容を確定する。
+		 * 変換マトリックスにX軸方向への変倍を加えます。
+		 * @param scaleX
+		 * @returns {Transform}
 		 */
-		commit():void;
+		scaleX(scaleX:number):TransformTransaction;
+
+		/**
+		 * 変換マトリックスにY軸方向への変倍を加えます。
+		 * @param scaleY
+		 * @returns {Transform}
+		 */
+		scaleY(scaleY:number):TransformTransaction;
+		/**
+		 * 変換マトリックスに変倍を加えます。
+		 * @param scaleX
+		 * @param scaleY
+		 * @returns {Transform}
+		 */
+		scale(scaleX:number,scaleY:number):TransformTransaction;
+
+		/**
+		 * 変換マトリックスに回転成分を加えます。
+		 * @param rad
+		 * @returns {Transform}
+		 */
+		rotate(transform:Transform,rad:number):TransformTransaction;
+
+		/**
+		 * マトリックスにX軸方向へのゆがみ成分を加えます。
+		 * @param radX
+		 * @returns {Transform}
+		 */
+		skewX(transform:Transform,radX:number):TransformTransaction;
+
+		/**
+		 * マトリックスにY軸方向へのゆがみ成分を加えます。
+		 * @param radY
+		 * @returns {Transform}
+		 */
+		skewY(transform:Transform,radY:number):TransformTransaction;
+
+		/**
+		 * マトリックスにゆがみ成分を加えます。
+		 * @param radX
+		 * @param radY
+		 * @returns {Transform}
+		 */
+		skew(radX:number,radY:number):TransformTransaction;
+
+		/**
+		 * Matrixを結合します。
+		 * @param transform
+		 * @returns {Transform}
+		 */
+		concat(transform:Transform):TransformTransaction;
 	}
 
 	/**
@@ -265,7 +320,7 @@ declare namespace drawchat.updater {
 		 * @param cpx1
 		 * @param cpy1
 		 * @param cpx2
-		 * @param cpy3
+		 * @param cpy2
 		 * @param x
 		 * @param y
 		 */
@@ -293,6 +348,22 @@ declare namespace drawchat.updater {
 	 * 線描画トランザクション
 	 */
 	interface DrawPathTransaction extends PathTransaction{
+		/**
+		 * 既存の描画内容との合成方法を指定する。
+		 * 0:source-over 両方のイメージの領域が描画される。重なった部分は新規イメージとなる。（初期値）<br />
+		 * 1:source-atop 現在イメージの領域のみが描画される。重なった部分は新規イメージとなる。<br />
+		 * 2:source-in 重なった領域のみが描画される。重なった部分は新規イメージとなる。<br />
+		 * 3:source-out 新規イメージの領域のみが描画される。重なった部分は描画されない。<br />
+		 * 4:destination-atop 新規イメージの領域のみが描画される。重なった部分は現在イメージとなる。<br />
+		 * 5:destination-in 重なった領域のみが描画される。重なった部分は現在イメージとなる。<br />
+		 * 6:destination-out 現在イメージの領域のみが描画される。重なった部分は描画されない。<br />
+		 * 7:destination-over 両方のイメージの領域が描画される。重なった部分は現在イメージとなる。<br />
+		 * 8:lighter 両方のイメージの領域が描画される。重なった部分は混色して描画される。<br />
+		 * 9:copy 新規イメージの領域のみが描画される。重なった部分は新規イメージとなる。<br />
+		 * 10:xor 両方のイメージの領域が描画される。重なった部分は描画されない。<br />
+		 * @param compositeOperation
+		 */
+		setCompositeOperation(compositeOperation:number):DrawPathTransaction
 
 		/**
 		 * 塗りの色を設定する。
@@ -430,7 +501,7 @@ declare namespace drawchat.updater {
 		 * @param cpx1
 		 * @param cpy1
 		 * @param cpx2
-		 * @param cpy3
+		 * @param cpy2
 		 * @param x
 		 * @param y
 		 */
@@ -500,6 +571,23 @@ declare namespace drawchat.updater {
 	 * テキスト編集トランザクション
 	 */
 	interface TextTransaction extends DrawTransaction{
+
+		/**
+		 * 既存の描画内容との合成方法を指定する。
+		 * 0:source-over 両方のイメージの領域が描画される。重なった部分は新規イメージとなる。（初期値）<br />
+		 * 1:source-atop 現在イメージの領域のみが描画される。重なった部分は新規イメージとなる。<br />
+		 * 2:source-in 重なった領域のみが描画される。重なった部分は新規イメージとなる。<br />
+		 * 3:source-out 新規イメージの領域のみが描画される。重なった部分は描画されない。<br />
+		 * 4:destination-atop 新規イメージの領域のみが描画される。重なった部分は現在イメージとなる。<br />
+		 * 5:destination-in 重なった領域のみが描画される。重なった部分は現在イメージとなる。<br />
+		 * 6:destination-out 現在イメージの領域のみが描画される。重なった部分は描画されない。<br />
+		 * 7:destination-over 両方のイメージの領域が描画される。重なった部分は現在イメージとなる。<br />
+		 * 8:lighter 両方のイメージの領域が描画される。重なった部分は混色して描画される。<br />
+		 * 9:copy 新規イメージの領域のみが描画される。重なった部分は新規イメージとなる。<br />
+		 * 10:xor 両方のイメージの領域が描画される。重なった部分は描画されない。<br />
+		 * @param compositeOperation
+		 */
+		setCompositeOperation(compositeOperation:number):TextTransaction
 
 		setPosition(x:number,y:number):TextTransaction;
 

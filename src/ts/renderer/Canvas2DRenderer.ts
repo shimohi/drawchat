@@ -35,6 +35,14 @@ class Renderer implements DrawchatRenderer{
 		);
 	}
 
+	get width():number{
+		return this.canvasContainer.width;
+	}
+
+	get height():number{
+		return this.canvasContainer.height;
+	}
+
 	size():number {
 		return this.canvasContainer.getSize();
 	}
@@ -111,6 +119,12 @@ class Renderer implements DrawchatRenderer{
 		for(let canvas of this.getCanvasList(target)){
 			canvas.globalAlpha = 0.0;
 		}
+	}
+
+	getPixelColor(x: number, y: number, layerIndex: number): number[] {
+		let canvas = this.canvasContainer.getCanvas(layerIndex);
+		let data:ImageData = canvas.getImageData(x,y,1,1);
+		return [data.data[0],data.data[1],data.data[2],data.data[3]];
 	}
 
 	private renderDraw(

@@ -30,7 +30,6 @@ export abstract class FixSizeArray<I>{
 	size():number{
 		return this.len;
 	}
-
 	get max():number{
 		return this._max;
 	}

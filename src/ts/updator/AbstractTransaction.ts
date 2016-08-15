@@ -26,15 +26,22 @@ export abstract class AbstractTransaction implements DrawTransaction{
 		this.session.setHistoryNumberNow(this.savePoint);
 	}
 
-	cancel():void {
+	cancel(duration: boolean = false): void {
 		this.session.setHistoryNumberNow(this.startPoint,true);
-		this.session.release();
+		if(!duration){
+			this.session.release();
+			return;
+		}
 	}
 
-	commit():void {
+	commit(duration: boolean = false): void {
 		this.session.setHistoryNumberNow(this.startPoint);
 		this.doCommit();
-		this.session.release();
+		if(!duration){
+			this.session.release();
+			return;
+		}
+		this.startPoint = this.history.getNowHistoryNumber();
 	}
 
 	isAlive(): boolean {
