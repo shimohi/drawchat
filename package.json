@@ -44,6 +44,7 @@
     "sass-loader": "^4.0.0",
     "sinon": "^1.17.2",
     "style-loader": "^0.13.1",
+    "toolbox-loader": "0.0.3",
     "ts-loader": "^0.8.2",
     "tsify": "^1.0.1",
     "typescript": "^1.7.5",
@@ -55,6 +56,11 @@
   "dependencies": {
     "eventemitter3": "^1.2.0",
     "jquery": "^3.1.0",
+    "normalize.css": "^4.2.0",
+    "react": "^15.3.0",
+    "react-addons-css-transition-group": "^15.3.0",
+    "react-addons-update": "^15.3.0",
+    "react-dom": "^15.3.0",
     "react-toolbox": "^1.1.2"
   }
 }
