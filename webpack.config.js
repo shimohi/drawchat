@@ -5,7 +5,7 @@ module.exports = [
 
 	//TypeScript
 	{
-		entry: './src/ts/entry.ts',
+		entry: './src/ts/entry.tsx',
 		output: {
 			filename: './artifact/app.js'
 		},
@@ -16,13 +16,33 @@ module.exports = [
 		devtool: 'source-map',
 		module: {
 			loaders: [
-				// all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
 				{
-					test: /\.tsx?$/,
-					loader: 'ts-loader'
+					test: /\.ts(x?)$/,
+					loader: 'babel-loader?presets[]=es2015,presets[]=stage-0,presets[]=react!ts-loader'
+				// all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+				// {
+				// 	test: /\.tsx?$/,
+				// 	loader: 'ts-loader'
+				// },
+				// {
+				// 	test: /\.js[x]?$/,
+				// 	exclude: /node_modules/,
+				// 	loader: "babel",
+				// 	query:{
+				// 		presets: ['react', 'es2015']
+				// 	}
 				}
+			],
+			preLoaders: [
+				// All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+				{ test: /\.js$/, loader: "source-map-loader" }
 			]
 		}
+		// ,
+		// externals: {
+		// 	"react": "React",
+		// 	"react-dom": "ReactDOM"
+		// }
 	},
 	//SASS
 	{

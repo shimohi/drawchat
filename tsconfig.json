@@ -4,7 +4,8 @@
     "module": "commonjs",
     "noImplicitAny": true,
     "sourceMap": true,
-    "declaration": false
+    "declaration": false,
+    "jsx": "react"
   },
   "exclude": [
     "typings/main.d.ts",
