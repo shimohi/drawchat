@@ -1,11 +1,11 @@
-const path = require('path');
+var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = [
-
-	//TypeScript
 	{
+		context: __dirname,
 		entry: './src/ts/entry.tsx',
 		output: {
 			filename: './artifact/app.js'
@@ -17,52 +17,38 @@ module.exports = [
 				path.resolve(__dirname, './node_modules')
 			]
 		},
-		// resolve: {
-		// 	// Add `.ts` and `.tsx` as a resolvable extension.
-		// 	extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
-		// },
 		devtool: 'source-map',
 		module: {
 			loaders: [
-				// {
-				// 	test: /\.js(x?)$/,
-				// 	exclude:'src/ts',
-				// 	loader: 'babel-loader?presets[]=es2015,presets[]=stage-3,presets[]=react'
-				// 	// all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-				// 	// {
-				// 	// 	test: /\.tsx?$/,
-				// 	// 	loader: 'ts-loader'
-				// 	// },
-				// 	// {
-				// 	// 	test: /\.js[x]?$/,
-				// 	// 	exclude: /node_modules/,
-				// 	// 	loader: "babel",
-				// 	// 	query:{
-				// 	// 		presets: ['react', 'es2015']
-				// 	// 	}
-				// },
 				{
 					test: /\.ts(x?)$/,
-					loader: 'babel-loader?presets[]=es2015,presets[]=stage-3,presets[]=react!ts-loader'
-				// all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-				// {
-				// 	test: /\.tsx?$/,
-				// 	loader: 'ts-loader'
-				// },
-				// {
-				// 	test: /\.js[x]?$/,
-				// 	exclude: /node_modules/,
-				// 	loader: "babel",
-				// 	query:{
-				// 		presets: ['react', 'es2015']
-				// 	}
+					loader: 'babel-loader?presets[]=es2015,presets[]=stage-3,presets[]=react!ts-loader',
+					exclude: /(node_modules)/
+				},{
+					test: /(\.scss|\.css)$/,
+					loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass')
 				}
 			],
 			preLoaders: [
-				// All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-				{ test: /\.js$/, loader: "source-map-loader" }
+				{
+					test: /\.js$/,
+					loader: "source-map-loader"
+				}
 			]
-		}
+		},
+		postcss: [autoprefixer],
+		sassLoader: {
+			data: '@import "theme/_config.scss";',
+			includePaths: [path.resolve(__dirname, './src/scss')]
+		},
+		plugins: [
+			new ExtractTextPlugin('./artifact/app.css', { allChunks: true }),
+			// new webpack.HotModuleReplacementPlugin(),
+			// new webpack.NoErrorsPlugin(),
+			// new webpack.DefinePlugin({
+			// 	'process.env.NODE_ENV': JSON.stringify('development')
+			// })
+		]
 		// ,
 		// externals: {
 		// 	"react": "React",
@@ -70,28 +56,28 @@ module.exports = [
 		// }
 	},
 	//SASS
-	{
-		entry: './src/scss/loader.js',
-		output: {
-			filename: './artifact/app.css'
-		},
-		devtool: 'source-map',
-		module: {
-			loaders: [
-				{
-					test: /\.css$/,
-					loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-				},
-				{
-					test: /\.scss$/,
-					loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
-				}
-			]
-		},
-		plugins: [
-			new ExtractTextPlugin('./artifact/app.css')
-		]
-	},
+	// {
+	// 	entry: './src/scss/loader.js',
+	// 	output: {
+	// 		filename: './artifact/app.css'
+	// 	},
+	// 	devtool: 'source-map',
+	// 	module: {
+	// 		loaders: [
+	// 			{
+	// 				test: /\.css$/,
+	// 				loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+	// 			},
+	// 			{
+	// 				test: /\.scss$/,
+	// 				loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+	// 			}
+	// 		]
+	// 	},
+	// 	plugins: [
+	// 		new ExtractTextPlugin('./artifact/app.css')
+	// 	]
+	// },
 	//HTMLファイル
 	{
 		output: {

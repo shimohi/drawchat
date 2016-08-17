@@ -14,6 +14,7 @@ classes/
 node_modules/
 bin/
 typings
+artifact/
 /artifact/**/*.js
 /artifact/**/*.ts
 /artifact/**/*.map
