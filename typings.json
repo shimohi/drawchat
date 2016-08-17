@@ -2,7 +2,6 @@
   "name": "loligo",
   "version": false,
   "dependencies": {
-    "react": "registry:npm/react#15.0.1+20160601175240",
     "react-dom": "registry:npm/react-dom#15.0.1+20160705210405",
     "sinon": "registry:npm/sinon#1.16.0+20160723033700"
   },
@@ -13,7 +12,6 @@
     "mocha": "registry:dt/mocha#2.2.5+20160720003353",
     "power-assert": "registry:dt/power-assert#0.0.0+20160316155526",
     "power-assert-formatter": "registry:dt/power-assert-formatter#0.0.0+20160317120654",
-    "react": "registry:dt/react#0.14.0+20160805125551",
-    "react-dom": "registry:dt/react-dom#0.14.0+20160412154040"
+    "react": "registry:dt/react#0.14.0+20160805125551"
   }
 }

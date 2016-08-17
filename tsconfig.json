@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "commonjs",
+    "module": "es2015",
+    "moduleResolution": "node",
     "noImplicitAny": true,
+    "declaration":false,
     "sourceMap": true,
-    "declaration": false,
+    "inlineSourceMap":false,
+    "inlineSources":true,
     "jsx": "react"
   },
   "exclude": [
-    "typings/main.d.ts",
-    "typings/main",
+    "artifact",
     "node_modules"
   ]
 }

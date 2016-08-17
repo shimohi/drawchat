@@ -1,9 +1,8 @@
-"use strict";
-const assert = require('power-assert');
-const sample_1 = require('../ts/sample');
+import * as assert from 'power-assert';
+import TestTarget from '../ts/sample';
 describe("sample test", () => {
     it("1+1=2であるべき。1", () => {
-        let testTarget = new sample_1.default();
+        let testTarget = new TestTarget();
         assert(testTarget.sum(1, 1) == 2);
     });
 });

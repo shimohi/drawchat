@@ -1,3 +1,4 @@
+const path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -10,15 +11,39 @@ module.exports = [
 			filename: './artifact/app.js'
 		},
 		resolve: {
-			// Add `.ts` and `.tsx` as a resolvable extension.
-			extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+			extensions: ['', '.scss', '.css', '.js', '.json'],
+			modulesDirectories: [
+				'node_modules',
+				path.resolve(__dirname, './node_modules')
+			]
 		},
+		// resolve: {
+		// 	// Add `.ts` and `.tsx` as a resolvable extension.
+		// 	extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+		// },
 		devtool: 'source-map',
 		module: {
 			loaders: [
+				// {
+				// 	test: /\.js(x?)$/,
+				// 	exclude:'src/ts',
+				// 	loader: 'babel-loader?presets[]=es2015,presets[]=stage-3,presets[]=react'
+				// 	// all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+				// 	// {
+				// 	// 	test: /\.tsx?$/,
+				// 	// 	loader: 'ts-loader'
+				// 	// },
+				// 	// {
+				// 	// 	test: /\.js[x]?$/,
+				// 	// 	exclude: /node_modules/,
+				// 	// 	loader: "babel",
+				// 	// 	query:{
+				// 	// 		presets: ['react', 'es2015']
+				// 	// 	}
+				// },
 				{
 					test: /\.ts(x?)$/,
-					loader: 'babel-loader?presets[]=es2015,presets[]=stage-0,presets[]=react!ts-loader'
+					loader: 'babel-loader?presets[]=es2015,presets[]=stage-3,presets[]=react!ts-loader'
 				// all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
 				// {
 				// 	test: /\.tsx?$/,
