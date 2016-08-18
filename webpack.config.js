@@ -55,29 +55,29 @@ module.exports = [
 		// 	"react-dom": "ReactDOM"
 		// }
 	},
-	//SASS
-	// {
-	// 	entry: './src/scss/loader.js',
-	// 	output: {
-	// 		filename: './artifact/app.css'
-	// 	},
-	// 	devtool: 'source-map',
-	// 	module: {
-	// 		loaders: [
-	// 			{
-	// 				test: /\.css$/,
-	// 				loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-	// 			},
-	// 			{
-	// 				test: /\.scss$/,
-	// 				loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
-	// 			}
-	// 		]
-	// 	},
-	// 	plugins: [
-	// 		new ExtractTextPlugin('./artifact/app.css')
-	// 	]
-	// },
+	// デフォルトCSS
+	{
+		entry: './src/scss/loader.js',
+		output: {
+			filename: './artifact/default.css'
+		},
+		devtool: 'source-map',
+		module: {
+			loaders: [
+				{
+					test: /\.css$/,
+					loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+				},
+				{
+					test: /\.scss$/,
+					loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+				}
+			]
+		},
+		plugins: [
+			new ExtractTextPlugin('./artifact/default.css')
+		]
+	},
 	//HTMLファイル
 	{
 		output: {
