@@ -28,6 +28,17 @@ class Root extends React.Component<IMainProps, IMainState> {
 		};
 		return(
 			<div className={styles.container}>
+				<div className={styles.menuBar}>
+					<div>
+						<span className="material-icons">file_upload</span>
+					</div>
+					<div>
+						<span className="material-icons">undo</span>
+					</div>
+					<div>
+						<span className="material-icons">redo</span>
+					</div>
+				</div>
 				<div className={styles.modeChanger}>
 					<div>
 						<span className="material-icons">brush</span>
@@ -62,18 +73,7 @@ class Root extends React.Component<IMainProps, IMainState> {
 						<canvas />
 					</div>
 				</div>
-				<div>
-					<div>
-						<span className="material-icons">file_upload</span>
-					</div>
-					<div>
-						<span className="material-icons">undo</span>
-					</div>
-					<div>
-						<span className="material-icons">redo</span>
-					</div>
-				</div>
-				<div>
+				<div className={styles.layers}>
 					<div>
 						<span className="material-icons">clear</span>
 					</div>
@@ -96,7 +96,7 @@ class Root extends React.Component<IMainProps, IMainState> {
 						<span className="material-icons">add</span>
 					</div>
 				</div>
-				<div>
+				<div className={styles.colorSelector}>
 					<div>
 						<span className="material-icons">palette</span>
 					</div>

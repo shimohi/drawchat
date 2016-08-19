@@ -10,9 +10,18 @@
 .entry__material-icons___3zW9f.entry__md-48___ysAX5 {
   font-size: 48px; }
 
+.entry__container___1t9oO {
+  height: 100%; }
+
+.entry__main___3OW1k {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #adadad; }
+
 .entry__modeChanger___1LNDT {
   height: 100%;
-  width: 50px;
+  width: 5%;
   background-color: #00acac;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -21,5 +30,47 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column; }
+
+.entry__menuBar___1pNte {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  margin-left: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  font-size: 30px; }
+
+.entry__colorSelector___3IdvG {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #002a80; }
+
+.entry__layers____lpgS {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
 
 /*# sourceMappingURL=app.css.map*/
