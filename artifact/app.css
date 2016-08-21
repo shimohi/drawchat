@@ -19,7 +19,18 @@
   height: 100%;
   background-color: #adadad; }
 
+.entry__canvasContainer___LWTpO {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #adadad; }
+
 .entry__modeChanger___1LNDT {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 5%;
   background-color: #00acac;
@@ -29,7 +40,30 @@
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
-          flex-direction: column; }
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.entry__modeChanger__item___qrK71 {
+  width: 60px;
+  height: 60px;
+  position: relative; }
+
+.entry__modeChanger__item_circle___1lW_E {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: table;
+  text-align: center;
+  border-radius: 50px 50px 50px 50px;
+  background-color: #0000ff; }
+
+.entry__modeChanger__item_cell___2C_6S {
+  display: table-cell;
+  vertical-align: middle; }
 
 .entry__menuBar___1pNte {
   position: absolute;
@@ -37,17 +71,13 @@
   left: 0;
   width: 100%;
   height: 5%;
-  margin-left: 5%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: right;
-      -ms-flex-pack: right;
-          justify-content: right;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
   font-size: 30px; }
 
 .entry__colorSelector___3IdvG {
@@ -55,6 +85,26 @@
   bottom: 0;
   right: 0;
   background-color: #002a80; }
+
+.entry__colorSelector__item___tQ9Tz {
+  width: 60px;
+  height: 60px;
+  position: relative; }
+
+.entry__colorSelector__item_circle___uFDJN {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: table;
+  text-align: center;
+  border-radius: 50px 50px 50px 50px;
+  background-color: #0000ff; }
+
+.entry__colorSelector__item_cell___hIYNb {
+  display: table-cell;
+  vertical-align: middle; }
 
 .entry__layers____lpgS {
   position: absolute;

@@ -10,7 +10,20 @@
 		color: #adadad;
 	};
 }
+.canvasContainer{
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background: {
+		color: #adadad;
+	};
+}
 .modeChanger{
+	position:absolute;
+	top:0;
+	left:0;
 	height: 100%;
 	width: 5%;
 	background:{
@@ -18,6 +31,29 @@
 	}
 	display: flex;
 	flex-direction:column;
+	align-items: center;
+}
+.modeChanger__item{
+	width:60px;
+	height:60px;
+	position: relative;
+}
+.modeChanger__item_circle{
+	width:50px;
+	height:50px;
+	position: absolute;
+	top:5px;
+	left: 5px;
+	display: table;
+	text-align: center;
+	border: {
+		radius: 50px 50px 50px 50px;
+	};
+	background-color: #0000ff;
+}
+.modeChanger__item_cell{
+	display:table-cell;
+	vertical-align: middle;
 }
 .menuBar{
 	position: absolute;
@@ -25,7 +61,7 @@
 	left:0;
 	width:100%;
 	height:5%;
-	margin-left:5%;
+	//margin-left:5%;
 	display: flex;
 	flex-direction:row-reverse;
 	font-size:30px;
@@ -37,6 +73,28 @@
 	background: {
 		color: #002a80;
 	};
+}
+.colorSelector__item{
+	width:60px;
+	height:60px;
+	position: relative;
+}
+.colorSelector__item_circle{
+	width:50px;
+	height:50px;
+	position: absolute;
+	top:5px;
+	left: 5px;
+	display: table;
+	text-align: center;
+	border: {
+		radius: 50px 50px 50px 50px;
+	};
+	background-color: #0000ff;
+}
+.colorSelector__item_cell{
+	display:table-cell;
+	vertical-align: middle;
 }
 .layers{
 	position: absolute;

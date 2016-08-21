@@ -28,49 +28,85 @@ class Root extends React.Component<IMainProps, IMainState> {
 		};
 		return(
 			<div className={styles.container}>
+				<div className={styles.canvasContainer}>
+					<div>
+						<canvas />
+					</div>
+				</div>
 				<div className={styles.menuBar}>
 					<div>
-						<span className="material-icons">file_upload</span>
+						<span className="material-icons">redo</span>
 					</div>
 					<div>
 						<span className="material-icons">undo</span>
 					</div>
 					<div>
-						<span className="material-icons">redo</span>
+						<span className="material-icons">file_upload</span>
 					</div>
 				</div>
 				<div className={styles.modeChanger}>
-					<div>
-						<span className="material-icons">brush</span>
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">brush</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">brush</span>
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">brush</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">brush</span>
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">brush</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">format_paint</span>
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">format_paint</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">pan_tool</span>
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">pan_tool</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">text_fields</span>
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">text_fields</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">crop_free</span>
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">crop_free</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">colorize</span>
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">colorize</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">panorama_fish_eye</span>
-					</div>
-				</div>
-				<div>
-					<div>
-						<canvas />
+					<div className={styles.modeChanger__item}>
+						<div className={styles.modeChanger__item_circle}>
+							<div className={styles.modeChanger__item_cell}>
+								<span className="material-icons">panorama_fish_eye</span>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div className={styles.layers}>
@@ -97,17 +133,33 @@ class Root extends React.Component<IMainProps, IMainState> {
 					</div>
 				</div>
 				<div className={styles.colorSelector}>
-					<div>
-						<span className="material-icons">palette</span>
+					<div className={styles.colorSelector__item}>
+						<div className={styles.colorSelector__item_circle}>
+							<div className={styles.colorSelector__item_cell}>
+								<span className="material-icons">palette</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">format_color_fill</span>
+					<div className={styles.colorSelector__item}>
+						<div className={styles.colorSelector__item_circle}>
+							<div className={styles.colorSelector__item_cell}>
+								<span className="material-icons">format_color_fill</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">format_color_fill</span>
+					<div className={styles.colorSelector__item}>
+						<div className={styles.colorSelector__item_circle}>
+							<div className={styles.colorSelector__item_cell}>
+								<span className="material-icons">format_color_fill</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">format_color_fill</span>
+					<div className={styles.colorSelector__item}>
+						<div className={styles.colorSelector__item_circle}>
+							<div className={styles.colorSelector__item_cell}>
+								<span className="material-icons">format_color_fill</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
