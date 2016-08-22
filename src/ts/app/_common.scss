@@ -1,0 +1,9 @@
+@mixin items{
+	position: absolute;
+	display: table;
+	text-align: center;
+}
+@mixin item{
+	display:table-cell;
+	vertical-align: middle;
+}

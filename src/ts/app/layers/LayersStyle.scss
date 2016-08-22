@@ -1,0 +1,40 @@
+@import "../common";
+.container{
+	position: relative;
+	display: flex;
+	width:100%;
+	height:100%;
+	min-height: 50px;
+	flex-direction:row;
+	justify-content:center;
+}
+.item{
+	width:50px;
+	height:50px;
+}
+.item__box{
+	@include items;
+	width:80%;
+	height:80%;
+	top:10%;
+	left: 10%;
+}
+@mixin layers__item{
+	@include item;
+}
+.item__add{
+	@include layers__item;
+}
+.item__del{
+	@include layers__item;
+}
+.item__del{
+	@include layers__item;
+}
+.item__selected{
+	@include layers__item;
+}
+.item__unselected{
+	@include layers__item;
+}
+

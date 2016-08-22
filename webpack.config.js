@@ -6,13 +6,14 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = [
 	{
 		context: __dirname,
-		entry: './src/ts/entry.tsx',
+		entry: './src/ts/app/entry.tsx',
 		output: {
 			filename: './artifact/app.js'
 		},
 		resolve: {
-			extensions: ['', '.scss', '.css', '.js', '.json'],
+			extensions: ['' , '.scss' , '.css' , ".ts" , ".tsx" , '.js' , '.json'],
 			modulesDirectories: [
+				'src/ts',
 				'node_modules',
 				path.resolve(__dirname, './node_modules')
 			]
@@ -21,7 +22,7 @@ module.exports = [
 		module: {
 			loaders: [
 				{
-					test: /\.ts(x?)$/,
+					test: /\.tsx?$/,
 					loader: 'babel-loader?presets[]=es2015,presets[]=stage-3,presets[]=react!ts-loader',
 					exclude: /(node_modules)/
 				},{
@@ -49,11 +50,11 @@ module.exports = [
 			// 	'process.env.NODE_ENV': JSON.stringify('development')
 			// })
 		]
-		// ,
-		// externals: {
-		// 	"react": "React",
-		// 	"react-dom": "ReactDOM"
-		// }
+		,
+		externals: {
+			"react": "React",
+			"react-dom": "ReactDOM"
+		}
 	},
 	// デフォルトCSS
 	{

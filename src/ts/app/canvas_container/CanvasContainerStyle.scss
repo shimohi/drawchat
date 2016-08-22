@@ -1,0 +1,20 @@
+@import "../common";
+.container{
+	position: relative;
+	width:100%;
+	height:100%;
+	background: {
+		color: #adadad;
+	};
+}
+.container__background{
+	position: absolute;
+	background-color: white;
+	width: 80%;
+	height: 80%;
+	top: 10%;
+	left: 10%;
+	//box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
