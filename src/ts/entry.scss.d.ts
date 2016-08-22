@@ -1,13 +1,23 @@
+export const container: string;
 export const modeChanger: string;
 export const modeChanger__item:string;
 export const modeChanger__item_circle:string;
 export const modeChanger__item_cell:string;
-export const container: string;
 export const menuBar:string;
+export const menuBar__item:string;
+export const menuBar__item_square:string;
+export const menuBar__item_cell:string;
 export const layers:string;
+export const layers__item:string;
+export const layers__item_add:string;
+export const layers__item_del:string;
+export const layers__item_selected:string;
+export const layers__item_unselected:string;
 export const canvasContainer:string;
+export const canvasContainer__background:string;
 export const colorSelector:string;
 export const colorSelector__item:string;
+export const colorSelector__item_box:string;
 export const colorSelector__item_circle:string;
 export const colorSelector__item_cell:string;
 

@@ -1,3 +1,12 @@
+@mixin items{
+	position: absolute;
+	display: table;
+	text-align: center;
+}
+@mixin item{
+	display:table-cell;
+	vertical-align: middle;
+}
 .container{
 	height: 100%;
 
@@ -20,12 +29,23 @@
 		color: #adadad;
 	};
 }
+.canvasContainer__background{
+	position: absolute;
+	background-color: white;
+	width: 80%;
+	height: 80%;
+	top: 10%;
+	left: 10%;
+	//box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
 .modeChanger{
 	position:absolute;
 	top:0;
 	left:0;
 	height: 100%;
 	width: 5%;
+	min-width: 60px;
 	background:{
 		color: #00acac;
 	}
@@ -39,21 +59,18 @@
 	position: relative;
 }
 .modeChanger__item_circle{
-	width:50px;
-	height:50px;
-	position: absolute;
-	top:5px;
-	left: 5px;
-	display: table;
-	text-align: center;
+	@include items;
+	width:80%;
+	height:80%;
+	top:10%;
+	left: 10%;
 	border: {
-		radius: 50px 50px 50px 50px;
+		radius: 50% 50% 50% 50%;
 	};
 	background-color: #0000ff;
 }
 .modeChanger__item_cell{
-	display:table-cell;
-	vertical-align: middle;
+	@include item;
 }
 .menuBar{
 	position: absolute;
@@ -61,10 +78,28 @@
 	left:0;
 	width:100%;
 	height:5%;
-	//margin-left:5%;
+	min-height: 50px;
 	display: flex;
 	flex-direction:row-reverse;
-	font-size:30px;
+}
+.menuBar__item{
+	width:60px;
+	height:50px;
+	position: relative;
+}
+.menuBar__item_square{
+	@include items;
+	width:80%;
+	height:80%;
+	top:10%;
+	left: 10%;
+	border: {
+		radius: 10% 10% 10% 10%;
+	};
+	background-color: #0000ff;
+}
+.menuBar__item_cell{
+	@include item;
 }
 .colorSelector{
 	position: absolute;
@@ -80,21 +115,18 @@
 	position: relative;
 }
 .colorSelector__item_circle{
+	@include items;
 	width:50px;
 	height:50px;
-	position: absolute;
 	top:5px;
 	left: 5px;
-	display: table;
-	text-align: center;
 	border: {
 		radius: 50px 50px 50px 50px;
 	};
 	background-color: #0000ff;
 }
 .colorSelector__item_cell{
-	display:table-cell;
-	vertical-align: middle;
+	@include item;
 }
 .layers{
 	position: absolute;
@@ -103,6 +135,38 @@
 	left:0;
 	width:100%;
 	height:5%;
+	min-height: 50px;
 	flex-direction:row;
 	justify-content:center;
 }
+.layers__item{
+	width:50px;
+	height:50px;
+	position: relative;
+}
+.layers__item_box{
+	@include items;
+	width:80%;
+	height:80%;
+	top:10%;
+	left: 10%;
+}
+@mixin layers__item{
+	@include item;
+}
+.layers__item_add{
+	@include layers__item;
+}
+.layers__item_del{
+	@include layers__item;
+}
+.layers__item_del{
+	@include layers__item;
+}
+.layers__item_selected{
+	@include layers__item;
+}
+.layers__item_unselected{
+	@include layers__item;
+}
+

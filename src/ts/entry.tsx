@@ -29,19 +29,31 @@ class Root extends React.Component<IMainProps, IMainState> {
 		return(
 			<div className={styles.container}>
 				<div className={styles.canvasContainer}>
-					<div>
+					<div className={styles.canvasContainer__background}>
 						<canvas />
 					</div>
 				</div>
 				<div className={styles.menuBar}>
-					<div>
-						<span className="material-icons">redo</span>
+					<div className={styles.menuBar__item}>
+						<div className={styles.menuBar__item_square}>
+							<div className={styles.menuBar__item_cell}>
+								<span className="material-icons">redo</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">undo</span>
+					<div className={styles.menuBar__item}>
+						<div className={styles.menuBar__item_square}>
+							<div className={styles.menuBar__item_cell}>
+								<span className="material-icons">undo</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">file_upload</span>
+					<div className={styles.menuBar__item}>
+						<div className={styles.menuBar__item_square}>
+							<div className={styles.menuBar__item_cell}>
+								<span className="material-icons">file_upload</span>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div className={styles.modeChanger}>
@@ -110,54 +122,68 @@ class Root extends React.Component<IMainProps, IMainState> {
 					</div>
 				</div>
 				<div className={styles.layers}>
-					<div>
-						<span className="material-icons">clear</span>
+					<div className={styles.layers__item}>
+						<div className={styles.layers__item_del}>
+							<span className="material-icons">clear</span>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">radio_button_checked</span>
+					<div className={styles.layers__item}>
+						<div className={styles.layers__item_selected}>
+							<span className="material-icons">radio_button_checked</span>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">radio_button_unchecked</span>
+					<div className={styles.layers__item}>
+						<div className={styles.layers__item_unselected}>
+							<span className="material-icons">radio_button_unchecked</span>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">radio_button_unchecked</span>
+					<div className={styles.layers__item}>
+						<div className={styles.layers__item_unselected}>
+							<span className="material-icons">radio_button_unchecked</span>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">radio_button_unchecked</span>
+					<div className={styles.layers__item}>
+						<div className={styles.layers__item_unselected}>
+							<span className="material-icons">radio_button_unchecked</span>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">radio_button_unchecked</span>
+					<div className={styles.layers__item}>
+						<div className={styles.layers__item_unselected}>
+							<span className="material-icons">radio_button_unchecked</span>
+						</div>
 					</div>
-					<div>
-						<span className="material-icons">add</span>
+					<div className={styles.layers__item}>
+						<div className={styles.layers__item_add}>
+							<span className="material-icons">add</span>
+						</div>
 					</div>
 				</div>
 				<div className={styles.colorSelector}>
 					<div className={styles.colorSelector__item}>
 						<div className={styles.colorSelector__item_circle}>
 							<div className={styles.colorSelector__item_cell}>
+								<span className="material-icons">format_color_fill</span>
+							</div>
+						</div>
+					</div>
+					<div className={styles.colorSelector__item}>
+						<div className={styles.colorSelector__item_circle}>
+							<div className={styles.colorSelector__item_cell}>
+								<span className="material-icons">format_color_fill</span>
+							</div>
+						</div>
+					</div>
+					<div className={styles.colorSelector__item}>
+						<div className={styles.colorSelector__item_circle}>
+							<div className={styles.colorSelector__item_cell}>
+								<span className="material-icons">format_color_fill</span>
+							</div>
+						</div>
+					</div>
+					<div className={styles.colorSelector__item}>
+						<div className={styles.colorSelector__item_circle}>
+							<div className={styles.colorSelector__item_cell}>
 								<span className="material-icons">palette</span>
-							</div>
-						</div>
-					</div>
-					<div className={styles.colorSelector__item}>
-						<div className={styles.colorSelector__item_circle}>
-							<div className={styles.colorSelector__item_cell}>
-								<span className="material-icons">format_color_fill</span>
-							</div>
-						</div>
-					</div>
-					<div className={styles.colorSelector__item}>
-						<div className={styles.colorSelector__item_circle}>
-							<div className={styles.colorSelector__item_cell}>
-								<span className="material-icons">format_color_fill</span>
-							</div>
-						</div>
-					</div>
-					<div className={styles.colorSelector__item}>
-						<div className={styles.colorSelector__item_circle}>
-							<div className={styles.colorSelector__item_cell}>
-								<span className="material-icons">format_color_fill</span>
 							</div>
 						</div>
 					</div>
