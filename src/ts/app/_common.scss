@@ -1,3 +1,22 @@
+@import "colors";
+
+$color-primary: 			$color-black;
+$color-primary-active: 		$color-black;
+$color-primary-hover: 		$color-black;
+$color-primary-disable: 	$color-black;
+$color-secondary: 			$color-black;
+$color-secondary-active: 	$color-black;
+$color-secondary-hover:		$color-black;
+$color-secondary-disable:	$color-black;
+$color-tertiary:			$color-black;
+$color-tertiary-active:		$color-black;
+$color-tertiary-hover:		$color-black;
+$color-tertiary-disable:	$color-black;
+$color-quaternary:			$color-black;
+$color-quaternary-active:	$color-black;
+$color-quaternary-hover:	$color-black;
+$color-quaternary-disable:	$color-black;
+
 @mixin items{
 	position: absolute;
 	display: table;
