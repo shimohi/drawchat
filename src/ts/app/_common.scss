@@ -1,28 +1,46 @@
-@import "colors";
+$color-diff:				#151515 !default;
+$color-white:				rgb(255,255,255);
 
-$color-primary: 			$color-black;
-$color-primary-active: 		$color-black;
-$color-primary-hover: 		$color-black;
-$color-primary-disable: 	$color-black;
-$color-secondary: 			$color-black;
-$color-secondary-active: 	$color-black;
-$color-secondary-hover:		$color-black;
-$color-secondary-disable:	$color-black;
-$color-tertiary:			$color-black;
-$color-tertiary-active:		$color-black;
-$color-tertiary-hover:		$color-black;
-$color-tertiary-disable:	$color-black;
-$color-quaternary:			$color-black;
-$color-quaternary-active:	$color-black;
-$color-quaternary-hover:	$color-black;
-$color-quaternary-disable:	$color-black;
+$color-primary: 			rgb(40,53,147);
+$color-primary-active: 		$color-primary - $color-diff * 2;
+$color-primary-hover: 		$color-primary - $color-diff;
+$color-primary-disable: 	$color-primary + $color-diff * 3;
+$color-secondary: 			rgb(255,179,0);
+$color-secondary-active: 	$color-secondary - $color-diff * 2;
+$color-secondary-hover:		$color-secondary - $color-diff;
+$color-secondary-disable:	$color-secondary + $color-diff * 3;
+$color-tertiary:			rgb(66,66,66);
+$color-tertiary-active:		$color-tertiary - $color-diff * 2;
+$color-tertiary-hover:		$color-tertiary - $color-diff;
+$color-tertiary-disable:	$color-tertiary + $color-diff * 3;
+$color-quaternary:			rgb(2,119,189);
+$color-quaternary-active:	$color-quaternary - $color-diff * 2;
+$color-quaternary-hover:	$color-quaternary - $color-diff;
+$color-quaternary-disable:	$color-quaternary + $color-diff * 3;
 
 @mixin items{
 	position: absolute;
 	display: table;
 	text-align: center;
+	animation-duration: .1ms;
+	text-transform: uppercase;
+	transition: all .2s ease-in-out;
+	cursor: pointer;
+	touch-action: manipulation;
+	user-select: none;
+	////:active{
+	//	animation: anim-in 0.75s;
+	////}
 }
 @mixin item{
 	display:table-cell;
 	vertical-align: middle;
 }
+//@keyframes anim-in {
+//	0% {
+//		background: rgba(0, 0, 0, 0.80);
+//	}
+//	100% {
+//		background: transparent;
+//	}
+//}

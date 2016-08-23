@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as styles from './ModeChangerStyle.scss';
 
 export interface IMainState {

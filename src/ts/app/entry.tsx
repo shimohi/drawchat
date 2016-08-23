@@ -7,12 +7,6 @@ import {MenuBar} from "./menu_bar/MenuBar";
 import CanvasContainer from "./canvas_container/CanvasContainer";
 import {ColorSelector} from "./color_selector/ColorSelector";
 
-// import FontIcon from 'react-toolbox/lib/font_icon';
-// import {Layout, NavDrawer, Panel, Sidebar, List, ListItem} from "react-toolbox";
-
-// import {Card, CardTitle, CardMedia, CardText, CardActions} from "react-toolbox";
-// import {Button} from "react-toolbox";
-
 export interface IMainState {
 	newItem?: {
 		description: string;
@@ -27,11 +21,7 @@ class Root extends React.Component<IMainProps, IMainState> {
 		super(props);
 		this.state = {};
 	}
-
 	render() {
-		var divStyle = {
-			'fontSize': '48px'
-		};
 		return(
 			<div className={styles.container}>
 				<div className={styles.canvasContainer}>

@@ -1,12 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as styles from './ColorSelectorStyle.scss';
-
-// import FontIcon from 'react-toolbox/lib/font_icon';
-// import {Layout, NavDrawer, Panel, Sidebar, List, ListItem} from "react-toolbox";
-
-// import {Card, CardTitle, CardMedia, CardText, CardActions} from "react-toolbox";
-// import {Button} from "react-toolbox";
 
 export interface IMainState {
 	newItem?: {
