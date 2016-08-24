@@ -1,0 +1,21 @@
+@import "../common";
+@mixin item__container{
+	.item{
+		position:relative;
+		width:50px;
+		height:50px;
+	}
+	.item__box{
+		@include items;
+		width:80%;
+		height:80%;
+		top:10%;
+		left: 10%;
+	}
+}
+@mixin layers__item{
+	@include item;
+	span{
+		font-size:32px;
+	}
+}

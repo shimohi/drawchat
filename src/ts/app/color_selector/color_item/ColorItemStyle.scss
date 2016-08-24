@@ -1,0 +1,22 @@
+@import "../item";
+.item{
+	@include item_root;
+}
+
+@include item__circle;
+.item__circle{
+	span{
+		color:$color-secondary;
+	}
+}
+.item__circle:hover{
+	span{
+		color:$color-secondary-hover;
+	}
+}
+.item__circle:active{
+	span{
+		color:$color-secondary-active;
+	}
+}
+

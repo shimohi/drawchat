@@ -1,0 +1,14 @@
+@import "../item";
+
+@include item__container;
+.item__del{
+	@include layers__item;
+	color:$color-primary;
+	:hover{
+		color:$color-primary-hover;
+	}
+	:active{
+		color:$color-primary-active;
+	}
+}
+

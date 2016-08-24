@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as styles from './ColorSelectorStyle.scss';
+import {ColorItem} from "./color_item/ColorItem";
+import {ColorPalette} from "./color_palette/ColorPaletteButton";
 
 export interface IMainState {
 	newItem?: {
@@ -19,34 +21,10 @@ export class ColorSelector extends React.Component<IMainProps, IMainState> {
 	render() {
 		return(
 			<div className={styles.container}>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">format_color_fill</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">format_color_fill</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">format_color_fill</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">palette</span>
-						</div>
-					</div>
-				</div>
+				<ColorItem />
+				<ColorItem />
+				<ColorItem />
+				<ColorPalette />
 			</div>
 		);
 	}
