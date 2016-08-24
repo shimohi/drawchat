@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as styles from './LayersStyle.scss';
-import {LayerRemoveButton} from "./remove_button/LayerRemoveButton";
-import {LayerTab} from "./layer_tab/LayerTab";
-import {LayerAddButton} from "./add_button/LayerAddButton";
+import {LayerRemoveButton} from "./remove/LayerRemoveButton";
+import {LayerTab} from "./layer/LayerTab";
+import {LayerAddButton} from "./add/LayerAddButton";
 
 export interface IMainState {
 	newItem?: {
@@ -22,6 +22,9 @@ export class Layers extends React.Component<IMainProps, IMainState> {
 		return(
 			<div className={styles.container}>
 				<LayerRemoveButton />
+				<LayerTab />
+				<LayerTab />
+				<LayerTab />
 				<LayerTab />
 				<LayerAddButton />
 			</div>

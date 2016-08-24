@@ -1,5 +1,12 @@
 import * as React from 'react';
 import * as styles from './ModeChangerStyle.scss';
+import {BrushToolButton} from "./brush/BrushToolButton";
+import {FillToolButton} from "./fill/FillToolButton";
+import {HandToolButton} from "./hand/HandToolButton";
+import {TextToolButton} from "./text/TextToolButton";
+import {ClipToolButton} from "./clip/ClipToolButton";
+import {EyedropperToolButton} from "./eyedropper/EyedropperToolButton";
+import {EraserToolButton} from "./eraser/EraserToolButton";
 
 export interface IMainState {
 	newItem?: {
@@ -19,69 +26,15 @@ export class ModeChanger extends React.Component<IMainProps, IMainState> {
 	render() {
 		return(
 			<div className={styles.container}>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">brush</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">brush</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">brush</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">format_paint</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">pan_tool</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">text_fields</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">crop_free</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">colorize</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__circle}>
-						<div className={styles.item__circle_cell}>
-							<span className="material-icons">panorama_fish_eye</span>
-						</div>
-					</div>
-				</div>
+				<BrushToolButton />
+				<BrushToolButton />
+				<BrushToolButton />
+				<FillToolButton />
+				<HandToolButton />
+				<TextToolButton />
+				<ClipToolButton />
+				<EyedropperToolButton />
+				<EraserToolButton />
 			</div>
 		);
 	}

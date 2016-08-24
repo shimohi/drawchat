@@ -1,5 +1,8 @@
 import * as React from 'react';
 import * as styles from './MenuBarStyle.scss';
+import {RedoButton} from "./redo/RedoButton";
+import {UndoButton} from "./undo/UndoButton";
+import {FileUploadButton} from "./file_upload/FileUploadButton";
 
 export interface IMainState {
 	newItem?: {
@@ -18,27 +21,9 @@ export class MenuBar extends React.Component<IMainProps, IMainState> {
 	render() {
 		return(
 			<div className={styles.container}>
-				<div className={styles.item}>
-					<div className={styles.item__square}>
-						<div className={styles.item__square_cell}>
-							<span className="material-icons">redo</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__square}>
-						<div className={styles.item__square_cell}>
-							<span className="material-icons">undo</span>
-						</div>
-					</div>
-				</div>
-				<div className={styles.item}>
-					<div className={styles.item__square}>
-						<div className={styles.item__square_cell}>
-							<span className="material-icons">file_upload</span>
-						</div>
-					</div>
-				</div>
+				<RedoButton />
+				<UndoButton />
+				<FileUploadButton />
 			</div>
 		);
 	}
