@@ -21,7 +21,12 @@ class Root extends React.Component<IMainProps, IMainState> {
 		super(props);
 		this.state = {};
 	}
-	render() {
+	render(){
+		let colors = [
+			{r:255,g:255,b:0},
+			{r:255,g:0,b:255},
+			{r:0,g:255,b:255}
+		];
 		return(
 			<div className={styles.container}>
 				<div className={styles.canvasContainer}>
@@ -37,7 +42,9 @@ class Root extends React.Component<IMainProps, IMainState> {
 					<Layers />
 				</div>
 				<div className={styles.colorSelector}>
-					<ColorSelector />
+					<ColorSelector colors={colors} onSelect={(color)=>{
+
+					}}/>
 				</div>
 			</div>
 		);

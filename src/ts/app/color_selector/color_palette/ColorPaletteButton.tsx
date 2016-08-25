@@ -1,16 +1,8 @@
 import * as React from 'react';
 import * as styles from './ColorPaletteButtonStyle.scss';
 
-export interface IMainState {
-	newItem?: {
-		description: string;
-	};
-	todoList?: string[];
-}
-
-export interface IMainProps {}
-export class ColorPalette extends React.Component<IMainProps, IMainState> {
-	constructor(props:IMainProps) {
+export class ColorPalette extends React.Component<any, any> {
+	constructor(props:any) {
 		super(props);
 		this.state = {};
 	}

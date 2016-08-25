@@ -33,7 +33,7 @@
 			color:$color-secondary-hover;
 		}
 	}
-	.item__circle:active{
+	.item__circle:active,.item__circle_selected{
 		@include item__circle_base;
 		background-color: $color-primary-active;
 		span{

@@ -1,25 +1,21 @@
 import * as React from 'react';
 import * as styles from './ClipToolButtonStyle.scss';
 
-export interface IMainState {
-	newItem?: {
-		description: string;
-	};
-	todoList?: string[];
+export interface ClipToolButtonProps {
+	key:any;
+	selected?:boolean;
+	onSelect:()=>any;
 }
+export class ClipToolButton extends React.Component<ClipToolButtonProps, any> {
 
-export interface IMainProps {}
-export class ClipToolButton extends React.Component<IMainProps, IMainState> {
-
-	constructor(props:IMainProps) {
+	constructor(props:ClipToolButtonProps) {
 		super(props);
-		this.state = {};
 	}
-
 	render() {
 		return(
 			<div className={styles.item}>
-				<div className={styles.item__circle}>
+				<div onClick={()=>{this.props.onSelect()}}
+					 className={this.props.selected ? styles.item__circle_selected : styles.item__circle}>
 					<div className={styles.item__circle_cell}>
 						<span className="material-icons">crop_free</span>
 					</div>

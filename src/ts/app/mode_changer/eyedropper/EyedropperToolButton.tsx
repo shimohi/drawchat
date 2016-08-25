@@ -1,17 +1,16 @@
 import * as React from 'react';
 import * as styles from './EyedropperToolButtonStyle.scss';
 
-export interface IMainState {
-	newItem?: {
-		description: string;
-	};
-	todoList?: string[];
+export interface EyedropperToolButtonState {
 }
+export interface EyedropperToolButtonProps {
+	key:any;
+	selected?:boolean;
+	onSelect:()=>any;
+}
+export class EyedropperToolButton extends React.Component<EyedropperToolButtonProps, EyedropperToolButtonState> {
 
-export interface IMainProps {}
-export class EyedropperToolButton extends React.Component<IMainProps, IMainState> {
-
-	constructor(props:IMainProps) {
+	constructor(props:EyedropperToolButtonProps){
 		super(props);
 		this.state = {};
 	}
@@ -19,7 +18,8 @@ export class EyedropperToolButton extends React.Component<IMainProps, IMainState
 	render() {
 		return(
 			<div className={styles.item}>
-				<div className={styles.item__circle}>
+				<div onClick={()=>{this.props.onSelect()}}
+					 className={this.props.selected ? styles.item__circle_selected : styles.item__circle}>
 					<div className={styles.item__circle_cell}>
 						<span className="material-icons">colorize</span>
 					</div>
