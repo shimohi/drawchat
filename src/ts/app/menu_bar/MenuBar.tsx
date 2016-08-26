@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as styles from './MenuBarStyle.scss';
 import {RedoButton} from "./redo/RedoButton";
 import {UndoButton} from "./undo/UndoButton";
-import {FileUploadButton} from "./file_upload/FileUploadButton";
+import {SaveButton} from "./save/SaveButton";
 
 export interface IMainState {
 	newItem?: {
@@ -23,7 +23,7 @@ export class MenuBar extends React.Component<IMainProps, IMainState> {
 			<div className={styles.container}>
 				<RedoButton />
 				<UndoButton />
-				<FileUploadButton />
+				<SaveButton />
 			</div>
 		);
 	}

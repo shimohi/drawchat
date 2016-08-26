@@ -12,7 +12,6 @@ export class ColorValue{
 		this.selected = selected;
 	}
 }
-
 export class ColorSelectorState{
 	colors:ColorValue[];
 	palette:any;

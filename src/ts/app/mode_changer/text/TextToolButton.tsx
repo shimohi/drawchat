@@ -13,7 +13,7 @@ export class TextToolButton extends React.Component<TextToolButtonProps, any> {
 		this.state = {};
 	}
 
-	render() {
+	render(){
 		return(
 			<div className={styles.item}>
 				<div onClick={()=>{this.props.onSelect()}}

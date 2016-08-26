@@ -1,15 +1,15 @@
 import * as React from 'react';
-import * as styles from './RedoButtonStyle.scss';
+import * as styles from './SaveButtonStyle.scss';
 
-export interface RedoButtonProps {
+export interface SaveButtonProps {
 	action():void;
 	disabled?:boolean;
 }
-export class RedoButton extends React.Component<RedoButtonProps, any> {
+export class SaveButton extends React.Component<SaveButtonProps, any> {
 
-	constructor(props:RedoButtonProps) {
+	constructor(props:SaveButtonProps) {
 		super(props);
-		this.state = {};
+		// this.state = {};
 	}
 	render() {
 		return(
@@ -22,7 +22,7 @@ export class RedoButton extends React.Component<RedoButtonProps, any> {
 					this.props.disabled ? styles.item__square_disabled : styles.item__square
 				}>
 					<div className={styles.item__square_cell}>
-						<span className="material-icons">redo</span>
+						<span className="material-icons">file_upload</span>
 					</div>
 				</div>
 			</div>

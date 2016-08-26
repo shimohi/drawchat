@@ -6,20 +6,21 @@ import {ModeChanger} from "./mode_changer/ModeChanger";
 import {MenuBar} from "./menu_bar/MenuBar";
 import CanvasContainer from "./canvas_container/CanvasContainer";
 import {ColorSelector} from "./color_selector/ColorSelector";
+import DrawchatEditor = drawchat.editor.DrawchatEditor;
 
-export interface IMainState {
-	newItem?: {
-		description: string;
-	};
-	todoList?: string[];
+export interface EditorRootState {
+	editor:DrawchatEditor;
 }
+export interface EditorRootProps {
+	// editor:DrawchatEditor;
+}
+class EditorRoot extends React.Component<EditorRootProps, EditorRootState> {
 
-export interface IMainProps {}
-class Root extends React.Component<IMainProps, IMainState> {
-
-	constructor(props:IMainProps) {
+	constructor(props:EditorRootProps) {
 		super(props);
-		this.state = {};
+		this.state = {
+			editor:null
+		};
 	}
 	render(){
 		let colors = [
@@ -36,7 +37,9 @@ class Root extends React.Component<IMainProps, IMainState> {
 					<MenuBar />
 				</div>
 				<div className={styles.modeChanger}>
-					<ModeChanger />
+					<ModeChanger changer={this.state.editor.mode} onSelect={(mode:number,thickness:number)=>{
+
+					}}/>
 				</div>
 				<div className={styles.layers}>
 					<Layers />
@@ -52,6 +55,6 @@ class Root extends React.Component<IMainProps, IMainState> {
 }
 
 ReactDOM.render(
-	<Root/>,
+	<EditorRoot/>,
 	document.getElementById("root")
 );

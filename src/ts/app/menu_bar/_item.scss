@@ -24,6 +24,13 @@
 			color:$color-secondary
 		}
 	}
+	.item__square_disabled{
+		@include item__square_base;
+		background-color: $color-tertiary-disable;
+		span{
+			color:$color-secondary-disable
+		}
+	}
 	.item__square:hover{
 		@include item__square_base;
 		background-color: $color-tertiary-hover;
