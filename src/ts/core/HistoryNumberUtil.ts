@@ -24,6 +24,9 @@ export class HistoryNumberUtil{
 		while(max >= min){
 
 			index = min + (((max - min) / 2) | 0);
+			if(index === 0){
+				return index;
+			}
 			let number1 = historyNumbers[index];
 
 			if(number1 === historyNumber){

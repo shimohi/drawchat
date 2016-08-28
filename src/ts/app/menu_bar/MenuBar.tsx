@@ -4,26 +4,24 @@ import {RedoButton} from "./redo/RedoButton";
 import {UndoButton} from "./undo/UndoButton";
 import {SaveButton} from "./save/SaveButton";
 
-export interface IMainState {
-	newItem?: {
-		description: string;
-	};
-	todoList?: string[];
+export interface MenuBarProps {
+	canUndo:boolean;
+	canRedo:boolean;
+	canSave:boolean;
+	undo():void;
+	redo():void;
+	save():void;
 }
-
-export interface IMainProps {}
-export class MenuBar extends React.Component<IMainProps, IMainState> {
-
-	constructor(props:IMainProps) {
+export class MenuBar extends React.Component<MenuBarProps, any> {
+	constructor(props:MenuBarProps) {
 		super(props);
-		this.state = {};
 	}
 	render() {
 		return(
 			<div className={styles.container}>
-				<RedoButton />
-				<UndoButton />
-				<SaveButton />
+				<RedoButton action={()=>{this.props.redo()}} disabled={this.props.canRedo}/>
+				<UndoButton action={()=>{this.props.undo()}} disabled={this.props.canUndo}/>
+				<SaveButton action={()=>{this.props.save()}} disabled={this.props.canSave}/>
 			</div>
 		);
 	}

@@ -1,4 +1,5 @@
-export class LayerNumberGenerator {
+import KeyGenerator = drawchat.core.KeyGenerator;
+export class LayerNumberGenerator implements KeyGenerator{
 
 	private num:number;
 
@@ -10,7 +11,7 @@ export class LayerNumberGenerator {
 	 * 採番処理を行います。
 	 * @returns {number}
 	 */
-	getNumber():string{
+	generateKey():string{
 		this.num = (this.num + 1)|0;
 		return String(this.num);
 	}

@@ -8,6 +8,8 @@ import {DrawMessageBuilder} from "./DrawMessageBuilder";
 import {HistoryNumberUtil} from "./HistoryNumberUtil";
 import {HistoryProperty} from "./HistoryProperty";
 import {SessionQueue} from "./SessionQueue";
+import NumberGenerator = drawchat.core.NumberGenerator;
+import KeyGenerator = drawchat.core.KeyGenerator;
 
 export class History implements DrawHistory{
 
@@ -15,12 +17,12 @@ export class History implements DrawHistory{
 	private queue:SessionQueue;
 
 	constructor(
-		numberGenerator:HistoryNumberGenerator,
-	 	layerNumberGenerator:LayerNumberGenerator
+		numberGenerator?:NumberGenerator,
+	 	layerNumberGenerator?:KeyGenerator
 	){
 		this.prop = new HistoryProperty();
-		this.prop.numberGenerator = numberGenerator;
-		this.prop.layerNumberGenerator = layerNumberGenerator;
+		this.prop.numberGenerator = numberGenerator ? numberGenerator : new HistoryNumberGenerator();
+		this.prop.layerNumberGenerator = layerNumberGenerator ? layerNumberGenerator : new LayerNumberGenerator();
 		this.queue = new SessionQueue(this.prop);
 	}
 

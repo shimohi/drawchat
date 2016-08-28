@@ -1,14 +1,11 @@
 import DrawHistory = drawchat.core.DrawHistory;
 import DrawMoment = drawchat.core.DrawMoment;
 import DrawLayerMoment = drawchat.core.DrawLayerMoment;
+import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
 
 import {Moment} from "./Moment";
 import {MomentBuilder} from "./MomentBuilder";
-import {HistoryNumberGenerator} from "./HistoryNumberGenerator";
-import {LayerNumberGenerator} from "./LayerNumberGenerator";
-import {DrawMessageBuilder} from "./DrawMessageBuilder";
 import {HistoryNumberUtil} from "./HistoryNumberUtil";
-import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
 import {HistoryProperty} from "./HistoryProperty";
 import {SessionQueue} from "./SessionQueue";
 
@@ -71,7 +68,7 @@ export class HistorySession implements DrawHistoryEditSession{
 		}
 	    let builder = this.addMoment();
 		let layers = this.prop.getLayers(this.prop.historyNumberNow);
-		let layerId = this.prop.layerNumberGenerator.getNumber();
+		let layerId = this.prop.layerNumberGenerator.generateKey();
 		layers.push(layerId);
 		builder.setSequence(layers);
 		let layerBuilder = builder.putLayerMoment(
@@ -128,7 +125,7 @@ export class HistorySession implements DrawHistoryEditSession{
 		sequences?:string[]
 	):Moment{
 		this.cleanupHistory();
-		let num = this.prop.numberGenerator.getNumber();
+		let num = this.prop.numberGenerator.generateNumber();
 		let moment = new Moment(num,layerMoments,sequences);
 		this.prop.map[num] = moment;
 		this.prop.historyNumbers.push(num);
@@ -183,6 +180,7 @@ export class HistorySession implements DrawHistoryEditSession{
 		let i = 0 | 0;
 		while(i < deleted.length){
 			this.prop.map[deleted[i]] = null;
+			i = (i + 1) | 0;
 		}
 		this.prop.historyNumbers = this.prop.historyNumbers.slice(0,index + 1);
 

@@ -9,7 +9,7 @@ export class PathDrawer {
 	/**
 	 * プロット数が多くなるので、使い回す。
 	 */
-	private static SPLINE:SplinePlotter;
+	private static SPLINE:SplinePlotter = new SplinePlotter();
 
 	private tran:PathTransaction;
 	private prop:EditorProperties;

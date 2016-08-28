@@ -1,23 +1,19 @@
 import * as React from 'react';
 import * as styles from './LayerRemoveButtonStyle.scss';
 
-export interface IMainState {
-	newItem?: {
-		description: string;
-	};
-	todoList?: string[];
+export interface LayerRemoveButtonProps {
+	action():void;
+	disabled:boolean;
 }
-
-export interface IMainProps {}
-export class LayerRemoveButton extends React.Component<IMainProps, IMainState> {
-	constructor(props:IMainProps) {
+export class LayerRemoveButton extends React.Component<LayerRemoveButtonProps, any> {
+	constructor(props:LayerRemoveButtonProps) {
 		super(props);
-		this.state = {};
 	}
 	render() {
 		return(
 			<div className={styles.item}>
-				<div className={styles.item__del}>
+				<div onClick={()=>{this.props.action()}}
+					 className={this.props.disabled ? styles.item__del_disabled : styles.item__del}>
 					<span className="material-icons">clear</span>
 				</div>
 			</div>

@@ -2,6 +2,8 @@ import DrawMoment = drawchat.core.DrawMoment;
 import {HistoryNumberGenerator} from "./HistoryNumberGenerator";
 import {LayerNumberGenerator} from "./LayerNumberGenerator";
 import {HistoryNumberUtil} from "./HistoryNumberUtil";
+import NumberGenerator = drawchat.core.NumberGenerator;
+import KeyGenerator = drawchat.core.KeyGenerator;
 
 /**
  * HistoryとHistorySessionで共有するプロパティ
@@ -41,12 +43,12 @@ export class HistoryProperty{
 	/**
 	 * 履歴番号採番
 	 */
-	numberGenerator:HistoryNumberGenerator;
+	numberGenerator:NumberGenerator;
 
 	/**
 	 * レイヤー番号採番
 	 */
-	layerNumberGenerator:LayerNumberGenerator;
+	layerNumberGenerator:KeyGenerator;
 
 	/**
 	 * ローカルレイヤーのマップ

@@ -37,6 +37,21 @@ declare namespace drawchat.viewer {
 		 * r,g,b,aの配列を返す。
 		 */
 		getPixelColor(x:number,y:number,layerIndex:number):number[];
+
+		/**
+		 * DrawchatHistoryとの同期を開始する。
+		 */
+		start():void;
+
+		/**
+		 * DrawchatHistoryとの同期を停止する。
+		 */
+		stop():void;
+
+		/**
+		 * 描画内容を1から再レンダリングする。
+		 */
+		refresh():void;
 	}
 
 	interface DrawchatViewerFactory{

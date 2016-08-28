@@ -1,4 +1,5 @@
-export class HistoryNumberGenerator {
+import NumberGenerator = drawchat.core.NumberGenerator;
+export class HistoryNumberGenerator implements NumberGenerator{
 
 	private num:number;
 
@@ -10,7 +11,7 @@ export class HistoryNumberGenerator {
 	 * 採番処理を行います。
 	 * @returns {number}
 	 */
-	getNumber():number{
+	generateNumber():number{
 		this.num = (this.num + 1)|0;
 		return this.num;
 	}

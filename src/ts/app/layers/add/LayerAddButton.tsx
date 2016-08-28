@@ -1,24 +1,19 @@
 import * as React from 'react';
 import * as styles from './LayerAddButtonStyle.scss';
 
-export interface IMainState {
-	newItem?: {
-		description: string;
-	};
-	todoList?: string[];
+export interface LayerAddButtonProps {
+	action():void;
+	disabled:boolean;
 }
-
-export interface IMainProps {}
-export class LayerAddButton extends React.Component<IMainProps, IMainState> {
-
-	constructor(props:IMainProps) {
+export class LayerAddButton extends React.Component<LayerAddButtonProps, any> {
+	constructor(props:LayerAddButtonProps) {
 		super(props);
-		this.state = {};
 	}
 	render() {
 		return(
 			<div className={styles.item}>
-				<div className={styles.item__add}>
+				<div onClick={()=>{this.props.action()}}
+					 className={this.props.disabled ? styles.item__add_disabled : styles.item__add}>
 					<span className="material-icons">add</span>
 				</div>
 			</div>

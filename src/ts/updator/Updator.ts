@@ -35,16 +35,24 @@ export class Updater implements DrawchatUpdater{
 
 	addLayer():Promise<string> {
 		this.queue = this.before().then((session)=>{
-			let moment = session.addLayer({draws:[]},false);
-			return moment.getKeys()[0];
+			try {
+				let moment = session.addLayer({draws: []}, false);
+				return moment.getKeys()[0];
+			} finally {
+				session.release();
+			}
 		});
 		return this.queue;
 	}
 
 	removeLayer(layerId:string):Promise<any> {
 		this.queue = this.before().then((session)=>{
-			session.removeLayer(layerId);
-			return null;
+			try {
+				session.removeLayer(layerId);
+				return null;
+			} finally {
+				session.release();
+			}
 		});
 		return this.queue;
 	}
@@ -200,7 +208,8 @@ export class Updater implements DrawchatUpdater{
 				this.editorLayerId = moment.getKeys()[0];
 				this.updaterStartPoint = this.history.getNowHistoryNumber();
 				return session;
-			}).catch(()=>{
+			}).catch((e)=>{
+				console.warn(e);
 				return null;
 			});
 		});

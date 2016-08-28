@@ -87,6 +87,7 @@ export class Changer implements DrawchatModeChanger{
 		this.updater = layers.updater;
 		this.prop = prop;
 		this.viewer = layers.viewer;
+		this.layers = layers;
 	}
 	private mode:number;
 

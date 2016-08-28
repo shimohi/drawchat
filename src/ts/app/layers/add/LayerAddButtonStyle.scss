@@ -10,3 +10,7 @@
 		color:$color-primary-active;
 	}
 }
+.item__add_disabled{
+	@include layers__item;
+	color:$color-primary-disable;
+}

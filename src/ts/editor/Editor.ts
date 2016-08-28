@@ -11,6 +11,7 @@ import {Changer} from "./Changer";
 import {Updater} from "../updator/Updator";
 import {Viewer} from "../viewer/Viewer";
 import {EditorProperties} from "./EditorProperties";
+import DrawchatViewer = drawchat.viewer.DrawchatViewer;
 export class Editor implements DrawchatEditor{
 
 	/**
@@ -33,6 +34,8 @@ export class Editor implements DrawchatEditor{
 
 	private renderer:DrawchatRenderer;
 
+	private viewer:DrawchatViewer;
+
 	constructor(
 		history:DrawHistory,
 		renderer:DrawchatRenderer,
@@ -42,7 +45,8 @@ export class Editor implements DrawchatEditor{
 		this.history = history;
 		this.updater = new Updater(history);
 		this.renderer = renderer;
-		this.layers = new Layers(this.updater,new Viewer(history,renderer));
+		this.viewer = new Viewer(history,renderer);
+		this.layers = new Layers(this.updater,this.viewer);
 		this._properties = properties ? properties : new EditorProperties();
 		this._mode = new Changer(this.layers,this._properties);
 	}
@@ -57,6 +61,14 @@ export class Editor implements DrawchatEditor{
 
 	get mode():DrawchatModeChanger{
 		return this._mode;
+	}
+
+	stop(): void {
+		this.viewer.stop();
+	}
+
+	start(): void {
+		this.viewer.start();
 	}
 
 	getWidth():number {
@@ -81,6 +93,10 @@ export class Editor implements DrawchatEditor{
 
 	canRedo(): boolean {
 		return this.updater.canRedo();
+	}
+
+	reRender(): void {
+		this.viewer.refresh();
 	}
 
 	off(listener: drawchat.editor.UpdateListener): void {

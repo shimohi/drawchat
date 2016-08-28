@@ -5,6 +5,7 @@ export class CanvasContainer{
 	/**
 	 * 親要素
 	 */
+	private id:string;
 	private parent:Element;
 	private elementList:HTMLCanvasElement[] = [];
 	private contextList:CanvasRenderingContext2D[] = [];
@@ -13,13 +14,20 @@ export class CanvasContainer{
 	height:number;
 
 	constructor(
-		parent:Element,
+		parent:Element|string,
 		width?:number,
 		height?:number
 	){
-		this.parent = parent;
-		this.width = width ? width : parent.clientWidth;
-		this.height = height ? height : parent.clientHeight;
+		this.id = (typeof parent === 'string') ? <string>parent : null;
+		try {
+			this.parent = (typeof parent !== 'string')
+				? <Element>parent : document.getElementById(parent);
+
+			this.width = width ? width : this.parent.clientWidth;
+			this.height = height ? height : this.parent.clientHeight;
+		} catch (e) {
+			//	無視する
+		}
 	}
 
 	getSize():number{
@@ -87,10 +95,28 @@ export class CanvasContainer{
 	}
 
 	clear():void{
-		for(let element of this.elementList){
-			this.parent.removeChild(element);
+		if(this.id === null){
+			for(let element of this.elementList){
+				try {
+					this.parent.removeChild(element);
+				} catch (e) {
+					//	ここでのエラーは無視
+				}
+			}
+			this.elementList = [];
+			this.contextList = [];
+			return;
 		}
+
 		this.elementList = [];
 		this.contextList = [];
+		this.parent = document.getElementById(this.id);
+		if(this.parent == null){
+			return;
+		}
+		while (this.parent.firstChild) this.parent.removeChild(this.parent.firstChild);
+
+		this.width = this.width ? this.width : this.parent.clientWidth;
+		this.height = this.height ? this.height : this.parent.clientHeight;
 	}
 }

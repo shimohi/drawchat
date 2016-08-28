@@ -200,7 +200,6 @@ declare namespace drawchat.editor {
 		 * 座標設定の履歴を元に戻す。
 		 */
 		backward():void;
-
 	}
 
 	interface UpdateListener{
@@ -243,6 +242,21 @@ declare namespace drawchat.editor {
 		 * Redoが可能かどうか
 		 */
 		canRedo():boolean;
+
+		/**
+		 * 明示的に再描画する。
+		 */
+		reRender():void;
+
+		/**
+		 * イベント受付、描画を停止する
+		 */
+		stop():void;
+
+		/**
+		 * イベント受付、描画を開始する。
+		 */
+		start():void;
 
 		/**
 		 * メインキャンバス

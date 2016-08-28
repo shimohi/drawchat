@@ -5,6 +5,7 @@ import DrawMoment = drawchat.core.DrawMoment;
 
 import {CheckStateUtils} from "./CheckStateUtils";
 import {MapMomentUtil} from "./MapMomentUtil";
+import {UpdateState, UpdateStateMap} from "./UpdateState";
 
 /**
  * 前方向への更新
@@ -66,10 +67,11 @@ export class Forward{
 
 	static complementLayer(
 		renderer:DrawchatRenderer,
-		layerIds:string[],
+		layerIds1:string[],
 		updateStateMap:UpdateStateMap
 	):string[]{
 
+		let layerIds:string[] = layerIds1 != null ? layerIds1 : [];
 		let i = (layerIds.length - 1) | 0;
 		let state:UpdateState;
 		let key:string;
@@ -96,7 +98,7 @@ export class Forward{
 		while( i  < keys.length){
 			key = layerIds[i];
 			state = updateStateMap[key];
-			i = (i - 1) | 0;
+			i = (i + 1) | 0;
 			if(state !== UpdateState.ADD){
 				continue;
 			}

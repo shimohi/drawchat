@@ -47,12 +47,12 @@ export class Viewer implements DrawchatViewer{
 		this._start = true;
 		try {
 			this.updateView();
-			this.renderer.refresh();
+			// this.renderer.refresh();
 		} catch (e) {
 			console.warn(e);
 		}
 		this.history.awaitUpdate(()=>{
-			if(this.start){
+			if(this._start){
 				this.start();
 			}
 		});
@@ -68,6 +68,11 @@ export class Viewer implements DrawchatViewer{
 		layerIndex:number
 	): number[] {
 		return this.renderer.getPixelColor(x,y,layerIndex);
+	}
+
+	refresh(): void {
+		this.now = -1;
+		this.updateView();
 	}
 
 	updateView():void{

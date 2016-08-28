@@ -5,6 +5,7 @@ import DrawMoment = drawchat.core.DrawMoment;
 
 import {MapMomentUtil} from "./MapMomentUtil";
 import {CheckStateUtils} from "./CheckStateUtils";
+import {UpdateState, UpdateStateMap} from "./UpdateState";
 export class Backward{
 
 	static updateView(

@@ -76,8 +76,14 @@ export class MapMomentUtil{
 		sequences:string[]
 	):LayerMap{
 		let layerMap:LayerMap = {};
+		if(sequences == null){
+			return layerMap;
+		}
 		for(let layerId of sequences){
 			layerMap[layerId] = {layerId:layerId,draws:[]};
+		}
+		if(moments == null){
+			return layerMap;
 		}
 		for(let moment of moments){
 			MapMomentUtil.mapMoment(layerMap,moment);

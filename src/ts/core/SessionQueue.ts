@@ -44,6 +44,7 @@ export class SessionQueue{
 		this.first = node;
 		if(node == null){
 			this.last = null;
+			return;
 		}
 
 		node.value.alive = true;

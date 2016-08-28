@@ -1,32 +1,24 @@
 import * as React from 'react';
 import * as styles from './LayerTabStyle.scss';
 
-export interface IMainState {
-	newItem?: {
-		description: string;
-	};
-	todoList?: string[];
+export interface LayerTabProps {
+	key:any;
+	select():void;
+	selected:boolean;
 }
+export class LayerTab extends React.Component<LayerTabProps, any> {
 
-export interface IMainProps {}
-export class LayerTab extends React.Component<IMainProps, IMainState> {
-
-	constructor(props:IMainProps) {
+	constructor(props:LayerTabProps) {
 		super(props);
-		this.state = {};
 	}
 	render() {
 		return(
 			<div className={styles.item}>
-				<div className={styles.item__selected}>
+				<div onClick={()=>{this.props.select()}}
+					 className={this.props.selected ? styles.item__selected : styles.item__unselected}>
 					<span className="material-icons">radio_button_checked</span>
 				</div>
 			</div>
-				// <div className={styles.item}>
-				// 	<div className={styles.item__unselected}>
-				// 		<span className="material-icons">radio_button_unchecked</span>
-				// 	</div>
-				// </div>
 		);
 	}
 }

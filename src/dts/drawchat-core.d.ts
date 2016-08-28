@@ -61,6 +61,13 @@ declare namespace drawchat.core {
 		lock(noWait?:boolean):Promise<DrawHistoryEditSession>;
 	}
 
+	interface NumberGenerator{
+		generateNumber():number;
+	}
+	interface KeyGenerator{
+		generateKey():string;
+	}
+
 	interface DrawHistoryEditSession{
 
 		/**
