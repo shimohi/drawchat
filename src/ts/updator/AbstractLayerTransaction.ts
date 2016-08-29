@@ -39,6 +39,9 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 		let result:string[] = [];
 		let item:string;
 		let addIndex = -1;
+		if(layers == null){
+			layers = [];
+		}
 
 		while(i < layers.length){
 			item = layers[i];
@@ -58,6 +61,10 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 				addIndex = i;
 			}
 		}
+		if(result.length === 0){
+			result.push(this.editLayerId);
+		}
+
 		this.session.addMoment().setSequence(result).commit();
 		this.reservedPoint = this.history.getNowHistoryNumber();
 	}

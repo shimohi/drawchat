@@ -19,15 +19,6 @@ import {Editor} from "../editor/Editor";
 export class EditorRootState {
 	editor:DrawchatEditor;
 	colors:Color[];
-	// get layers():DrawchatLayers{
-	// 	return this.editor.layers;
-	// }
-	// get editorProps():DrawchatEditorProperties{
-	// 	return this.editor.properties;
-	// }
-	// get modeChanger():DrawchatModeChanger{
-	// 	return this.editor.mode;
-	// }
 	constructor(editor:DrawchatEditor){
 		this.editor = editor;
 		this.colors = [
@@ -48,7 +39,20 @@ class EditorRoot extends React.Component<EditorRootProps, EditorRootState> {
 	refresh():void{
 		this.setState(this.state);
 	}
+	componentDidMount(): void {
+		if(this.state.editor.layers.layerCount() === 0){
+			this.state.editor.layers.addLayer().then(()=>{
+				this.refresh();
+			});
+			return;
+		}
+	}
+	// componentWillMount(): void {
+	// 	this.state.editor.stop();
+	// }
 	render(){
+		let count = this.state.editor.layers.layerCount();
+		let current = this.state.editor.layers.getCurrent();
 		return(
 			<div className={styles.container}>
 				<div className={styles.canvasContainer}>
@@ -92,19 +96,10 @@ class EditorRoot extends React.Component<EditorRootProps, EditorRootState> {
 				</div>
 				<div className={styles.layers}>
 					<Layers
-						selected={(()=>{
-							return this.state.editor.layers.getCurrent()
-						})()}
-						count={
-							this.state.editor.layers.layerCount()
-						}
-						canAdd={
-							this.state.editor.layers.layerCount() < 10
-						}
-						canRemove={
-							this.state.editor.layers.getCurrent() >= 0
-						&& 	this.state.editor.layers.getCurrent() < this.state.editor.layers.layerCount()
-						}
+						selected={current}
+						count={count}
+						canAdd={count < 10}
+						canRemove={current >= 0 && 	current < count}
 						add={()=>{
 							this.state.editor.layers.addLayer().then(()=>{
 								this.refresh();

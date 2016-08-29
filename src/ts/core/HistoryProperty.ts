@@ -71,7 +71,7 @@ export class HistoryProperty{
 		if(i < 0){
 			return [];
 		}
-		let moment = this.map[this.historyNumbers[i]];
+		let moment = this.map[this.sequencesHistoryNumbers[i]];
 		if(!moment){
 			return[];
 		}
@@ -81,6 +81,9 @@ export class HistoryProperty{
 
 		let moments = moment.getSequence();
 		let result:string[] = [];
+		if(moments == null){
+			return result;
+		}
 		i = 0 | 0;
 		while(i < moments.length){
 			if(this.localLayers[moments[i]] != null){

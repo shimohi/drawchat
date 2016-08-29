@@ -26,7 +26,6 @@ export class Layers extends React.Component<LayerProps, any> {
 					}} disabled={
 						!this.props.canRemove
 					}/>
-
 				{Array.apply(0, Array(this.props.count)).map((el:any,i:number)=>{
 					return <LayerTab key={i} selected={i === this.props.selected} select={()=>{
 						this.props.select(i);

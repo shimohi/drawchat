@@ -60,7 +60,9 @@ export class Updater implements DrawchatUpdater{
 	getLayers():string[] {
 		return this.history.getLayers(
 			this.history.getNowHistoryNumber(),true
-		);
+		).filter((element)=>{
+			return this.editorLayerId !== element;
+		});
 	}
 
 	beginTransform(layerId:string,commit:boolean = true):Promise<TransformTransaction> {
@@ -211,7 +213,7 @@ export class Updater implements DrawchatUpdater{
 				}
 
 				let moment = session.addLayer({draws:[]},true);
-				this.editorLayerId = moment.getKeys()[0];
+				this.editorLayerId = moment.getSequence()[0];
 				this.updaterStartPoint = this.history.getNowHistoryNumber();
 				return session;
 			}).catch((e)=>{

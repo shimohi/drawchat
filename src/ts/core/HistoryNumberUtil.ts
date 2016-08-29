@@ -19,6 +19,13 @@ export class HistoryNumberUtil{
 		//	２分木探索で特定
 		let min = 0 | 0;
 		let max = (historyNumbers.length - 1) | 0;
+		if(historyNumbers[max] <= historyNumber){
+			return max;
+		}
+		if(historyNumbers[0] === historyNumber){
+			return 0;
+		}
+
 		let index = -1;
 		let diff = 0 | 0;
 
@@ -26,17 +33,21 @@ export class HistoryNumberUtil{
 			diff = (max - min) | 0;
 			index = min + (((diff) / 2) | 0);
 			if(diff === 0){
-				return index;
+				break;
 			}
 			let number1 = historyNumbers[index];
 			if(number1 === historyNumber){
 				return index;
 			}
+			if(diff === 1){
+				index = historyNumbers[max] > historyNumber ? min : max;
+				break;
+			}
 			if(number1 > historyNumber){
-				max = number1;
+				max = index;
 				continue;
 			}
-			min = number1;
+			min = index;
 		}
 
 		if(index < 0){

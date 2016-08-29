@@ -6,6 +6,7 @@ export class Layers implements DrawchatLayers{
 
 	updater:DrawchatUpdater;
 	viewer:DrawchatViewer;
+	currentId:string;
 
 	constructor(
 		updater:DrawchatUpdater,
@@ -14,8 +15,6 @@ export class Layers implements DrawchatLayers{
 		this.updater = updater;
 		this.viewer = viewer;
 	}
-
-	currentId:string;
 
 	layerCount():number {
 		return this.updater.getLayers().length;
