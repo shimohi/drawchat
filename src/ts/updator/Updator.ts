@@ -204,6 +204,12 @@ export class Updater implements DrawchatUpdater{
 				if(this.editorLayerId != null){
 					return session;
 				}
+				let layers = this.history.getLayers(this.history.getNowHistoryNumber());
+				if(layers != null && layers.length > 0){
+					this.editorLayerId = layers[layers.length - 1];
+					return session;
+				}
+
 				let moment = session.addLayer({draws:[]},true);
 				this.editorLayerId = moment.getKeys()[0];
 				this.updaterStartPoint = this.history.getNowHistoryNumber();

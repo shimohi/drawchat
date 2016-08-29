@@ -64,12 +64,14 @@ class EditorRoot extends React.Component<EditorRootProps, EditorRootState> {
 						}
 						canSave={true}
 						undo={()=>{
-							this.state.editor.undo();
-							this.refresh();
+							this.state.editor.undo().then(()=>{
+								this.refresh();
+							});
 						}}
 						redo={()=>{
-							this.state.editor.redo();
-							this.refresh();
+							this.state.editor.redo().then(()=>{
+								this.refresh();
+							});
 						}}
 						save={()=>{
 							//	未実装
@@ -81,9 +83,10 @@ class EditorRoot extends React.Component<EditorRootProps, EditorRootState> {
 						changer={
 							this.state.editor.mode
 						} onSelect={(mode:number,thickness:number)=>{
-							this.state.editor.mode.changeMode(mode);
-							this.state.editor.properties.thickness = thickness;
-							this.refresh();
+							this.state.editor.mode.changeMode(mode).then(()=>{
+								this.state.editor.properties.thickness = thickness;
+								this.refresh();
+							});
 						}}
 					/>
 				</div>
@@ -103,16 +106,18 @@ class EditorRoot extends React.Component<EditorRootProps, EditorRootState> {
 						&& 	this.state.editor.layers.getCurrent() < this.state.editor.layers.layerCount()
 						}
 						add={()=>{
-							this.state.editor.layers.addLayer();
-							this.refresh();
+							this.state.editor.layers.addLayer().then(()=>{
+								this.refresh();
+							});
 						}}
 						select={(i:number)=>{
 							this.state.editor.layers.setCurrent(i);
 							this.refresh();
 						}}
 						remove={(i:number)=>{
-							this.state.editor.layers.remove(i);
-							this.refresh();
+							this.state.editor.layers.remove(i).then(()=>{
+								this.refresh();
+							});
 						}}
 					/>
 				</div>

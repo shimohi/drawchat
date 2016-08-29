@@ -6,12 +6,12 @@ import DrawchatUpdater = drawchat.updater.DrawchatUpdater;
 import DrawHistory = drawchat.core.DrawHistory;
 import UpdateListener = drawchat.editor.UpdateListener;
 import DrawchatRenderer = drawchat.renderer.DrawchatRenderer;
+import DrawchatViewer = drawchat.viewer.DrawchatViewer;
 import {Layers} from "./Layers";
 import {Changer} from "./Changer";
 import {Updater} from "../updator/Updator";
 import {Viewer} from "../viewer/Viewer";
 import {EditorProperties} from "./EditorProperties";
-import DrawchatViewer = drawchat.viewer.DrawchatViewer;
 export class Editor implements DrawchatEditor{
 
 	/**

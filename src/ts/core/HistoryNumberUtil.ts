@@ -20,19 +20,18 @@ export class HistoryNumberUtil{
 		let min = 0 | 0;
 		let max = (historyNumbers.length - 1) | 0;
 		let index = -1;
+		let diff = 0 | 0;
 
 		while(max >= min){
-
-			index = min + (((max - min) / 2) | 0);
-			if(index === 0){
+			diff = (max - min) | 0;
+			index = min + (((diff) / 2) | 0);
+			if(diff === 0){
 				return index;
 			}
 			let number1 = historyNumbers[index];
-
 			if(number1 === historyNumber){
 				return index;
 			}
-
 			if(number1 > historyNumber){
 				max = number1;
 				continue;

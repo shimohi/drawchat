@@ -22,12 +22,9 @@ export class Layers extends React.Component<LayerProps, any> {
 			<div className={styles.container}>
 				<LayerRemoveButton
 					action={()=>{
-						if(!this.props.canRemove){
-							return;
-						}
 						this.props.remove(this.props.selected)
 					}} disabled={
-						this.props.canRemove
+						!this.props.canRemove
 					}/>
 
 				{Array.apply(0, Array(this.props.count)).map((el:any,i:number)=>{
@@ -40,7 +37,7 @@ export class Layers extends React.Component<LayerProps, any> {
 						this.props.add()
 					}}
 					disabled={
-						this.props.canAdd
+						!this.props.canAdd
 					}/>
 			</div>
 		);

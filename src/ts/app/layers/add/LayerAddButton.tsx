@@ -12,8 +12,15 @@ export class LayerAddButton extends React.Component<LayerAddButtonProps, any> {
 	render() {
 		return(
 			<div className={styles.item}>
-				<div onClick={()=>{this.props.action()}}
-					 className={this.props.disabled ? styles.item__add_disabled : styles.item__add}>
+				<div
+					onClick={()=>{
+						if(!this.props.disabled){
+							this.props.action();
+						}
+					}}
+					className={
+						this.props.disabled ? styles.item__add_disabled : styles.item__add
+					}>
 					<span className="material-icons">add</span>
 				</div>
 			</div>

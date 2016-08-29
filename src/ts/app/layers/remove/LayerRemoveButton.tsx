@@ -12,8 +12,15 @@ export class LayerRemoveButton extends React.Component<LayerRemoveButtonProps, a
 	render() {
 		return(
 			<div className={styles.item}>
-				<div onClick={()=>{this.props.action()}}
-					 className={this.props.disabled ? styles.item__del_disabled : styles.item__del}>
+				<div
+					onClick={()=>{
+						if(!this.props.disabled){
+							this.props.action();
+						}
+					}}
+				 	className={
+				 		this.props.disabled ? styles.item__del_disabled : styles.item__del
+				 	}>
 					<span className="material-icons">clear</span>
 				</div>
 			</div>

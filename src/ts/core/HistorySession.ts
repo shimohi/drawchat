@@ -14,7 +14,6 @@ export class HistorySession implements DrawHistoryEditSession{
 	alive:boolean = false;
 
 	private prop:HistoryProperty;
-
 	private queue:SessionQueue;
 
 	constructor(
