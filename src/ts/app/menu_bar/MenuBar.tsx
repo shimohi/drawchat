@@ -19,9 +19,9 @@ export class MenuBar extends React.Component<MenuBarProps, any> {
 	render() {
 		return(
 			<div className={styles.container}>
-				<RedoButton action={()=>{this.props.redo()}} disabled={this.props.canRedo}/>
-				<UndoButton action={()=>{this.props.undo()}} disabled={this.props.canUndo}/>
-				<SaveButton action={()=>{this.props.save()}} disabled={this.props.canSave}/>
+				<RedoButton action={()=>{this.props.redo()}} disabled={!this.props.canRedo}/>
+				<UndoButton action={()=>{this.props.undo()}} disabled={!this.props.canUndo}/>
+				<SaveButton action={()=>{this.props.save()}} disabled={!this.props.canSave}/>
 			</div>
 		);
 	}

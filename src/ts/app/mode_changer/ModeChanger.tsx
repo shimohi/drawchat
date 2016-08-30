@@ -19,78 +19,82 @@ export class ModeItem{
 		this.thickness = thickness;
 	}
 }
-
-export class ModeChangerState {
-	modeItems:ModeItem[];
-	constructor(modeItems:ModeItem[]){
-		this.modeItems = modeItems;
-	}
-}
 export interface ModeChangerProps{
+	modeItems:ModeItem[];
 	changer:DrawchatModeChanger;
 	onSelect:ModeChangerHandler;
 }
 export interface ModeChangerHandler{
-	(mode:number,thickness:number):void;
+	(index:number):void;
 }
-export class ModeChanger extends React.Component<ModeChangerProps, ModeChangerState> {
+export class ModeChanger extends React.Component<ModeChangerProps, any> {
 
 	constructor(props:ModeChangerProps) {
 		super(props);
-		this.state = new ModeChangerState([
-			new ModeItem(props.changer.STROKE_MODE,1),
-			new ModeItem(props.changer.STROKE_MODE,12),
-			new ModeItem(props.changer.STROKE_MODE,24),
-			new ModeItem(props.changer.FILL_MODE),
-			new ModeItem(props.changer.HAND_TOOL_MODE),
-			new ModeItem(props.changer.TEXT_MODE),
-			new ModeItem(props.changer.CLIP_MODE),
-			new ModeItem(props.changer.EYEDROPPER_MODE),
-			new ModeItem(props.changer.ERASER_MODE,24),
-		]);
-	}
-
-	onSelect(index:number){
-		this.setState(new ModeChangerState(this.state.modeItems.map((item,i)=>{
-			return new ModeItem(item.mode,item.thickness,i === index);
-		})));
-		let selected = this.state.modeItems[index];
-		this.props.onSelect(selected.mode,selected.thickness);
 	}
 
 	render() {
 		return(
 			<div className={styles.container}>
-				{this.state.modeItems.map((item,i)=>{
+				{this.props.modeItems.map((item,i)=>{
 					switch (item.mode){
 						case this.props.changer.STROKE_MODE:
-							return <BrushToolButton key={i} thickness={item.thickness} onSelect={()=>{
-								this.onSelect(i);
-							}}/>;
+							return <BrushToolButton
+								key={i}
+								selected={item.selected}
+								thickness={item.thickness}
+								onSelect={()=>{
+									this.props.onSelect(i);
+								}}
+							/>;
 						case this.props.changer.FILL_MODE:
-							return <FillToolButton key={i} onSelect={()=>{
-								this.onSelect(i);
-							}}/>;
+							return <FillToolButton
+								key={i}
+								selected={item.selected}
+								onSelect={()=>{
+									this.props.onSelect(i);
+								}}
+							/>;
 						case this.props.changer.HAND_TOOL_MODE:
-							return <HandToolButton key={i} onSelect={()=>{
-								this.onSelect(i);
-							}}/>;
+							return <HandToolButton
+								key={i}
+								selected={item.selected}
+								onSelect={()=>{
+									this.props.onSelect(i);
+								}}
+							/>;
 						case this.props.changer.TEXT_MODE:
-							return <TextToolButton key={i} onSelect={()=>{
-								this.onSelect(i);
-							}}/>;
+							return <TextToolButton
+								key={i}
+								selected={item.selected}
+								onSelect={()=>{
+									this.props.onSelect(i);
+								}}
+							/>;
 						case this.props.changer.CLIP_MODE:
-							return <ClipToolButton key={i} onSelect={()=>{
-								this.onSelect(i);
-							}}/>;
+							return <ClipToolButton
+								key={i}
+								selected={item.selected}
+								onSelect={()=>{
+									this.props.onSelect(i);
+								}}
+							/>;
 						case this.props.changer.EYEDROPPER_MODE:
-							return <EyedropperToolButton key={i} onSelect={()=>{
-								this.onSelect(i);
-							}}/>;
+							return <EyedropperToolButton
+								key={i}
+								selected={item.selected}
+								onSelect={()=>{
+									this.props.onSelect(i);
+								}}
+							/>;
 						case this.props.changer.ERASER_MODE:
-							return <EraserToolButton key={i} onSelect={()=>{
-								this.onSelect(i);
-							}}/>;
+							return <EraserToolButton
+								key={i}
+								selected={item.selected}
+								onSelect={()=>{
+									this.props.onSelect(i);
+								}}
+							/>;
 						default:
 							return null;
 					}

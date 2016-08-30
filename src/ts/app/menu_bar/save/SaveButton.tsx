@@ -9,7 +9,6 @@ export class SaveButton extends React.Component<SaveButtonProps, any> {
 
 	constructor(props:SaveButtonProps) {
 		super(props);
-		// this.state = {};
 	}
 	render() {
 		return(

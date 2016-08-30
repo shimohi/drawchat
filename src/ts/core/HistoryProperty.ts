@@ -1,9 +1,8 @@
 import DrawMoment = drawchat.core.DrawMoment;
-import {HistoryNumberGenerator} from "./HistoryNumberGenerator";
-import {LayerNumberGenerator} from "./LayerNumberGenerator";
-import {HistoryNumberUtil} from "./HistoryNumberUtil";
 import NumberGenerator = drawchat.core.NumberGenerator;
 import KeyGenerator = drawchat.core.KeyGenerator;
+
+import {HistoryNumberUtil} from "./HistoryNumberUtil";
 
 /**
  * HistoryとHistorySessionで共有するプロパティ
@@ -76,7 +75,7 @@ export class HistoryProperty{
 			return[];
 		}
 		if(!ignoreLocal){
-			return moment.getSequence();
+			return moment.getSequence().concat();
 		}
 
 		let moments = moment.getSequence();
