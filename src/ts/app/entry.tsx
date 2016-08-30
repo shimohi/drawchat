@@ -12,7 +12,7 @@ import {Editor} from "../editor/Editor";
 import {EditorRoot} from "./EditorRoot";
 
 const history = new History();
-const renderer = Renderer.createInstance('editorCanvas',200,200);
+const renderer = Renderer.createInstance('editorCanvas',600,400);
 const editor = new Editor(history,renderer);
 
 ReactDOM.render(

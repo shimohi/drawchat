@@ -27,6 +27,7 @@
 	.item__square_disabled{
 		@include item__square_base;
 		background-color: $color-tertiary-disable;
+		cursor:not-allowed!important;
 		span{
 			color:$color-secondary-disable
 		}

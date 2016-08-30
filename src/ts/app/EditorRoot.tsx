@@ -136,6 +136,7 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 				</div>
 				<div className={styles.modeChanger}>
 					<ModeChanger
+						editorProperties={this.props.editor.properties}
 						modeItems={
 							this.state.modeItems
 						}

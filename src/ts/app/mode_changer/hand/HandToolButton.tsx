@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as styles from './HandToolButtonStyle.scss';
+import DrawchatEditorProperties = drawchat.editor.DrawchatEditorProperties;
 
 
 export interface HandToolButtonProps {
 	key:any;
+	editorProperties:DrawchatEditorProperties;
 	selected?:boolean;
 	onSelect:()=>any;
 }

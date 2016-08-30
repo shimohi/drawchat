@@ -13,6 +13,7 @@
 }
 .item__del_disabled{
 	@include layers__item;
+	cursor:not-allowed!important;
 	color:$color-primary-disable;
 }
 
