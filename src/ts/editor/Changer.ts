@@ -88,6 +88,8 @@ export class Changer implements DrawchatModeChanger{
 		this.prop = prop;
 		this.viewer = layers.viewer;
 		this.layers = layers;
+		this.canvas = Changer.EMPTY_CANVAS;
+		this.mode = -1;
 	}
 	private mode:number;
 
@@ -143,7 +145,7 @@ export class Changer implements DrawchatModeChanger{
 	}
 
 	private doChangeMode(mode:number,canvas:DrawchatCanvas):DrawchatCanvas{
-		if(this.reservedMode === mode){
+		if(this.reservedMode !== mode){
 			return null;
 		}
 		this.mode = mode;

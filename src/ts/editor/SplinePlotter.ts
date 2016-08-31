@@ -140,7 +140,7 @@ export class SplinePlotter{
 		}
 
 		this.result.init();
-		var count = 0 | 0;
+		// var count = 0 | 0;
 
 		var _00:number;
 		var _01:number;
@@ -173,18 +173,19 @@ export class SplinePlotter{
 			var t = 0 | 0;
 			j = 0 | 0;
 			while( j < this.optCount){
-				this.result.set(
-					count,
+				this.result.push(
+					// count,
 					((_03 * t + _02) * t + _01) * t + _00,
 					((_13 * t + _12) * t + _11) * t + _10
 				);
-				count++;
+				// count++;
 				t += a / this.optCount;
 				j = (j + 1) | 0;
 			}
 			i = (i + 1) | 0;
 		}
-		this.result.set(count,
+		this.result.push(
+			// count,
 			this.input.item(num - 1).x,
 			this.input.item(num - 1).y
 		);

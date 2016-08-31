@@ -26,7 +26,7 @@ export class EditorRootState {
 			{r:0,g:255,b:255}
 		];
 		this.modeItems = [
-			new ModeItem(editor.mode.STROKE_MODE,1,true),
+			new ModeItem(editor.mode.STROKE_MODE,1),
 			new ModeItem(editor.mode.STROKE_MODE,12),
 			new ModeItem(editor.mode.STROKE_MODE,24),
 			new ModeItem(editor.mode.FILL_MODE),
@@ -64,7 +64,7 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 		}
 		if(layers.getCurrent() >= 0){
 			this.state.latest = current;
-			return false;
+			return this.complementMode();
 		}
 		if(this.state.latest >= 0 && this.state.latest < count){
 			layers.setCurrent(this.state.latest);
@@ -74,6 +74,14 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 		this.state.latest = count - 1;
 		layers.setCurrent(count - 1);
 		this.refresh();
+		return true;
+	}
+
+	private complementMode():boolean{
+		if(this.state.editor.mode.getMode() >= 0){
+			return false;
+		}
+		this.modeSelect(0);
 		return true;
 	}
 

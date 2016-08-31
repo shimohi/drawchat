@@ -62,7 +62,7 @@ export class PointList extends Float32ItemArray<Point>{
 	}
 
 	set(index:number,x:number,y:number):Point{
-		if(index > this.len){
+		if(index > this.len + 1){
 			throw new Error('Array index out of range.');
 		}
 		this.list[index].x = x;

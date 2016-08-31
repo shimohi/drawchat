@@ -152,13 +152,14 @@ export class HistorySession implements DrawHistoryEditSession{
 	 * リスナーに更新を通知する。
 	 */
 	private noticeUpdate():void{
+		let list = this.prop.listeners;
 		let len = (this.prop.listeners.length) | 0;
 		let i = 0;
+		this.prop.listeners = [];
 		while(i < len){
-			this.prop.listeners[i](this.prop.historyNumberNow);
+			list[i](this.prop.historyNumberNow);
 			i = (i + 1) | 0;
 		}
-		this.prop.listeners = [];
 	}
 
 	/**
