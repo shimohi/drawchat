@@ -108,7 +108,7 @@ export class MapMomentUtil{
 			layerMoment = moment.getLayerMoment(keys[i]);
 			layer = layerMap[keys[i]];
 			i = (i + 1) | 0;
-			if(layer != null){
+			if(layer == null){
 				continue;
 			}
 			if(layerMoment.getClip() != null){

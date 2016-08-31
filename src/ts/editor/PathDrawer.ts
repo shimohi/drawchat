@@ -51,8 +51,18 @@ export class PathDrawer {
 
 	push(x:number, y:number):PathDrawer {
 		this.checkList();
+		if(PathDrawer.SPLINE.inputList.size() === 0){
+			PathDrawer.SPLINE.inputList.push(x,y);
+			return this;
+		}
+
+		let point = PathDrawer.SPLINE.inputList.item(
+			PathDrawer.SPLINE.inputList.item.length - 1
+		);
+		if(point.x === x && point.y === y){
+			return this;
+		}
 		PathDrawer.SPLINE.inputList.push(x,y);
-		// this.doPlot();
 		return this;
 	}
 

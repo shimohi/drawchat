@@ -25,7 +25,8 @@ export class Viewer implements DrawchatViewer{
 		this.now = -1;
 	}
 
-	private _start:boolean = false;
+	private _active:boolean = false;
+	private _waiting:boolean = false;
 
 	clear():void {
 		this.renderer.clear();
@@ -44,7 +45,11 @@ export class Viewer implements DrawchatViewer{
 	}
 
 	start():void{
-		this._start = true;
+		this._active = true;
+		if(this._waiting){
+			return;
+		}
+		this._waiting= true;
 		try {
 			this.updateView();
 			// this.renderer.refresh();
@@ -52,14 +57,15 @@ export class Viewer implements DrawchatViewer{
 			console.warn(e);
 		}
 		this.history.awaitUpdate(()=>{
-			if(this._start){
+			this._waiting = false;
+			if(this._active){
 				this.start();
 			}
 		});
 	}
 
 	stop():void{
-		this._start = false;
+		this._active = false;
 	}
 
 	getPixelColor(

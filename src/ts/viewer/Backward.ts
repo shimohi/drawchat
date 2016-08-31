@@ -80,7 +80,7 @@ export class Backward{
 		while( i  < keys.length){
 			key = layerIds[i];
 			state = updateStateMap[key];
-			i = (i - 1) | 0;
+			i = (i + 1) | 0;
 			if(state !== UpdateState.DELETE){
 				continue;
 			}

@@ -61,12 +61,24 @@ export class SplinePlotter{
 		this._C.init(this.input.size());
 
 		var i:number = 0 | 0;
+		var j = i | 0;
 
-		while(i < ((num - 1)|0)){
-			var p0 = this.input.item(i);
-			var p1 = this.input.item(i + 1);
-			this.l[i] = Math.sqrt((p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y));
+		while(j < ((num - 1)|0)){
+			let p0 = this.input.item(i);
+			let p1 = this.input.item(i + 1);
+			let len = Math.sqrt((p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y));
+			j = (j + 1) | 0;
+			if(len === 0){
+				this.input.remove(i);
+				continue;
+			}
+			this.l[i] = len;
 			i = (i + 1) | 0;
+		}
+		num = i | 0;
+		if(num <= 1){
+			this.result.init();
+			return;
 		}
 
 		this._A.item(0).i1 = 0;
@@ -75,8 +87,8 @@ export class SplinePlotter{
 
 		this._B.set(
 			0,
-			(3 / (2 * this.l[0])) * (this.input.item(1).x - this.input.item(0).x),
-			(3 / (2 * this.l[0])) * (this.input.item(1).y - this.input.item(0).y)
+			(3 / this.convertNaN(2 * this.l[0])) * this.convertNaN(this.input.item(1).x - this.input.item(0).x),
+			(3 / this.convertNaN(2 * this.l[0])) * this.convertNaN(this.input.item(1).y - this.input.item(0).y)
 		);
 
 		this._A.item(num - 1).i1 = 1;
@@ -84,8 +96,8 @@ export class SplinePlotter{
 		this._A.item(num - 1).i3 = 0;
 		this._B.set(
 			num - 1,
-			(3 / this.l[num - 2]) * (this.input.item(num - 1).x - this.input.item(num - 2).x),
-			(3 / this.l[num - 2]) * (this.input.item(num - 1).y - this.input.item(num - 2).y)
+			(3 / this.convertNaN(this.l[num - 2])) * this.convertNaN(this.input.item(num - 1).x - this.input.item(num - 2).x),
+			(3 / this.convertNaN(this.l[num - 2])) * this.convertNaN(this.input.item(num - 1).y - this.input.item(num - 2).y)
 		);
 
 		var a:number;
@@ -100,8 +112,8 @@ export class SplinePlotter{
 			this._A.item(i).i3 = a;
 			this._B.set(
 				i,
-				(3.0 * (a * a * (this.input.item(i + 1).x - this.input.item(i).x)) + 3.0 * b * b * (this.input.item(i).x - this.input.item(i - 1).x)) / (b * a),
-				(3.0 * (a * a * (this.input.item(i + 1).y - this.input.item(i).y)) + 3.0 * b * b * (this.input.item(i).y - this.input.item(i - 1).y)) / (b * a)
+				(3.0 * (a * a * (this.input.item(i + 1).x - this.input.item(i).x)) + 3.0 * b * b * (this.input.item(i).x - this.input.item(i - 1).x)) / this.convertNaN(b * a),
+				(3.0 * (a * a * (this.input.item(i + 1).y - this.input.item(i).y)) + 3.0 * b * b * (this.input.item(i).y - this.input.item(i - 1).y)) / this.convertNaN(b * a)
 			);
 			i = (i + 1) | 0;
 		}
@@ -129,7 +141,7 @@ export class SplinePlotter{
 			this._B.item(num - 1).x,
 			this._B.item(num - 1).y
 		);
-		var j = (num - 1) | 0;
+		j = (num - 1) | 0;
 		while(j > 0){
 			this._C.set(
 				j -1,
@@ -189,6 +201,10 @@ export class SplinePlotter{
 			this.input.item(num - 1).x,
 			this.input.item(num - 1).y
 		);
+	}
+
+	private convertNaN(num:number):number{
+		return num === 0 ? 0.1 : num;
 	}
 }
 
