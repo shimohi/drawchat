@@ -53,7 +53,7 @@ export class History implements DrawHistory{
 	}
 
 	isAvailable(historyNumber?:number):boolean {
-		return this.prop.map[historyNumber] != null;
+		return this.prop.map.has(historyNumber);
 	}
 
 	getMoments(
@@ -71,7 +71,7 @@ export class History implements DrawHistory{
 
 		let result:DrawMoment[] = [];
 		while(fromIndex <= toIndex){
-			result.push(this.prop.map[this.prop.historyNumbers[fromIndex]]);
+			result.push(this.prop.map.get(this.prop.historyNumbers[fromIndex]));
 			fromIndex = (fromIndex + 1)|0;
 		}
 		return result;

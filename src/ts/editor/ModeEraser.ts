@@ -3,16 +3,18 @@ import ClipTransaction = drawchat.updater.ClipTransaction;
 import DrawPathTransaction = drawchat.updater.DrawPathTransaction;
 import {EditorProperties} from "./EditorProperties";
 import {AbstractModeStroke} from "./AbstractModeStroke";
+import DrawchatViewer = drawchat.viewer.DrawchatViewer;
 
 export class ModeEraser extends AbstractModeStroke<DrawPathTransaction> {
 
 	private prop:EditorProperties;
 
 	constructor(
+		viewer:DrawchatViewer,
 		tran:DrawPathTransaction,
 		prop:EditorProperties
 	){
-		super(tran,prop);
+		super(viewer,tran,prop);
 		this.prop = prop;
 	}
 

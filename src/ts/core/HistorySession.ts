@@ -52,7 +52,7 @@ export class HistorySession implements DrawHistoryEditSession{
 			return;
 		}
 		this.prop.historyNumbers = [];
-		this.prop.map = {};
+		this.prop.map = new Map();
 		this.prop.historyNumberNow = -1;
 		this.noticeUpdate();
 	}
@@ -126,7 +126,7 @@ export class HistorySession implements DrawHistoryEditSession{
 		this.cleanupHistory();
 		let num = this.prop.numberGenerator.generateNumber();
 		let moment = new Moment(num,layerMoments,sequences);
-		this.prop.map[num] = moment;
+		this.prop.map.set(num,moment);
 		this.prop.historyNumbers.push(num);
 		if(moment.getSequence() != null){
 			this.prop.sequencesHistoryNumbers.push(num);
@@ -179,7 +179,7 @@ export class HistorySession implements DrawHistoryEditSession{
 		);
 		let i = 0 | 0;
 		while(i < deleted.length){
-			this.prop.map[deleted[i]] = null;
+			this.prop.map.delete(deleted[i]);
 			i = (i + 1) | 0;
 		}
 		this.prop.historyNumbers = this.prop.historyNumbers.slice(0,index + 1);

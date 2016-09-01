@@ -1,15 +1,19 @@
 import DrawchatCanvas = drawchat.editor.DrawchatCanvas;
 import TextTransaction = drawchat.updater.TextTransaction;
 import {EditorProperties} from "./EditorProperties";
+import DrawchatViewer = drawchat.viewer.DrawchatViewer;
 export class ModeText implements DrawchatCanvas{
 
+	private viewer:DrawchatViewer;
 	private tran:TextTransaction;
 	private prop:EditorProperties;
 
 	constructor(
+		viewer:DrawchatViewer,
 		tran:TextTransaction,
 		prop:EditorProperties
 	){
+		this.viewer = viewer;
 		this.tran = tran;
 		this.prop = prop;
 		this.tran.setSavePoint();
@@ -87,13 +91,18 @@ export class ModeText implements DrawchatCanvas{
 
 	private drawText():void{
 		this.waiting = false;
-		this.tran.restoreSavePoint();
-		this.tran.setSize(this.prop.fontSize);
-		this.tran.setFontFamily(this.prop.fontFamily);
-		// this.tran.setStrokeColor(`rgb(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
-		this.tran.setFill(`rgb(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
-		this.tran.setPosition(this.pointX,this.pointY);
-		this.tran.push(this.text);
+		this.viewer.stop();
+		try {
+			this.tran.restoreSavePoint();
+			this.tran.setSize(this.prop.fontSize);
+			this.tran.setFontFamily(this.prop.fontFamily);
+			// this.tran.setStrokeColor(`rgb(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
+			this.tran.setFill(`rgb(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
+			this.tran.setPosition(this.pointX, this.pointY);
+			this.tran.push(this.text);
+		} finally {
+			this.viewer.start();
+		}
 	}
 
 	backward():void {

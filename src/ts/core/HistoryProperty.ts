@@ -31,7 +31,7 @@ export class HistoryProperty{
 	 * 履歴番号とDrawMomentとのマッピング
 	 * @type {{}}
 	 */
-	map:{[key:number]:DrawMoment} = {};
+	map:Map<number,DrawMoment> = new Map();
 
 	/**
 	 * 変更通知を受け取るリスナー
@@ -70,7 +70,7 @@ export class HistoryProperty{
 		if(i < 0){
 			return [];
 		}
-		let moment = this.map[this.sequencesHistoryNumbers[i]];
+		let moment = this.map.get(this.sequencesHistoryNumbers[i]);
 		if(!moment){
 			return[];
 		}

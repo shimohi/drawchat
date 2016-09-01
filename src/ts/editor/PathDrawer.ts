@@ -67,10 +67,11 @@ export class PathDrawer {
 	}
 
 	doPlot(closePath:boolean = false):PathDrawer{
-
-		// this.tran.restoreSavePoint();
-		if(PathDrawer.SPLINE.inputList.size() === 0){
-			// let result = PathDrawer.SPLINE.resultList;
+		let size:number = PathDrawer.SPLINE.inputList.size();
+		if(size === 0){
+			return this;
+		}
+		if(size === 1){
 			this.firstCircle();
 			return this;
 		}
@@ -81,6 +82,7 @@ export class PathDrawer {
 				PathDrawer.SPLINE.inputList.item(0).y
 			);
 		}
+		let addClose = size !== PathDrawer.SPLINE.inputList.size();
 
 		PathDrawer.SPLINE.calc();
 		let result = PathDrawer.SPLINE.resultList;
@@ -97,7 +99,7 @@ export class PathDrawer {
 			);
 			i = (i + 1) | 0;
 		}
-		if(closePath){
+		if(addClose){
 			PathDrawer.SPLINE.inputList.remove(PathDrawer.SPLINE.inputList.size() - 1);
 		}
 		return this;

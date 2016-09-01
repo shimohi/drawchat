@@ -110,23 +110,23 @@ export class Changer implements DrawchatModeChanger{
 		switch (mode){
 			case this.ERASER_MODE:
 				return this.updater.beginPath(currentId).then((tran)=>{
-					return this.doChangeMode(this.ERASER_MODE,new ModeEraser(tran,this.prop));
+					return this.doChangeMode(this.ERASER_MODE,new ModeEraser(this.viewer,tran,this.prop));
 				});
 			case this.FILL_MODE:
 				return this.updater.beginPath(currentId).then((tran)=>{
-					return this.doChangeMode(this.FILL_MODE,new ModeFill(tran,this.prop));
+					return this.doChangeMode(this.FILL_MODE,new ModeFill(this.viewer,tran,this.prop));
 				});
 			case this.STROKE_MODE:
 				return this.updater.beginPath(currentId).then((tran)=>{
-					return this.doChangeMode(this.STROKE_MODE,new ModeStroke(tran,this.prop));
+					return this.doChangeMode(this.STROKE_MODE,new ModeStroke(this.viewer,tran,this.prop));
 				});
 			case this.CLIP_MODE:
 				return this.updater.beginClip(currentId).then((tran)=>{
-					return this.doChangeMode(this.CLIP_MODE,new ModeClip(tran,this.prop));
+					return this.doChangeMode(this.CLIP_MODE,new ModeClip(this.viewer,tran,this.prop));
 				});
 			case this.TEXT_MODE:
 				return this.updater.beginText(currentId).then((tran)=>{
-					return this.doChangeMode(this.TEXT_MODE,new ModeText(tran,this.prop));
+					return this.doChangeMode(this.TEXT_MODE,new ModeText(this.viewer,tran,this.prop));
 				});
 			case this.HAND_TOOL_MODE:
 				return this.updater.beginTransform(currentId).then((tran)=>{

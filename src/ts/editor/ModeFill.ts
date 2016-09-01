@@ -4,15 +4,17 @@ import DrawPathTransaction = drawchat.updater.DrawPathTransaction;
 
 import {EditorProperties} from "./EditorProperties";
 import {AbstractModeFill} from "./AbstractModeFill";
+import DrawchatViewer = drawchat.viewer.DrawchatViewer;
 export class ModeFill extends AbstractModeFill<DrawPathTransaction>{
 
 	private prop:EditorProperties;
 
 	constructor(
+		viewer:DrawchatViewer,
 		tran:DrawPathTransaction,
 		prop:EditorProperties
 	){
-		super(tran,prop);
+		super(viewer,tran,prop);
 		this.prop = prop;
 	}
 

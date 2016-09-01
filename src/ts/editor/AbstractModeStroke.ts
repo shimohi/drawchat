@@ -5,16 +5,20 @@ import PathTransaction = drawchat.updater.PathTransaction;
 
 import {EditorProperties} from "./EditorProperties";
 import {PathDrawer} from "./PathDrawer";
+import DrawchatViewer = drawchat.viewer.DrawchatViewer;
 
 export abstract class AbstractModeStroke<T extends PathTransaction> implements DrawchatCanvas {
 
+	private viewer:DrawchatViewer;
 	private tran:T;
 	private pathDrawer:PathDrawer;
 
 	constructor(
+		viewer:DrawchatViewer,
 		tran:T,
 		prop:EditorProperties
 	){
+		this.viewer = viewer;
 		this.tran = tran;
 		this.tran.setSavePoint();
 		this.pathDrawer = new PathDrawer(tran,prop);
@@ -53,7 +57,7 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 		this.time = new Date().getTime();
 		if((this.time - latest) >= 50){
 			this.tran.setSavePoint();
-			this.pathDrawer.clear();
+			// this.pathDrawer.clear();
 			this.doStroke(x,y);
 			return;
 		}
@@ -121,17 +125,22 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 			}
 			this.doStroke(this.wPointX,this.wPointY);
 			this.tran.setSavePoint();
-			this.pathDrawer.clear();
+			// this.pathDrawer.clear();
 		}, 100);
 	}
 
 	private doStroke(x:number,y:number):void{
-		this.waiting = false;
-		this.lPointX = x;
-		this.lPointY = y;
-		this.tran.restoreSavePoint();
-		this.setProperty(this.tran);
-		this.pathDrawer.push(this.lPointX,this.lPointY).doPlot(true);
+		this.viewer.stop();
+		try {
+			this.waiting = false;
+			this.lPointX = x;
+			this.lPointY = y;
+			this.tran.restoreSavePoint();
+			this.setProperty(this.tran);
+			this.pathDrawer.push(this.lPointX, this.lPointY).doPlot(true);
+		} finally {
+			this.viewer.start();
+		}
 	}
 
 	protected abstract setProperty(tran:T):void;

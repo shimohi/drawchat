@@ -6,15 +6,19 @@ import PathTransaction = drawchat.updater.PathTransaction;
 import {EditorProperties} from "./EditorProperties";
 import {PathDrawer} from "./PathDrawer";
 import {Point} from "./PointArray";
+import DrawchatViewer = drawchat.viewer.DrawchatViewer;
 export abstract class AbstractModeFill<T extends PathTransaction> implements DrawchatCanvas {
 
+	private viewer:DrawchatViewer;
 	private tran:T;
 	private pathDrawer:PathDrawer;
 
 	constructor(
+		viewer:DrawchatViewer,
 		tran:T,
 		prop:EditorProperties
 	){
+		this.viewer = viewer;
 		this.tran = tran;
 		this.tran.setSavePoint();
 		this.pathDrawer = new PathDrawer(tran,prop);
@@ -92,14 +96,19 @@ export abstract class AbstractModeFill<T extends PathTransaction> implements Dra
 		this.waiting = false;
 		this.lPointX = x;
 		this.lPointY = y;
-		this.tran.restoreSavePoint();
-		this.setProperty(this.tran);
+		this.viewer.stop();
+		try {
+			this.tran.restoreSavePoint();
+			this.setProperty(this.tran);
 
-		if(x < 0 && y < 0){
-			this.pathDrawer.doPlot(true);
-			return;
+			if (x < 0 && y < 0) {
+				this.pathDrawer.doPlot(true);
+				return;
+			}
+			this.pathDrawer.push(this.lPointX, this.lPointY).doPlot(true);
+		} finally {
+			this.viewer.start();
 		}
-		this.pathDrawer.push(this.lPointX,this.lPointY).doPlot(true);
 	}
 
 	protected abstract setProperty(tran:T):void;

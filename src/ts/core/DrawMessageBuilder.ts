@@ -7,7 +7,7 @@ export class DrawMessageBuilder {
 
 	static createDrawMessage(
 		historyNumbers:number[],
-		map:{[key:number]:DrawMoment},
+		map:Map<number,DrawMoment>,
 		localLayers:{[key:string]:string}
 	):Message{
 
@@ -15,7 +15,7 @@ export class DrawMessageBuilder {
 		let sequences:string[];
 
 		for(let historyNumber of historyNumbers){
-			let moment = map[historyNumber];
+			let moment = map.get(historyNumber);
 			if(moment.getSequence()){
 				sequences = moment.getSequence();
 			}
