@@ -88,7 +88,7 @@ export class Viewer implements DrawchatViewer{
 			return;
 		}
 		if(!this.history.isAvailable(this.now)){
-			this.now = -1;
+			this.now = this.history.getFirstHistoryNumber();
 			this.renderer.clear();
 		}
 
