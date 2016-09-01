@@ -62,7 +62,7 @@ export class History implements DrawHistory{
 	):DrawMoment[] {
 		let fromIndex = HistoryNumberUtil.getHistoryIndex(this.prop.historyNumbers,from);
 		if(fromIndex < 0){
-			return [];
+			fromIndex = this.getFirstHistoryNumber();
 		}
 		let toIndex = HistoryNumberUtil.getHistoryIndex(this.prop.historyNumbers,to);
 		if(toIndex < 0){

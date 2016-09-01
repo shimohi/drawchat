@@ -43,7 +43,7 @@ export class TransformMap{
 			j = 0 | 0;
 			keys = moment.getKeys();
 			while(j < keys.length){
-				let layer = moment.getLayerMoment(keys[i]);
+				let layer = moment.getLayerMoment(keys[j]);
 			 	if(layer.getTransform() != null){
 			 		this.layerMap[keys[i]] = layer.getTransform();
 				}

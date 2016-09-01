@@ -60,7 +60,7 @@ export class Forward{
 				continue;
 			}
 			layer = MapMomentUtil.concatLayer(pastMap[layer.layerId],layer);
-			renderer.render(i,layer.draws,layer.transform,layer.clip);
+			renderer.render(i-1,layer.draws,layer.transform,layer.clip);
 		}
 		return sequencesNext;
 	}
@@ -96,7 +96,7 @@ export class Forward{
 		i = 0 | 0;
 
 		while( i  < keys.length){
-			key = layerIds[i];
+			key = keys[i];
 			state = updateStateMap[key];
 			i = (i + 1) | 0;
 			if(state !== UpdateState.ADD){

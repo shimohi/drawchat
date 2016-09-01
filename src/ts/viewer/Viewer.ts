@@ -88,7 +88,8 @@ export class Viewer implements DrawchatViewer{
 			return;
 		}
 		if(!this.history.isAvailable(this.now)){
-			this.now = this.history.getFirstHistoryNumber();
+			// this.now = this.history.getFirstHistoryNumber();
+			this.now = -1;
 			this.renderer.clear();
 		}
 
@@ -98,7 +99,7 @@ export class Viewer implements DrawchatViewer{
 				this.renderer,
 				this.sequencesNow,
 				this.history.getLayers(number),
-				this.history.getMoments(this.history.getFirstHistoryNumber(),number),
+				this.history.getMoments(-1,number),
 				this.history.getMoments(number + 1,this.now)
 			);
 			this.now = number;
@@ -110,7 +111,7 @@ export class Viewer implements DrawchatViewer{
 			this.renderer,
 			this.sequencesNow,
 			this.history.getLayers(number),
-			this.history.getMoments(this.history.getFirstHistoryNumber(),this.now),
+			this.history.getMoments(-1,this.now),
 			this.history.getMoments(this.now + 1,number)
 		);
 		this.now = number;

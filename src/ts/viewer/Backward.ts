@@ -43,7 +43,7 @@ export class Backward{
 				continue;
 			}
 
-			renderer.render(i,layer.draws,layer.transform,layer.clip);
+			renderer.render(i-1,layer.draws,layer.transform,layer.clip);
 		}
 		return sequencesPrev;
 	}
