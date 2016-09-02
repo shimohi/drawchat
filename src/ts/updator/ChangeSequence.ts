@@ -6,6 +6,7 @@ import {AbstractTransaction} from "./AbstractTransaction";
 export class ChangeSequence extends AbstractTransaction implements ChangeSequenceTransaction{
 
 	private sequences:string[];
+	// private history:DrawHistory;
 
 	constructor(
 		session:DrawHistoryEditSession,
@@ -13,10 +14,15 @@ export class ChangeSequence extends AbstractTransaction implements ChangeSequenc
 	){
 		super(session,history);
 		this.sequences = history.getLayers(history.getNowHistoryNumber(),false);
+		// this.history = history;
 	}
 
 	protected doCommit():void {
 		this.session.addMoment().setSequence(this.sequences).commit();
+	}
+
+	protected afterCancel():void {
+		this.sequences = this.history.getLayers(this.history.getNowHistoryNumber(),false);
 	}
 
 	toFirst(layerId:string):ChangeSequenceTransaction {

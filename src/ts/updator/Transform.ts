@@ -69,4 +69,8 @@ export class Transform extends AbstractTransaction implements TransformTransacti
 		builder.putLayerMoment(this.layerId).setTransForm(this.matrix);
 		builder.commit();
 	}
+
+	protected afterCancel(): void {
+		this.matrix = null;
+	}
 }

@@ -58,7 +58,7 @@ export class LayerMomentBuilder implements DrawLyaerMomentBuilder{
 	}
 
 	commit():drawchat.core.DrawMomentBuilder {
-		if(!this.clip && !this.transform && this.draws){
+		if(!this.clip && !this.transform && !this.draws){
 			return this.momentBuilder;
 		}
 		if(!this.momentBuilder.layerMap){

@@ -23,6 +23,7 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 		this.layerId = layerId;
 		this.editLayerId = editLayerId;
 		this.setupEditLayer();
+		this.reservedPoint = history.getNowHistoryNumber();
 	}
 
 	protected init():void{
@@ -66,6 +67,20 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 		}
 
 		this.session.addMoment().setSequence(result).commit();
+		this.reservedPoint = this.history.getNowHistoryNumber();
+	}
+
+	setSavePoint(): void {
+		super.setSavePoint();
+		this.reservedPoint = this.history.getNowHistoryNumber();
+	}
+
+	restoreSavePoint(): void {
+		super.restoreSavePoint();
+		this.reservedPoint = this.history.getNowHistoryNumber();
+	}
+
+	protected doCommit():void {
 		this.reservedPoint = this.history.getNowHistoryNumber();
 	}
 

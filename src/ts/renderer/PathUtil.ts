@@ -19,12 +19,10 @@ export class PathUtil{
 		if(!items || items.length === 0){
 			return;
 		}
-
-		context.beginPath();
 		for(let item of items){
 			PathUtil.drawPath(context,item);
 		}
-		context.closePath();
+		// context.closePath();
 	}
 
 	/**

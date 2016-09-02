@@ -86,7 +86,7 @@ export class PathDrawer {
 
 		PathDrawer.SPLINE.calc();
 		let result = PathDrawer.SPLINE.resultList;
-		console.log('lineTo 描画開始');
+		// let result = PathDrawer.SPLINE.inputList;
 		this.tran.moveTo(
 			result.item(0).x,
 			result.item(0).y
@@ -100,7 +100,7 @@ export class PathDrawer {
 			);
 			i = (i + 1) | 0;
 		}
-		console.log('lineTo 描画数:' + i);
+		console.log('パス描画 : '  + i);
 		if(addClose){
 			PathDrawer.SPLINE.inputList.remove(PathDrawer.SPLINE.inputList.size() - 1);
 		}

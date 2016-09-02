@@ -41,8 +41,6 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 			return;
 		}
 		this.checkLastAccess();
-
-		console.log('start x:' + x + ' y:' + y);
 		this.tran.setSavePoint();
 		this.pathDrawer.clear();
 		this.doStroke(x,y);
@@ -59,7 +57,7 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 		if((this.time - latest) >= 50){
 			// this.tran.setSavePoint();
 			// this.pathDrawer.clear();
-			console.log('move And Plot x:' + x + ' y:' + y);
+			// console.log('move And Plot x:' + x + ' y:' + y);
 			this.doStroke(x,y);
 			return;
 		}
@@ -67,15 +65,15 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 		let y1 = y - this.lPointY;
 
 		let d = Math.sqrt(x1 * x1 + y1 * y1);
-		if(d < 5){
-			console.log('waiting x:' + x + ' y:' + y);
+		if(d < 50){
+			// console.log('waiting x:' + x + ' y:' + y);
 			this.time = latest;
 			this.wPointX = x;
 			this.wPointY = y;
 			this.setWait();
 			return;
 		}
-		console.log('move x:' + x + ' y:' + y);
+		// console.log('move x:' + x + ' y:' + y);
 		this.doStroke(x,y);
 	}
 
@@ -87,10 +85,11 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 		if(this.lPointX === x && this.lPointY === y ){
 			return;
 		}
-		console.log('end x:' + x + ' y:' + y);
+		// console.log('end x:' + x + ' y:' + y);
 		this.time = new Date().getTime();
 		this.doStroke(x,y);
-		// this.tran.commit();
+		this.tran.commit(true);
+		this.pathDrawer.clear();
 	}
 
 	private checkLastAccess():void{
@@ -107,7 +106,6 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 			}
 			this.commitReserve = false;
 			this.tran.commit(true);
-			this.tran.setSavePoint();
 			this.pathDrawer.clear();
 		}, 1000);
 	}
@@ -144,7 +142,7 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 			this.lPointY = y;
 			this.tran.restoreSavePoint();
 			this.setProperty(this.tran);
-			this.pathDrawer.push(this.lPointX, this.lPointY).doPlot(true);
+			this.pathDrawer.push(this.lPointX, this.lPointY).doPlot(false);
 
 		} finally {
 			this.viewer.start();

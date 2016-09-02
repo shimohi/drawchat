@@ -26,6 +26,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 	private style:StrokeStyle;
 
 	private path:PathItem[] = [];
+	private savedPath:PathItem[] = [];
 
 	private transformMap:TransformMap;
 	private compositeOperation:number;
@@ -42,10 +43,6 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		this.transformMap = transformMap;
 	}
 
-	protected doCommit():void {
-		this.doUpdate(this.getLayerBuilder());
-	}
-
 	setFill(
 		color:string
 	):DrawPathTransaction {
@@ -58,7 +55,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 			color:color
 		};
 
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
 
@@ -87,13 +84,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 			}
 		};
 
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
-	}
-
-	setSavePoint(): void {
-		this.path = [];
-		super.setSavePoint();
 	}
 
 	setFillRadialGradient(
@@ -125,7 +117,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 			}
 		};
 
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
 
@@ -133,15 +125,12 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		color:string
 	):DrawPathTransaction {
 		this.init();
-
 		this.transformMap.updateMap(this.history);
 		let transform = this.transformMap.getTransForm(this.layerId);
-
 		this.strokeFill = <Fill>{
 			color:color
 		};
-
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
 
@@ -150,16 +139,13 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		offset?:number
 	):DrawPathTransaction {
 		this.init();
-
 		this.transformMap.updateMap(this.history);
 		let transform = this.transformMap.getTransForm(this.layerId);
-
 		this.dash = {
 			segments:segments,
 			offset:offset
 		};
-
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
 
@@ -171,10 +157,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		ignoreScale?:number
 	):DrawPathTransaction {
 		this.init();
-
 		this.transformMap.updateMap(this.history);
 		let transform = this.transformMap.getTransForm(this.layerId);
-
 		this.style = {
 			thickness:thickness,
 			caps:caps,
@@ -182,7 +166,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 			miterLimit:miterLimit,
 			ignoreScale:ignoreScale
 		};
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
 
@@ -191,7 +175,6 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		y:number
 	):DrawPathTransaction {
 		this.init();
-
 		this.transformMap.updateMap(this.history);
 		let transform = this.transformMap.getTransForm(this.layerId);
 		let invert = TransformCalculator.invert(transform);
@@ -204,7 +187,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 				y:point.y
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
 
@@ -216,7 +199,6 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		radius:number
 	):DrawPathTransaction {
 		this.init();
-
 		this.transformMap.updateMap(this.history);
 		let transform = this.transformMap.getTransForm(this.layerId);
 		let invert = TransformCalculator.invert(transform);
@@ -233,7 +215,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 				radius:radius
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
 
@@ -248,8 +230,6 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		let invert = TransformCalculator.invert(transform);
 		let point = TransformCalculator.transform(invert,x,y);
 
-		// console.log('lineTo x:' + x + ' y:' + y);
-
 		this.path.push(
 			<LineTo>{
 				type:3,
@@ -257,11 +237,9 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 				y:point.y
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
-
-
 
 	quadraticCurveTo(
 		cpx:number,
@@ -286,7 +264,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 				y:point2.y
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
@@ -318,18 +296,47 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 				y:point3.y
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(this.getEditBuilder().setTransForm(transform),this.path);
 		return this;
 	}
 
 	setCompositeOperation(compositeOperation: number): drawchat.updater.DrawPathTransaction {
 		this.init();
 		this.compositeOperation = compositeOperation;
-		this.doUpdate(this.getEditBuilder());
+		this.doUpdate(this.getEditBuilder(),this.path);
 		return this;
 	}
 
-	private doUpdate(layerBuilder:DrawLayerMomentBuilder):void{
+	setSavePoint(): void {
+		super.setSavePoint();
+		Array.prototype.push.apply(this.savedPath, this.path);
+		this.path = [];
+	}
+
+	restoreSavePoint(): void {
+		super.restoreSavePoint();
+		this.path = [];
+	}
+
+	protected doCommit():void {
+		Array.prototype.push.apply(this.savedPath, this.path);
+		this.doUpdate(this.getLayerBuilder(),this.savedPath);
+		this.savedPath = [];
+		this.path = [];
+		super.setSavePoint();
+		super.doCommit();
+	}
+
+	protected afterCancel(): void {
+		this.savedPath = [];
+		this.path = [];
+		super.setSavePoint();
+	}
+
+	private doUpdate(
+		layerBuilder:DrawLayerMomentBuilder,
+		path1:PathItem[]
+	):void{
 		layerBuilder.addDraw(
 			<drawchat.GraphicsDraw>{
 				compositeOperation:this.compositeOperation,
@@ -340,7 +347,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 						dash:this.dash,
 						style:this.style
 					},
-					path:this.path
+					path:path1
 				}]
 			})
 			.commit().commit();

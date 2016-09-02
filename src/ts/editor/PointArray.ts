@@ -67,6 +67,9 @@ export class PointList extends Float32ItemArray<Point>{
 		}
 		this.list[index].x = x;
 		this.list[index].y = y;
+		if(this.len === index){
+			this.len = index;
+		}
 		return this.list[index];
 	}
 }

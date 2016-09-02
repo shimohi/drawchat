@@ -33,11 +33,12 @@ export abstract class AbstractTransaction implements DrawTransaction{
 			this.session.release();
 			return;
 		}
+		this.afterCancel();
 	}
 
 	commit(duration: boolean = false): void {
-		this.restoreSavePoint();
-		// this.session.setHistoryNumberNow(this.startPoint);
+		// this.restoreSavePoint();
+		this.session.setHistoryNumberNow(this.startPoint);
 		this.doCommit();
 		if(!duration){
 			this.session.release();
@@ -49,6 +50,8 @@ export abstract class AbstractTransaction implements DrawTransaction{
 	isAlive(): boolean {
 		return this.session.isAlive();
 	}
+
+	protected abstract afterCancel():void;
 
 	protected abstract doCommit():void;
 }

@@ -47,18 +47,9 @@ export class SplinePlotter{
 
 	/**
 	 * スプライン曲線描画用の座標を取得します。
-	 * @param p
-	 * @param resultTo
 	 */
-	calc(
-		// resultTo:PointList,
-		// p:PointList
-	){
+	calc(){
 		var num = this.input.size();
-
-		this._A.init(this.input.size());
-		this._B.init(this.input.size());
-		this._C.init(this.input.size());
 
 		var i:number = 0 | 0;
 		var j = i | 0;
@@ -75,7 +66,12 @@ export class SplinePlotter{
 			this.l[i] = len;
 			i = (i + 1) | 0;
 		}
-		num = i | 0;
+
+		num = (i + 1) | 0;
+		this._A.init(num);
+		this._B.init(num);
+		this._C.init(num);
+
 		if(num <= 1){
 			this.result.init();
 			return;
@@ -87,8 +83,8 @@ export class SplinePlotter{
 
 		this._B.set(
 			0,
-			(3 / this.convertNaN(2 * this.l[0])) * this.convertNaN(this.input.item(1).x - this.input.item(0).x),
-			(3 / this.convertNaN(2 * this.l[0])) * this.convertNaN(this.input.item(1).y - this.input.item(0).y)
+			(3 / (2 * this.l[0])) * this.convertNaN(this.input.item(1).x - this.input.item(0).x),
+			(3 / (2 * this.l[0])) * this.convertNaN(this.input.item(1).y - this.input.item(0).y)
 		);
 
 		this._A.item(num - 1).i1 = 1;
@@ -96,8 +92,8 @@ export class SplinePlotter{
 		this._A.item(num - 1).i3 = 0;
 		this._B.set(
 			num - 1,
-			(3 / this.convertNaN(this.l[num - 2])) * this.convertNaN(this.input.item(num - 1).x - this.input.item(num - 2).x),
-			(3 / this.convertNaN(this.l[num - 2])) * this.convertNaN(this.input.item(num - 1).y - this.input.item(num - 2).y)
+			(3 / (this.l[num - 2])) * this.convertNaN(this.input.item(num - 1).x - this.input.item(num - 2).x),
+			(3 / (this.l[num - 2])) * this.convertNaN(this.input.item(num - 1).y - this.input.item(num - 2).y)
 		);
 
 		var a:number;
@@ -127,8 +123,8 @@ export class SplinePlotter{
 
 			this._B.set(
 				i,
-				this._B.item(i).x * d - this._B.item(i - 1).x / this._A.item(i).i2,
-				this._B.item(i).y * d - this._B.item(i - 1).y / this._A.item(i).i2
+				(this._B.item(i).x * d - this._B.item(i - 1).x) / this._A.item(i).i2,
+				(this._B.item(i).y * d - this._B.item(i - 1).y) / this._A.item(i).i2
 			);
 
 			this._A.item(i).i3 = this._A.item(i).i3 / this._A.item(i).i2;
@@ -150,9 +146,7 @@ export class SplinePlotter{
 			);
 			j = (j - 1) | 0;
 		}
-
-		this.result.init();
-		// var count = 0 | 0;
+		this.result.init(0);
 
 		var _00:number;
 		var _01:number;
@@ -182,22 +176,19 @@ export class SplinePlotter{
 			_13 =	(this.input.item(i + 1).y - this.input.item(i).y) * (-2/(a * a * a))
 					+ 	(this._C.item(i + 1).y + this._C.item(i).y) * (1 / (a * a));
 
-			var t = 0 | 0;
+			var t = 0;
 			j = 0 | 0;
 			while( j < this.optCount){
 				this.result.push(
-					// count,
 					((_03 * t + _02) * t + _01) * t + _00,
 					((_13 * t + _12) * t + _11) * t + _10
 				);
-				// count++;
 				t += a / this.optCount;
 				j = (j + 1) | 0;
 			}
 			i = (i + 1) | 0;
 		}
 		this.result.push(
-			// count,
 			this.input.item(num - 1).x,
 			this.input.item(num - 1).y
 		);

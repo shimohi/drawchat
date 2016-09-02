@@ -17,6 +17,7 @@ import {TransformCalculator} from "./TransformCalculator";
 export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 
 	private path:PathItem[] = [];
+	private savedPath:PathItem[] = [];
 	private transformMap:TransformMap;
 	// private transform:Transform;
 
@@ -29,10 +30,6 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 	){
 		super(session,history,layerId,editLayerId);
 		this.transformMap = transformMap;
-	}
-
-	protected doCommit():void {
-		this.doUpdate(this.getLayerBuilder());
 	}
 
 	moveTo(
@@ -52,13 +49,11 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				y:point.y
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(
+			this.getEditBuilder().setTransForm(transform),
+			this.path
+		);
 		return this;
-	}
-
-	setSavePoint(): void {
-		this.path = [];
-		super.setSavePoint();
 	}
 
 	arcTo(
@@ -86,7 +81,10 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				radius:radius
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(
+			this.getEditBuilder().setTransForm(transform),
+			this.path
+		);
 		return this;
 	}
 
@@ -113,7 +111,10 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				y:point2.y
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(
+			this.getEditBuilder().setTransForm(transform),
+			this.path
+		);
 		return this;
 	}
 
@@ -135,7 +136,10 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				y:point1.y
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(
+			this.getEditBuilder().setTransForm(transform),
+			this.path
+		);
 		return this;
 	}
 
@@ -167,14 +171,46 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				y:point3.y
 			}
 		);
-		this.doUpdate(this.getEditBuilder().setTransForm(transform));
+		this.doUpdate(
+			this.getEditBuilder().setTransForm(transform),
+			this.path
+		);
 		return this;
 	}
 
-	private doUpdate(layerBuilder:DrawLayerMomentBuilder):void{
+	restoreSavePoint(): void {
+		super.restoreSavePoint();
+		this.path = [];
+	}
+
+	setSavePoint(): void {
+		super.setSavePoint();
+		Array.prototype.push.apply(this.savedPath, this.path);
+		this.path = [];
+	}
+
+	protected doCommit():void {
+		Array.prototype.push.apply(this.savedPath, this.path);
+		this.doUpdate(this.getLayerBuilder(),this.savedPath);
+		this.savedPath = [];
+		this.path = [];
+		super.setSavePoint();
+		super.doCommit();
+	}
+
+	protected afterCancel(): void {
+		this.savedPath = [];
+		this.path = [];
+		super.setSavePoint();
+	}
+
+	private doUpdate(
+		layerBuilder:DrawLayerMomentBuilder,
+		path1:PathItem[]
+	):void{
 		layerBuilder.setClip(
 		<drawchat.Clip>{
-			path:this.path
+			path:path1
 		})
 		.commit().commit();
 	}

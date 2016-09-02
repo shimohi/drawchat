@@ -31,10 +31,6 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		super(session,history,layerId,editLayerId);
 	}
 
-	protected doCommit():void {
-		this.doUpdate(this.getLayerBuilder());
-	}
-
 	setFill(
 		color:string
 	):TextTransaction {
@@ -176,6 +172,26 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		this.compositeOperation = compositeOperation;
 		this.doUpdate(this.getEditBuilder());
 		return this;
+	}
+
+	protected doCommit():void {
+		this.doUpdate(this.getLayerBuilder());
+		super.doCommit();
+	}
+
+	protected afterCancel(): void {
+		this.x = undefined;
+		this.y = undefined;
+		this.fill = undefined;
+		this.stroke = undefined;
+		this.align = undefined;
+		this.baseline = undefined;
+		this.text = undefined;
+		this.fontFamily = undefined;
+		this.size = undefined;
+		this.weight = undefined;
+		this.style = undefined;
+		this.compositeOperation = undefined;
 	}
 
 	private doUpdate(layerBuilder:DrawLayerMomentBuilder):void{
