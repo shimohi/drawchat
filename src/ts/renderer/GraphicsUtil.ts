@@ -41,6 +41,7 @@ export class GraphicsUtil{
 		}
 
 		//path
+		// console.log('drawPathArray :' + JSON.stringify(graphics.path,null,"  "));
 		PathUtil.drawPathArray(context,graphics.path);
 
 		//fill

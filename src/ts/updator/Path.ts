@@ -70,8 +70,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		colorStops?:ColorStop[]
 	):DrawPathTransaction {
 		this.init();
-
 		this.transformMap.updateMap(this.history);
+
 		let transform = this.transformMap.getTransForm(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,x0,y0);
@@ -89,6 +89,11 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 
 		this.doUpdate(this.getEditBuilder().setTransForm(transform));
 		return this;
+	}
+
+	setSavePoint(): void {
+		this.path = [];
+		super.setSavePoint();
 	}
 
 	setFillRadialGradient(
@@ -243,6 +248,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		let invert = TransformCalculator.invert(transform);
 		let point = TransformCalculator.transform(invert,x,y);
 
+		// console.log('lineTo x:' + x + ' y:' + y);
+
 		this.path.push(
 			<LineTo>{
 				type:3,
@@ -253,6 +260,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		this.doUpdate(this.getEditBuilder().setTransForm(transform));
 		return this;
 	}
+
+
 
 	quadraticCurveTo(
 		cpx:number,
@@ -278,7 +287,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 			}
 		);
 		this.doUpdate(this.getEditBuilder().setTransForm(transform));
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 

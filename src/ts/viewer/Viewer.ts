@@ -29,6 +29,8 @@ export class Viewer implements DrawchatViewer{
 	private _waiting:boolean = false;
 
 	clear():void {
+		this.now = -1;
+		this.sequencesNow = [];
 		this.renderer.clear();
 	}
 
@@ -90,6 +92,7 @@ export class Viewer implements DrawchatViewer{
 		if(!this.history.isAvailable(this.now)){
 			// this.now = this.history.getFirstHistoryNumber();
 			this.now = -1;
+			this.sequencesNow = [];
 			this.renderer.clear();
 		}
 

@@ -56,7 +56,7 @@ export class Forward{
 			if(
 				updateStateMap[layer.layerId] === UpdateState.UPDATE
 			||	updateStateMap[layer.layerId] === UpdateState.ADD){
-				renderer.renderDiff(i,layer.draws);
+				renderer.renderDiff(i - 1,layer.draws);
 				continue;
 			}
 			layer = MapMomentUtil.concatLayer(pastMap[layer.layerId],layer);

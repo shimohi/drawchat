@@ -15,6 +15,7 @@ export abstract class AbstractTransaction implements DrawTransaction{
 	){
 		this.session = session;
 		this.startPoint = history.getNowHistoryNumber();
+		this.savePoint = this.startPoint;
 		this.history = history;
 	}
 
@@ -35,7 +36,8 @@ export abstract class AbstractTransaction implements DrawTransaction{
 	}
 
 	commit(duration: boolean = false): void {
-		this.session.setHistoryNumberNow(this.startPoint);
+		this.restoreSavePoint();
+		// this.session.setHistoryNumberNow(this.startPoint);
 		this.doCommit();
 		if(!duration){
 			this.session.release();

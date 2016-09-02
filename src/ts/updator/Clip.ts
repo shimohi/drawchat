@@ -56,6 +56,11 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 		return this;
 	}
 
+	setSavePoint(): void {
+		this.path = [];
+		super.setSavePoint();
+	}
+
 	arcTo(
 		x1:number,
 		y1:number,
