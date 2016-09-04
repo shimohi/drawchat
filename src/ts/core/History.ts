@@ -1,6 +1,8 @@
 import DrawHistory = drawchat.core.DrawHistory;
 import DrawMoment = drawchat.core.DrawMoment;
 import DrawLayerMoment = drawchat.core.DrawLayerMoment;
+import NumberGenerator = drawchat.core.NumberGenerator;
+import KeyGenerator = drawchat.core.KeyGenerator;
 
 import {HistoryNumberGenerator} from "./HistoryNumberGenerator";
 import {LayerNumberGenerator} from "./LayerNumberGenerator";
@@ -8,8 +10,6 @@ import {DrawMessageBuilder} from "./DrawMessageBuilder";
 import {HistoryNumberUtil} from "./HistoryNumberUtil";
 import {HistoryProperty} from "./HistoryProperty";
 import {SessionQueue} from "./SessionQueue";
-import NumberGenerator = drawchat.core.NumberGenerator;
-import KeyGenerator = drawchat.core.KeyGenerator;
 
 export class History implements DrawHistory{
 
@@ -64,11 +64,13 @@ export class History implements DrawHistory{
 		if(fromIndex < 0){
 			fromIndex = this.getFirstHistoryNumber();
 		}
+		if(this.prop.historyNumbers[fromIndex] < from){
+			fromIndex++;
+		}
 		let toIndex = HistoryNumberUtil.getHistoryIndex(this.prop.historyNumbers,to);
 		if(toIndex < 0){
 			return [];
 		}
-
 		let result:DrawMoment[] = [];
 		while(fromIndex <= toIndex){
 			result.push(this.prop.map.get(this.prop.historyNumbers[fromIndex]));

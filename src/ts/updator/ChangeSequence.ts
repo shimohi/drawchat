@@ -17,12 +17,20 @@ export class ChangeSequence extends AbstractTransaction implements ChangeSequenc
 		// this.history = history;
 	}
 
-	protected doCommit():void {
+	protected beforeCommit():void {
 		this.session.addMoment().setSequence(this.sequences).commit();
 	}
 
 	protected afterCancel():void {
 		this.sequences = this.history.getLayers(this.history.getNowHistoryNumber(),false);
+	}
+
+	protected beforeCancel(duration: boolean): void {
+		//	現在処理なし
+	}
+
+	protected afterCommit(duration: boolean): void {
+		//	現在処理なし
 	}
 
 	toFirst(layerId:string):ChangeSequenceTransaction {

@@ -174,9 +174,9 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		return this;
 	}
 
-	protected doCommit():void {
+	protected beforeCommit(duration:boolean):void {
 		this.doUpdate(this.getLayerBuilder());
-		super.doCommit();
+		super.beforeCommit(duration);
 	}
 
 	protected afterCancel(): void {
@@ -195,6 +195,9 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 	}
 
 	private doUpdate(layerBuilder:DrawLayerMomentBuilder):void{
+		if(this.text == null || this.text.length === 0){
+			return;
+		}
 		layerBuilder.addDraw(
 			<TextDraw>{
 				compositeOperation: this.compositeOperation,

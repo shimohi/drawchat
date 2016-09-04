@@ -144,6 +144,21 @@ export class Changer implements DrawchatModeChanger{
 		return null;
 	}
 
+	isAliveMode(mode: Number): boolean {
+		switch (mode){
+			case this.ERASER_MODE:
+			case this.FILL_MODE:
+			case this.STROKE_MODE:
+			case this.CLIP_MODE:
+			case this.TEXT_MODE:
+			case this.HAND_TOOL_MODE:
+			case this.EYEDROPPER_MODE:
+				return true;
+			default:
+				return false;
+		}
+	}
+
 	private doChangeMode(mode:number,canvas:DrawchatCanvas):DrawchatCanvas{
 		if(this.reservedMode !== mode){
 			return null;

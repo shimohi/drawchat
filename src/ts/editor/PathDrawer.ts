@@ -66,12 +66,12 @@ export class PathDrawer {
 		return this;
 	}
 
-	doPlot(closePath:boolean = false):PathDrawer{
+	doPlot(closePath:boolean = false,circle:boolean = true):PathDrawer{
 		let size:number = PathDrawer.SPLINE.inputList.size();
 		if(size === 0){
 			return this;
 		}
-		if(size === 1){
+		if(size === 1 && circle){
 			this.firstCircle();
 			return this;
 		}
@@ -100,7 +100,7 @@ export class PathDrawer {
 			);
 			i = (i + 1) | 0;
 		}
-		console.log('パス描画 : '  + i);
+		// console.log('パス描画 : '  + i);
 		if(addClose){
 			PathDrawer.SPLINE.inputList.remove(PathDrawer.SPLINE.inputList.size() - 1);
 		}
@@ -112,8 +112,9 @@ export class PathDrawer {
 	 */
 	private firstCircle(){
 		let radius = this.prop.thickness ? this.prop.thickness : 1;
+
 		let x = PathDrawer.SPLINE.inputList.item(0).x;
-		let y= PathDrawer.SPLINE.inputList.item(0).y;
+		let y = PathDrawer.SPLINE.inputList.item(0).y;
 
 		this.tran.moveTo(x - radius,y);
 		this.tran.arcTo(x - radius, y + radius, x, y + radius, radius);

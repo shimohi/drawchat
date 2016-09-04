@@ -12,6 +12,7 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 	layerId:string;
 	private editLayerId:string;
 	private reservedPoint:number;
+	private initialized:boolean;
 
 	constructor(
 		session:DrawHistoryEditSession,
@@ -22,12 +23,23 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 		super(session,history);
 		this.layerId = layerId;
 		this.editLayerId = editLayerId;
-		this.setupEditLayer();
-		this.reservedPoint = history.getNowHistoryNumber();
+		this.initialized = false;
 	}
 
 	protected init():void{
+		if(!this.initialized){
+			this.setup(true);
+			this.initialized = true;
+		}
 		this.session.setHistoryNumberNow(this.reservedPoint);
+	}
+
+	private setup(editLayer:boolean):void{
+		if(editLayer){
+			this.setupEditLayer();
+		}
+		// this.reservedPoint = this.history.getNowHistoryNumber();
+		super.setSavePoint();
 	}
 
 	/**
@@ -80,8 +92,19 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 		this.reservedPoint = this.history.getNowHistoryNumber();
 	}
 
-	protected doCommit():void {
-		this.reservedPoint = this.history.getNowHistoryNumber();
+	protected beforeCommit(duration:boolean):void {
+	}
+
+	protected afterCommit(duration: boolean): void {
+		this.setup(duration);
+	}
+
+	protected beforeCancel(duration: boolean): void {
+		//現在処理なし。
+	}
+
+	protected afterCancel(duration: boolean): void {
+		//現在処理なし。
 	}
 
 	protected getLayerBuilder():DrawLayerMomentBuilder{

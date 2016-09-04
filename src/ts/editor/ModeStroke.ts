@@ -20,7 +20,7 @@ export class ModeStroke extends AbstractModeStroke<DrawPathTransaction>{
 	}
 
 	protected setProperty(tran: drawchat.updater.DrawPathTransaction): void {
-		tran.setStrokeColor(`rgb(${
+		tran.setStrokeColor(`rgba(${
 			this.prop.color.r
 		},${
 			this.prop.color.g
@@ -32,6 +32,9 @@ export class ModeStroke extends AbstractModeStroke<DrawPathTransaction>{
 		tran.setStrokeStyle(
 			this.prop.thickness
 		);
+	}
+
+	protected setCommitProperty(tran: drawchat.updater.DrawPathTransaction): void {
 	}
 }
 

@@ -31,7 +31,7 @@ export class StrokeUtil{
 		let style = stroke.style;
 		if(!style){
 			context.lineWidth = 1;
-			context.lineCap = "butt";
+			context.lineCap = "round";
 			context.lineJoin = "miter";
 			context.miterLimit =  10.0;
 			return;
@@ -63,7 +63,7 @@ export class StrokeUtil{
 		lineCap:number
 	):void{
 		if(!lineCap){
-			context.lineCap = "butt";
+			context.lineCap = "round";
 			return;
 		}
 		switch(lineCap){
@@ -84,7 +84,7 @@ export class StrokeUtil{
 		joints:number
 	):void{
 		if(!joints){
-			context.lineCap = "miter";
+			context.lineCap = "round";
 			return;
 		}
 		switch(joints){

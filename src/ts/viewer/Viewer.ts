@@ -90,7 +90,6 @@ export class Viewer implements DrawchatViewer{
 			return;
 		}
 		if(!this.history.isAvailable(this.now)){
-			// this.now = this.history.getFirstHistoryNumber();
 			this.now = -1;
 			this.sequencesNow = [];
 			this.renderer.clear();

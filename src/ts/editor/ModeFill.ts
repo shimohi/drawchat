@@ -19,7 +19,7 @@ export class ModeFill extends AbstractModeFill<DrawPathTransaction>{
 	}
 
 	protected setProperty(tran: drawchat.updater.DrawPathTransaction): void {
-		tran.setFill(`rgb(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
+		tran.setFill(`rgba(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
 	}
 
 	setText(text:string):void {

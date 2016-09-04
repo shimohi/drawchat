@@ -97,7 +97,7 @@ export class ModeText implements DrawchatCanvas{
 			this.tran.setSize(this.prop.fontSize);
 			this.tran.setFontFamily(this.prop.fontFamily);
 			// this.tran.setStrokeColor(`rgb(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
-			this.tran.setFill(`rgb(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
+			this.tran.setFill(`rgba(${this.prop.color.r},${this.prop.color.g},${this.prop.color.b},${this.prop.alpha})`);
 			this.tran.setPosition(this.pointX, this.pointY);
 			this.tran.push(this.text);
 		} finally {

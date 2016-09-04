@@ -84,23 +84,31 @@ export class CanvasContainer{
 
 		//一旦全件削除
 		for(let element of this.elementList){
-			this.getParent().removeChild(element);
+			try {
+				this.getParent().removeChild(element);
+			} catch (e) {
+				//無視
+			}
 		}
 
 		let elementList1:HTMLCanvasElement[] = [];
 		let canvasList1:CanvasRenderingContext2D[] = [];
 
 		let i = 0 | 0;
-		while(i < this.elementList.length){
+		while(i < orders.length){
 			let order = orders[i];
-			if(order >= this.elementList.length){
+			if(order < 0 || order >= this.elementList.length){
+				i = (i + 1) | 0;
 				continue;
 			}
-
 			elementList1[i] = this.elementList[order];
 			canvasList1[i] = this.contextList[order];
 
-			this.getParent().appendChild(elementList1[i]);
+			try {
+				this.getParent().appendChild(elementList1[i]);
+			} catch (e) {
+				console.log(e);
+			}
 			i = (i + 1) | 0;
 		}
 		this.elementList = elementList1;

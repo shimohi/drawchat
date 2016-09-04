@@ -35,6 +35,7 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 	private waiting:boolean;
 	private reset:boolean;
 	private commitReserve:boolean;
+	private started:boolean;
 
 	touchStart(x: number, y: number): void {
 		if(!this.tran.isAlive()){
@@ -44,6 +45,7 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 		this.tran.setSavePoint();
 		this.pathDrawer.clear();
 		this.doStroke(x,y);
+		this.started = true;
 	}
 
 	touchMove(x: number, y: number): void {
@@ -55,9 +57,6 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 		let latest = this.time;
 		this.time = new Date().getTime();
 		if((this.time - latest) >= 50){
-			// this.tran.setSavePoint();
-			// this.pathDrawer.clear();
-			// console.log('move And Plot x:' + x + ' y:' + y);
 			this.doStroke(x,y);
 			return;
 		}
@@ -66,28 +65,33 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 
 		let d = Math.sqrt(x1 * x1 + y1 * y1);
 		if(d < 50){
-			// console.log('waiting x:' + x + ' y:' + y);
 			this.time = latest;
 			this.wPointX = x;
 			this.wPointY = y;
 			this.setWait();
 			return;
 		}
-		// console.log('move x:' + x + ' y:' + y);
 		this.doStroke(x,y);
 	}
 
 	touchEnd(x: number, y: number): void {
+		if(!this.started){
+			return;
+		}
+		this.started = false;
 		if(!this.tran.isAlive()){
 			return;
 		}
 		this.checkLastAccess();
 		if(this.lPointX === x && this.lPointY === y ){
+			this.setCommitProperty(this.tran);
+			this.tran.commit(true);
+			this.pathDrawer.clear();
 			return;
 		}
-		// console.log('end x:' + x + ' y:' + y);
 		this.time = new Date().getTime();
 		this.doStroke(x,y);
+		this.setCommitProperty(this.tran);
 		this.tran.commit(true);
 		this.pathDrawer.clear();
 	}
@@ -105,6 +109,7 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 				return;
 			}
 			this.commitReserve = false;
+			this.setCommitProperty(this.tran);
 			this.tran.commit(true);
 			this.pathDrawer.clear();
 		}, 1000);
@@ -129,8 +134,6 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 				return;
 			}
 			this.doStroke(this.wPointX,this.wPointY);
-			this.tran.setSavePoint();
-			this.pathDrawer.clear();
 		}, 100);
 	}
 
@@ -142,12 +145,14 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 			this.lPointY = y;
 			this.tran.restoreSavePoint();
 			this.setProperty(this.tran);
-			this.pathDrawer.push(this.lPointX, this.lPointY).doPlot(false);
+			this.pathDrawer.push(this.lPointX, this.lPointY).doPlot(false,false);
 
 		} finally {
 			this.viewer.start();
 		}
 	}
+
+	protected abstract setCommitProperty(tran:T):void;
 
 	protected abstract setProperty(tran:T):void;
 

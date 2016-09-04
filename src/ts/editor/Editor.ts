@@ -46,7 +46,7 @@ export class Editor implements DrawchatEditor{
 		this.updater = new Updater(history);
 		this.renderer = renderer;
 		this.viewer = new Viewer(history,renderer);
-		this.layers = new Layers(this.updater,this.viewer);
+		this.layers = new Layers(this.updater,this.viewer,this);
 		this._properties = properties ? properties : new EditorProperties();
 		this._mode = new Changer(this.layers,this._properties);
 	}
@@ -80,11 +80,17 @@ export class Editor implements DrawchatEditor{
 	}
 
 	undo():Promise<any> {
-		return this.updater.undo();
+		let mode = this.mode.getMode();
+		return this.updater.undo().then(()=>{
+			return this.mode.changeMode(mode);
+		});
 	}
 
 	redo():Promise<any> {
-		return this.updater.redo();
+		let mode = this.mode.getMode();
+		return this.updater.redo().then(()=>{
+			return this.mode.changeMode(mode);
+		});
 	}
 
 	canUndo(): boolean {

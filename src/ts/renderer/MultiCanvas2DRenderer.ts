@@ -67,15 +67,15 @@ class Renderer implements DrawchatRenderer{
 		clip?:drawchat.Clip
 	):void {
 
-		if(!draws || draws.length === 0){
-			return;
-		}
 		let context = this.canvasContainer.getCanvas(index);
 		if(!context){
 			return;
 		}
-
 		context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
+		if(!draws || draws.length === 0){
+			return;
+		}
+
 		this.transformContainer.setBaseTransform(transform);
 
 		//	切り抜きの設定

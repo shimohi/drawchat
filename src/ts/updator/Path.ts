@@ -318,13 +318,13 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		this.path = [];
 	}
 
-	protected doCommit():void {
+	protected beforeCommit(duration:boolean):void {
 		Array.prototype.push.apply(this.savedPath, this.path);
 		this.doUpdate(this.getLayerBuilder(),this.savedPath);
 		this.savedPath = [];
 		this.path = [];
 		super.setSavePoint();
-		super.doCommit();
+		super.beforeCommit(duration);
 	}
 
 	protected afterCancel(): void {
@@ -337,6 +337,9 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		layerBuilder:DrawLayerMomentBuilder,
 		path1:PathItem[]
 	):void{
+		if(path1 == null || path1.length === 0){
+			return;
+		}
 		layerBuilder.addDraw(
 			<drawchat.GraphicsDraw>{
 				compositeOperation:this.compositeOperation,

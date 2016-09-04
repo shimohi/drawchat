@@ -211,7 +211,6 @@ export class Updater implements DrawchatUpdater{
 					this.editorLayerId = layers[layers.length - 1];
 					return session;
 				}
-
 				let moment = session.addLayer({draws:[]},true);
 				this.editorLayerId = moment.getSequence()[0];
 				this.updaterStartPoint = this.history.getNowHistoryNumber();
@@ -223,14 +222,4 @@ export class Updater implements DrawchatUpdater{
 		});
 		return this.queue;
 	}
-
-	// private cleanTransaction(
-	// 	commit:boolean
-	// ):void{
-	// 	if(commit){
-	// 		this.currentTransaction.commit();
-	// 		return;
-	// 	}
-	// 	this.currentTransaction.cancel();
-	// }
 }

@@ -177,6 +177,7 @@ export class HistorySession implements DrawHistoryEditSession{
 		let deleted = this.prop.historyNumbers.slice(
 			index + 1,this.prop.historyNumbers.length
 		);
+
 		let i = 0 | 0;
 		while(i < deleted.length){
 			this.prop.map.delete(deleted[i]);

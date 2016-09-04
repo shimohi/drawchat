@@ -13,7 +13,9 @@ class Point{
 
 export class CanvasContainerState {
 	click:boolean;
+	moving:boolean;
 	editor:DrawchatEditor;
+	mouseOut:(event:MouseEvent)=>void;
 	mouseMove:(event:MouseEvent)=>void;
 	mouseDown:(event:MouseEvent)=>void;
 	mouseUp:(event:MouseEvent)=>void;
@@ -40,6 +42,7 @@ export class CanvasContainer extends React.Component<CanvasContainerProps, Canva
 			if(!this.state.click){
 				return;
 			}
+			this.state.moving = true;
 			let point = this.getOffset(element,event);
 			this.props.editor.canvas.touchMove(point.x,point.y);
 		};
@@ -49,14 +52,25 @@ export class CanvasContainer extends React.Component<CanvasContainerProps, Canva
 			this.props.editor.canvas.touchStart(point.x,point.y);
 		};
 		this.state.mouseUp = (event:MouseEvent)=>{
-			this.state.click = false;
-			let point = this.getOffset(element,event);
-			this.props.editor.canvas.touchEnd(point.x,point.y);
+			this.drop(element,event);
+		};
+		this.state.mouseOut = (event:MouseEvent)=>{
+			if(!this.state.moving){
+				return;
+			}
+			this.drop(element,event);
 		};
 		element.addEventListener('mousemove',this.state.mouseMove);
 		element.addEventListener('mousedown',this.state.mouseDown);
-		element.addEventListener('mouseup',this.state.mouseUp);
-		element.addEventListener('mouseout',this.state.mouseUp);
+		document.addEventListener('mouseup',this.state.mouseUp);
+		element.addEventListener('mouseout',this.state.mouseOut);
+	}
+
+	private drop(element:Element,event:MouseEvent){
+		this.state.click = false;
+		this.state.moving = false;
+		let point = this.getOffset(element,event);
+		this.props.editor.canvas.touchEnd(point.x,point.y);
 	}
 
 	componentWillMount(): void {
@@ -68,8 +82,8 @@ export class CanvasContainer extends React.Component<CanvasContainerProps, Canva
 		}
 		element.removeEventListener('mousemove',this.state.mouseMove);
 		element.removeEventListener('mousedown',this.state.mouseDown);
-		element.removeEventListener('mouseup',this.state.mouseUp);
-		element.removeEventListener('mouseout',this.state.mouseUp);
+		document.removeEventListener('mouseup',this.state.mouseUp);
+		element.removeEventListener('mouseout',this.state.mouseOut);
 		this.state.mouseMove = null;
 		this.state.mouseDown = null;
 		this.state.mouseUp = null;

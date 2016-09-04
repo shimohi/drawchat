@@ -2,18 +2,22 @@ import DrawchatLayers = drawchat.editor.DrawchatLayers;
 import DrawchatUpdater = drawchat.updater.DrawchatUpdater;
 import ChangeSequenceTransaction = drawchat.updater.ChangeSequenceTransaction;
 import DrawchatViewer = drawchat.viewer.DrawchatViewer;
+import DrawchatEditor = drawchat.editor.DrawchatEditor;
 export class Layers implements DrawchatLayers{
 
 	updater:DrawchatUpdater;
 	viewer:DrawchatViewer;
+	editor:DrawchatEditor;
 	currentId:string;
 
 	constructor(
 		updater:DrawchatUpdater,
-		viewer:DrawchatViewer
+		viewer:DrawchatViewer,
+		editor:DrawchatEditor
 	){
 		this.updater = updater;
 		this.viewer = viewer;
+		this.editor = editor;
 	}
 
 	layerCount():number {
@@ -55,17 +59,36 @@ export class Layers implements DrawchatLayers{
 		if(layers == null || layers.length <= index){
 			return Promise.reject(null);
 		}
-		return this.updater.removeLayer(layers[index]);
+		let lastMode = this.editor.mode.getMode();
+		return this.updater.removeLayer(layers[index])
+			.then(()=>{
+				if(!this.editor.mode.isAliveMode(lastMode)){
+					return null;
+				}
+				return this.editor.mode.changeMode(lastMode);
+			});
 	}
 
 	addLayer():Promise<any> {
-		return this.updater.addLayer();
+		let lastMode = this.editor.mode.getMode();
+		return this.updater.addLayer().then(()=>{
+			if(!this.editor.mode.isAliveMode(lastMode)){
+				return null;
+			}
+			return this.editor.mode.changeMode(lastMode);
+		});
 	}
 
 	moveTo(index:number):Promise<any> {
+		let lastMode = this.editor.mode.getMode();
 		return this.updater.beginChangeSequence().then((tran:ChangeSequenceTransaction)=>{
 			tran.toMove(this.currentId,index).commit();
 			return null;
+		}).then(()=>{
+			if(!this.editor.mode.isAliveMode(lastMode)){
+				return null;
+			}
+			return this.editor.mode.changeMode(lastMode);
 		});
 	}
 }

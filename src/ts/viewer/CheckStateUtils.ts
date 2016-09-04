@@ -24,7 +24,8 @@ export class CheckStateUtils{
 		i = 0 | 0;
 		let result:number[] = [];
 		while( i < afterLayers.length){
-			result.push(map[afterLayers[i]]);
+			let afterIndex = map[afterLayers[i]];
+			result.push(afterIndex != null ? afterIndex : -1);
 			i = (i + 1) | 0;
 		}
 		return result;

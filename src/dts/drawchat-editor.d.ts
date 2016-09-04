@@ -105,6 +105,8 @@ declare namespace drawchat.editor {
 		 * モード変更
 		 */
 		changeMode(mode:number):Promise<any>
+
+		isAliveMode(mode:Number):boolean;
 	}
 
 	interface DrawchatLayers{
