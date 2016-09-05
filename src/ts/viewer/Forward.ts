@@ -29,6 +29,10 @@ export class Forward{
 		futureMoments:DrawMoment[]
 	):string[]{
 
+		console.log('seq now:' + JSON.stringify(sequencesNow));
+		console.log('seq next:' + JSON.stringify(sequencesNext));
+
+
 		let pastMap = MapMomentUtil.mapToLayerMap(pastMoments,sequencesNow);
 		let layers = MapMomentUtil.mapToMomentsArray(futureMoments,sequencesNext);
 
