@@ -88,24 +88,23 @@ export class CanvasContainer{
 				this.getParent().removeChild(element);
 			} catch (e) {
 				//無視
+				console.log(e);
 			}
 		}
-
 		let elementList1:HTMLCanvasElement[] = [];
 		let canvasList1:CanvasRenderingContext2D[] = [];
 
 		let i = 0 | 0;
 		while(i < orders.length){
 			let order = orders[i];
-			if(order < 0 || order >= this.elementList.length){
+			if(order < 0 || order >= this.elementList.length || this.elementList[order] == null){
 				i = (i + 1) | 0;
 				continue;
 			}
-			elementList1[i] = this.elementList[order];
-			canvasList1[i] = this.contextList[order];
-
 			try {
-				this.getParent().appendChild(elementList1[i]);
+				this.getParent().appendChild(this.elementList[order]);
+				elementList1.push(this.elementList[order]);
+				canvasList1.push(this.contextList[order]);
 			} catch (e) {
 				console.log(e);
 			}

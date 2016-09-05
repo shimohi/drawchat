@@ -62,6 +62,7 @@ export class Layers implements DrawchatLayers{
 		let lastMode = this.editor.mode.getMode();
 		return this.updater.removeLayer(layers[index])
 			.then(()=>{
+				this.setCurrent(index);
 				if(!this.editor.mode.isAliveMode(lastMode)){
 					return null;
 				}
