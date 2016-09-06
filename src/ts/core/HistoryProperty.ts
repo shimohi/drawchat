@@ -64,7 +64,7 @@ export class HistoryProperty{
 			historyNum = this.historyNumberNow;
 		}
 		let i = (this.sequencesHistoryNumbers.length - 1) | 0;
-		if(historyNumber){
+		if(historyNum){
 			i = HistoryNumberUtil.getHistoryIndex(this.sequencesHistoryNumbers,historyNum);
 		}
 		if(i < 0){

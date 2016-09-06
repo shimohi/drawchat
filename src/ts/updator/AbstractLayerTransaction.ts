@@ -48,8 +48,6 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 	 */
 	private setupEditLayer():void{
 
-		console.log('setupLayer start');
-
 		let layers = this.history.getLayers();
 		let i = 0 | 0;
 		let result:string[] = [];
@@ -64,7 +62,6 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 			if(item === this.editLayerId){
 				//並び替え不要
 				if(i === addIndex){
-					console.log('並び替え不要');
 					this.reservedPoint = this.history.getNowHistoryNumber();
 					return;
 				}
@@ -82,8 +79,6 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 		if(result.length === 0){
 			result.push(this.editLayerId);
 		}
-		console.log('setupLayer:' + JSON.stringify(result));
-
 		this.session.addMoment().setSequence(result).commit();
 		this.reservedPoint = this.history.getNowHistoryNumber();
 	}
