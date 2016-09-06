@@ -11,7 +11,8 @@ class Point{
 	}
 }
 
-export class CanvasContainerState {
+export class CanvasContainerState{
+	cursor:string;
 	click:boolean;
 	moving:boolean;
 	editor:DrawchatEditor;
@@ -21,6 +22,7 @@ export class CanvasContainerState {
 	mouseUp:(event:MouseEvent)=>void;
 	constructor(editor:DrawchatEditor){
 		this.editor = editor;
+		this.cursor = "auto";
 	}
 }
 export interface CanvasContainerProps {
@@ -39,6 +41,11 @@ export class CanvasContainer extends React.Component<CanvasContainerProps, Canva
 		let element = document.getElementById(this.props.id);
 
 		this.state.mouseMove = (event:MouseEvent)=>{
+			let cursor = this.getCursor();
+			if(this.state.cursor !== cursor){
+				this.state.cursor = cursor;
+				document.body.style.cursor = cursor;
+			}
 			if(!this.state.click){
 				return;
 			}
@@ -64,6 +71,31 @@ export class CanvasContainer extends React.Component<CanvasContainerProps, Canva
 		element.addEventListener('mousedown',this.state.mouseDown);
 		document.addEventListener('mouseup',this.state.mouseUp);
 		element.addEventListener('mouseout',this.state.mouseOut);
+	}
+
+	private getCursor():string{
+
+		let mode = this.state.editor.mode;
+		switch (mode.getMode()){
+			case mode.CHANGING:
+				return "wait";
+			case mode.CLIP_MODE:
+				return "url(http://test.png),crosshair";
+			case mode.ERASER_MODE:
+				return "url(http://test.png),default";
+			case mode.EYEDROPPER_MODE:
+				return "url(http://test.png),default";
+			case mode.FILL_MODE:
+				return "url(http://test.png),default";
+			case mode.TEXT_MODE:
+				return "url(http://test.png),text";
+			case mode.STROKE_MODE:
+				return "url(http://test.png),default";
+			case mode.HAND_TOOL_MODE:
+				return "url(http://test.png),move";
+			default:
+				return "auto";
+		}
 	}
 
 	private drop(element:Element,event:MouseEvent){
