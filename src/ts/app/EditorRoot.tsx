@@ -11,6 +11,7 @@ import CanvasContainer from "./canvas_container/CanvasContainer";
 import {ColorSelector} from "./color_selector/ColorSelector";
 import {ModeChanger, ModeItem} from "./mode_changer/ModeChanger";
 import {Layers} from "./layers/Layers";
+import {EditorMain} from "./canvas_container/EditorMain";
 
 export class EditorRootState {
 	editor:DrawchatEditor;
@@ -117,6 +118,9 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 			<div className={styles.container}>
 				<div className={styles.canvasContainer}>
 					<CanvasContainer id='editorCanvas' editor={this.state.editor}/>
+				</div>
+				<div className={styles.canvasContainer}>
+					<EditorMain id='editorMain' editor={this.state.editor}/>
 				</div>
 				<div className={styles.menuBar}>
 					<MenuBar
