@@ -29,6 +29,7 @@ export class Transform extends AbstractTransaction implements TransformTransacti
 	}
 
 	translate(tx: number, ty: number): drawchat.updater.TransformTransaction {
+		console.log(`tx:${tx} ty:${ty}`);
 		return this.setMatrix(TransformCalculator.translate(this.matrix,tx,ty));
 	}
 
@@ -64,17 +65,17 @@ export class Transform extends AbstractTransaction implements TransformTransacti
 		return this.setMatrix(TransformCalculator.concatMatrix(this.matrix,transform));
 	}
 
-	protected doCommit():void {
+	protected beforeCommit():void {
+		if(this.matrix == null){
+			return;
+		}
 		let builder = this.session.addMoment();
-		builder.putLayerMoment(this.layerId).setTransForm(this.matrix);
+		console.log(JSON.stringify(this.matrix));
+		builder.putLayerMoment(this.layerId).setTransForm(this.matrix).commit();
 		builder.commit();
 	}
 
 	protected beforeCancel(duration: boolean): void {
-		//	現在処理なし
-	}
-
-	protected beforeCommit(duration: boolean): void {
 		//	現在処理なし
 	}
 

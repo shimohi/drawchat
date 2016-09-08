@@ -38,12 +38,12 @@ export class TransformContainer{
 		}
 		this.now = transform1;
 		context.setTransform(
-			transform.a,
-			transform.b,
-			transform.c,
-			transform.d,
-			transform.x,
-			transform.y
+			transform1.a,
+			transform1.b,
+			transform1.c,
+			transform1.d,
+			transform1.x,
+			transform1.y
 		);
 	}
 

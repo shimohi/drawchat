@@ -39,16 +39,19 @@ export class ModeHandTool implements DrawchatCanvas{
 			return;
 		}
 		this.time = latest;
-		this.tran.restoreSavePoint();
-		this.tran.translate(x - this.sPointX,y - this.sPointY);
+		this.setTranslate(x,y);
+		// this.tran.restoreSavePoint();
+		// this.tran.translate(x - this.sPointX,y - this.sPointY);
 	}
 
 	touchEnd(x: number, y: number): void {
 		if(!this.tran.isAlive()){
 			return;
 		}
-		this.tran.restoreSavePoint();
-		this.tran.translate(x - this.sPointX,y - this.sPointY);
+		this.setTranslate(x,y);
+		this.tran.commit(true);
+		// this.tran.restoreSavePoint();
+		// this.tran.translate(x - this.sPointX,y - this.sPointY);
 	}
 
 	private setWait():void {
@@ -74,7 +77,7 @@ export class ModeHandTool implements DrawchatCanvas{
 	}
 
 	private setTranslate(x:number,y:number):void{
-		this.waiting = false;
+		console.log(`endPoint(${x},${y}) startPoint(${this.sPointX},${this.sPointY})`);
 		this.tran.restoreSavePoint();
 		this.tran.translate(x - this.sPointX,y - this.sPointY);
 	}

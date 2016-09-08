@@ -10,6 +10,9 @@ export class TransformCalculator {
 	 */
 	static invert(transform:Transform):Transform{
 
+		if(transform == null){
+			return null;
+		}
 		var a1 = transform.a;
 		var b1 = transform.b;
 		var c1 = transform.c;
@@ -166,7 +169,9 @@ export class TransformCalculator {
 	 * @returns {Transform}
 	 */
 	static concatMatrix(transform1:Transform,transform2:Transform):Transform{
-
+		if(transform1 == null){
+			return transform2;
+		}
 		var a1 = transform1.a;
 		var b1 = transform1.b;
 		var c1 = transform1.c;
@@ -185,6 +190,9 @@ export class TransformCalculator {
 		result.d = round(b1 * transform2.c + d1 * transform2.d);// + ty1 * 0;
 		result.x = round(transform2.x  + tx1);
 		result.y = round(transform2.y + ty1);
+
+		console.log(`transform1:${JSON.stringify(transform1)} transform2:${JSON.stringify(transform2)} result:${JSON.stringify(result)}`);
+
 		return result;
 	}
 
