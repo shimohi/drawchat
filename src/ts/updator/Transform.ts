@@ -3,79 +3,91 @@ import DrawHistory = drawchat.core.DrawHistory;
 import DrawHistoryEditSession = drawchat.core.DrawHistoryEditSession;
 import {AbstractTransaction} from "./AbstractTransaction";
 import {TransformCalculator} from "./TransformCalculator";
-export class Transform extends AbstractTransaction implements TransformTransaction{
+import {AbstractLayerTransaction} from "./AbstractLayerTransaction";
+import {TransformMap} from "./TransformMap";
+export class Transform extends AbstractLayerTransaction implements TransformTransaction{
 
 	private matrix:drawchat.Transform;
-	private layerId:string;
+	// private layerId:string;
 
 	constructor(
 		session:DrawHistoryEditSession,
 		history:DrawHistory,
-		layerId:string
+		layerId:string,
+		editLayerId:string,
+		transformMap:TransformMap
 	){
-		super(session,history);
-		this.layerId = layerId;
+		super(session,history,layerId,editLayerId,transformMap);
+		// this.layerId = layerId;
 		this.matrix = null;
 	}
 
 	setMatrix(
 		transform:drawchat.Transform
 	):TransformTransaction {
+		this.init();
 		this.matrix = transform;
-		let builder = this.session.addMoment();
-		builder.putLayerMoment(this.layerId).setTransForm(this.matrix);
-		builder.commit();
+		this.getLayerBuilder().setTransForm(this.matrix).commit().commit();
 		return this;
 	}
 
 	translate(tx: number, ty: number): drawchat.updater.TransformTransaction {
 		console.log(`tx:${tx} ty:${ty}`);
-		return this.setMatrix(TransformCalculator.translate(this.matrix,tx,ty));
+		this.init();
+		return this.setMatrix(TransformCalculator.translate(this.getTransform(this.layerId),tx,ty));
 	}
 
 	scaleX(scaleX: number): drawchat.updater.TransformTransaction {
-		return this.setMatrix(TransformCalculator.scaleX(this.matrix,scaleX));
+		this.init();
+		return this.setMatrix(TransformCalculator.scaleX(this.getTransform(this.layerId),scaleX));
 	}
 
 	scaleY(scaleY: number): drawchat.updater.TransformTransaction {
-		return this.setMatrix(TransformCalculator.scaleY(this.matrix,scaleY));
+		this.init();
+		return this.setMatrix(TransformCalculator.scaleY(this.getTransform(this.layerId),scaleY));
 	}
 
 	scale(scaleX: number, scaleY: number): drawchat.updater.TransformTransaction {
-		return this.setMatrix(TransformCalculator.scale(this.matrix,scaleX,scaleY));
+		this.init();
+		return this.setMatrix(TransformCalculator.scale(this.getTransform(this.layerId),scaleX,scaleY));
 	}
 
 	rotate(transform: drawchat.Transform, rad: number): drawchat.updater.TransformTransaction {
-		return this.setMatrix(TransformCalculator.rotate(this.matrix,rad));
+		this.init();
+		return this.setMatrix(TransformCalculator.rotate(this.getTransform(this.layerId),rad));
 	}
 
 	skewX(transform: drawchat.Transform, radX: number): drawchat.updater.TransformTransaction {
-		return this.setMatrix(TransformCalculator.skewX(this.matrix,radX));
+		this.init();
+		return this.setMatrix(TransformCalculator.skewX(this.getTransform(this.layerId),radX));
 	}
 
 	skewY(transform: drawchat.Transform, radY: number): drawchat.updater.TransformTransaction {
-		return this.setMatrix(TransformCalculator.skewY(this.matrix,radY));
+		this.init();
+		return this.setMatrix(TransformCalculator.skewY(this.getTransform(this.layerId),radY));
 	}
 
 	skew(radX: number, radY: number): drawchat.updater.TransformTransaction {
-		return this.setMatrix(TransformCalculator.skew(this.matrix,radX,radY));
+		this.init();
+		return this.setMatrix(TransformCalculator.skew(this.getTransform(this.layerId),radX,radY));
 	}
 
 	concat(transform: drawchat.Transform): drawchat.updater.TransformTransaction {
-		return this.setMatrix(TransformCalculator.concatMatrix(this.matrix,transform));
+		this.init();
+		return this.setMatrix(TransformCalculator.concatMatrix(this.getTransform(this.layerId),transform));
 	}
 
 	protected beforeCommit():void {
 		if(this.matrix == null){
 			return;
 		}
-		let builder = this.session.addMoment();
-		console.log(JSON.stringify(this.matrix));
-		builder.putLayerMoment(this.layerId).setTransForm(this.matrix).commit();
-		builder.commit();
+		// console.log(JSON.stringify(this.matrix));
+		// this.getLayerBuilder().setTransForm(this.matrix).commit().commit();
+		this.matrix = null;
 	}
 
 	protected beforeCancel(duration: boolean): void {
+		// this.matrix = null;
 		//	現在処理なし
 	}
 

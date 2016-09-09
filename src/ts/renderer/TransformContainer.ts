@@ -37,6 +37,7 @@ export class TransformContainer{
 			return;
 		}
 		this.now = transform1;
+		console.log(`transform:${JSON.stringify(transform1)}`);
 		context.setTransform(
 			transform1.a,
 			transform1.b,

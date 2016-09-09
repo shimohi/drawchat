@@ -18,7 +18,7 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 
 	private path:PathItem[] = [];
 	private savedPath:PathItem[] = [];
-	private transformMap:TransformMap;
+	// private transformMap:TransformMap;
 	// private transform:Transform;
 
 	constructor(
@@ -28,8 +28,8 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 		editLayerId:string,
 		transformMap:TransformMap
 	){
-		super(session,history,layerId,editLayerId);
-		this.transformMap = transformMap;
+		super(session,history,layerId,editLayerId,transformMap);
+		// this.transformMap = transformMap;
 	}
 
 	moveTo(
@@ -37,8 +37,8 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 		y:number
 	):ClipTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point = TransformCalculator.transform(invert,x,y);
 
@@ -64,8 +64,8 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 		radius:number
 	):ClipTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 
 		let point1 = TransformCalculator.transform(invert,x1,y1);
@@ -95,9 +95,9 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 		y:number
 	):ClipTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
+		// this.transformMap.updateMap(this.history);
 
-		let transform = this.transformMap.getTransForm(this.layerId);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,cpx,cpy);
 		let point2 = TransformCalculator.transform(invert,x,y);
@@ -123,9 +123,9 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 		y:number
 	):ClipTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
+		// this.transformMap.updateMap(this.history);
 
-		let transform = this.transformMap.getTransForm(this.layerId);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,x,y);
 
@@ -152,9 +152,9 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 		y:number
 	):ClipTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
+		// this.transformMap.updateMap(this.history);
 
-		let transform = this.transformMap.getTransForm(this.layerId);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,cpx1,cpy1);
 		let point2 = TransformCalculator.transform(invert,cpx2,cpy2);

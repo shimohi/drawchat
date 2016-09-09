@@ -7,32 +7,39 @@ import TextDraw = drawchat.TextDraw;
 import DrawLayerMomentBuilder = drawchat.core.DrawLayerMomentBuilder;
 
 import {AbstractTransaction} from "./AbstractTransaction";
+import {TransformMap} from "./TransformMap";
+import Transform = drawchat.Transform;
 export abstract class AbstractLayerTransaction extends AbstractTransaction{
 
 	layerId:string;
 	private editLayerId:string;
 	private reservedPoint:number;
 	private initialized:boolean;
+	private transformMap:TransformMap;
 
 	constructor(
 		session:DrawHistoryEditSession,
 		history:DrawHistory,
 		layerId:string,
-		editLayerId:string
+		editLayerId:string,
+		transformMap:TransformMap
 	){
 		super(session,history);
 		this.layerId = layerId;
 		this.editLayerId = editLayerId;
 		this.initialized = false;
+		this.transformMap = transformMap;
 	}
 
 	protected init():void{
 		if(!this.initialized){
 			this.setup(true);
 			this.initialized = true;
+			this.transformMap.updateMap(this.history);
 			return;
 		}
 		this.session.setHistoryNumberNow(this.reservedPoint);
+		this.transformMap.updateMap(this.history);
 	}
 
 	private setup(editLayer:boolean):void{
@@ -91,6 +98,10 @@ export abstract class AbstractLayerTransaction extends AbstractTransaction{
 	restoreSavePoint(): void {
 		super.restoreSavePoint();
 		this.reservedPoint = this.history.getNowHistoryNumber();
+	}
+
+	protected getTransform(layerId:string):Transform{
+		return this.transformMap.getTransForm(layerId);
 	}
 
 	protected beforeCommit(duration:boolean):void {

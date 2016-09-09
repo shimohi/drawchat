@@ -67,7 +67,7 @@ export class Updater implements DrawchatUpdater{
 
 	beginTransform(layerId:string,commit:boolean = true):Promise<TransformTransaction> {
 		this.queue =  this.before().then((session)=>{
-			let transaction = new Transform(session,this.history,layerId);
+			let transaction = new Transform(session,this.history,layerId,this.editorLayerId,this.transformMap);
 			this.currentTransaction = transaction;
 			return transaction;
 		});
@@ -94,7 +94,7 @@ export class Updater implements DrawchatUpdater{
 
 	beginText(layerId:string,commit:boolean = true):Promise<TextTransaction> {
 		this.queue = this.before().then((session)=>{
-			let transaction = new Text(session,this.history,layerId,this.editorLayerId);
+			let transaction = new Text(session,this.history,layerId,this.editorLayerId,this.transformMap);
 			this.currentTransaction = transaction;
 			return transaction;
 		});

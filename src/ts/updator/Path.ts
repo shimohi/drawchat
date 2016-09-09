@@ -28,7 +28,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 	private path:PathItem[] = [];
 	private savedPath:PathItem[] = [];
 
-	private transformMap:TransformMap;
+	// private transformMap:TransformMap;
 	private compositeOperation:number;
 	// private transform:Transform;
 
@@ -39,8 +39,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		editLayerId:string,
 		transformMap:TransformMap
 	){
-		super(session,history,layerId,editLayerId);
-		this.transformMap = transformMap;
+		super(session,history,layerId,editLayerId,transformMap);
+		// this.transformMap = transformMap;
 	}
 
 	setFill(
@@ -48,8 +48,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 	):DrawPathTransaction {
 		this.init();
 
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 
 		this.fill = <Fill>{
 			color:color
@@ -67,9 +67,9 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		colorStops?:ColorStop[]
 	):DrawPathTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
+		// this.transformMap.updateMap(this.history);
 
-		let transform = this.transformMap.getTransForm(this.layerId);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,x0,y0);
 		let point2 = TransformCalculator.transform(invert,x1,y1);
@@ -99,8 +99,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 	):DrawPathTransaction {
 		this.init();
 
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,x0,y0);
 		let point2 = TransformCalculator.transform(invert,x1,y1);
@@ -125,8 +125,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		color:string
 	):DrawPathTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		this.strokeFill = <Fill>{
 			color:color
 		};
@@ -139,8 +139,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		offset?:number
 	):DrawPathTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		this.dash = {
 			segments:segments,
 			offset:offset
@@ -157,8 +157,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		ignoreScale?:number
 	):DrawPathTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		this.style = {
 			thickness:thickness,
 			caps:caps,
@@ -175,8 +175,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		y:number
 	):DrawPathTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+//		this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point = TransformCalculator.transform(invert,x,y);
 
@@ -199,8 +199,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		radius:number
 	):DrawPathTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+//		this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,x1,y1);
 		let point2 = TransformCalculator.transform(invert,x2,y2);
@@ -225,8 +225,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 	):DrawPathTransaction {
 		this.init();
 
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point = TransformCalculator.transform(invert,x,y);
 
@@ -249,8 +249,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 	):DrawPathTransaction {
 		this.init();
 
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+		// this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,cpx,cpy);
 		let point2 = TransformCalculator.transform(invert,x,y);
@@ -278,8 +278,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		y:number
 	):DrawPathTransaction {
 		this.init();
-		this.transformMap.updateMap(this.history);
-		let transform = this.transformMap.getTransForm(this.layerId);
+//		this.transformMap.updateMap(this.history);
+		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,cpx1,cpy1);
 		let point2 = TransformCalculator.transform(invert,cpx2,cpy2);

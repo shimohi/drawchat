@@ -13,6 +13,10 @@ export class TransformCalculator {
 		if(transform == null){
 			return null;
 		}
+		if(isDefault(transform)){
+			return transform;
+		}
+
 		var a1 = transform.a;
 		var b1 = transform.b;
 		var c1 = transform.c;
@@ -169,8 +173,11 @@ export class TransformCalculator {
 	 * @returns {Transform}
 	 */
 	static concatMatrix(transform1:Transform,transform2:Transform):Transform{
-		if(transform1 == null){
+		if(transform1 == null || isDefault(transform1)){
 			return transform2;
+		}
+		if(isDefault(transform2)){
+			return transform1;
 		}
 		var a1 = transform1.a;
 		var b1 = transform1.b;
@@ -232,6 +239,17 @@ function round(number:number){
 	var number1 = number * ROUND_NUMBER;
 	number1 = Math.round(number1);
 	return number1/ROUND_NUMBER;
+}
+
+function isDefault(transform:Transform){
+	return (
+			transform.a === 1
+		&&	transform.b === 0
+		&&	transform.c === 0
+		&&	transform.d === 1
+		&&	transform.x === 0
+		&&	transform.y === 0
+	);
 }
 
 /**

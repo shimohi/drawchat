@@ -7,6 +7,8 @@ import TextDraw = drawchat.TextDraw;
 import DrawLayerMomentBuilder = drawchat.core.DrawLayerMomentBuilder;
 
 import {AbstractLayerTransaction} from "./AbstractLayerTransaction";
+import {TransformMap} from "./TransformMap";
+import {TransformCalculator} from "./TransformCalculator";
 export class Text extends AbstractLayerTransaction implements TextTransaction{
 
 	private x:number;
@@ -26,9 +28,10 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		session:DrawHistoryEditSession,
 		history:DrawHistory,
 		layerId:string,
-		editLayerId:string
+		editLayerId:string,
+		transformMap:TransformMap
 	){
-		super(session,history,layerId,editLayerId);
+		super(session,history,layerId,editLayerId,transformMap);
 	}
 
 	setFill(
@@ -50,12 +53,18 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		colorStops?:drawchat.ColorStop[]
 	):TextTransaction {
 		this.init();
+
+		let transform = this.getTransform(this.layerId);
+		let invert = TransformCalculator.invert(transform);
+		let point1 = TransformCalculator.transform(invert,x0,y0);
+		let point2 = TransformCalculator.transform(invert,x1,y1);
+
 		this.fill = <Fill>{
 			linerGradient:{
-				x0:x0,
-				y0:y0,
-				x1:x1,
-				y1:y1,
+				x0:point1.x,
+				y0:point1.y,
+				x1:point2.x,
+				y1:point2.y,
 				colorStops:colorStops
 			}
 		};
@@ -73,13 +82,19 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		colorStops?:drawchat.ColorStop[]
 	):TextTransaction {
 		this.init();
+
+		let transform = this.getTransform(this.layerId);
+		let invert = TransformCalculator.invert(transform);
+		let point1 = TransformCalculator.transform(invert,x0,y0);
+		let point2 = TransformCalculator.transform(invert,x1,y1);
+
 		this.fill = <Fill>{
 			radialGradient:{
-				x0:x0,
-				y0:y0,
+				x0:point1.x,
+				y0:point1.y,
 				r0:r0,
-				x1:x1,
-				y1:y1,
+				x1:point2.x,
+				y1:point2.y,
 				r1:r1,
 				colorStops:colorStops
 			}
@@ -133,8 +148,14 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		y:number
 	):TextTransaction {
 		this.init();
-		this.x = x;
-		this.y = y;
+
+		let transform = this.getTransform(this.layerId);
+		let invert = TransformCalculator.invert(transform);
+		let point1 = TransformCalculator.transform(invert,x,y);
+
+		this.x = point1.x;
+		this.y = point1.y;
+
 		this.doUpdate(this.getEditBuilder());
 		return this;
 	}

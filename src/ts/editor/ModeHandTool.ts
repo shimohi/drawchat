@@ -78,7 +78,7 @@ export class ModeHandTool implements DrawchatCanvas{
 
 	private setTranslate(x:number,y:number):void{
 		console.log(`endPoint(${x},${y}) startPoint(${this.sPointX},${this.sPointY})`);
-		this.tran.restoreSavePoint();
+		// this.tran.restoreSavePoint();
 		this.tran.translate(x - this.sPointX,y - this.sPointY);
 	}
 
