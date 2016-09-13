@@ -35,10 +35,13 @@ export class TransformCalculator {
 		result.c = round(-c1 / (a1 * d1 - b1 * c1));
 		result.d = round(a1 / (a1 * d1 - b1 * c1));
 
-		//	this.tx = round((a1 * ty1 - tx1) / (a1 * d1 - b1 * c1));
-		//	this.ty = round(-(c1 * (a1 * ty1 - tx1))/(a1 * (a1 * d1 - b1 * c1)) - tx1 / a1);
+		// tx1 = round((a1 * ty1 - tx1) / (a1 * d1 - b1 * c1));
+		// ty1 = round(-(c1 * (a1 * ty1 - tx1))/(a1 * (a1 * d1 - b1 * c1)) - tx1 / a1);
+		// result.x = tx1;
+		// result.y = ty1;
 		result.x = round(-tx1);
 		result.y = round(-ty1);
+		console.log(JSON.stringify(result));
 		return result;
 	}
 
@@ -198,7 +201,7 @@ export class TransformCalculator {
 		result.x = round(transform2.x  + tx1);
 		result.y = round(transform2.y + ty1);
 
-		console.log(`transform1:${JSON.stringify(transform1)} transform2:${JSON.stringify(transform2)} result:${JSON.stringify(result)}`);
+		// console.log(`transform1:${JSON.stringify(transform1)} transform2:${JSON.stringify(transform2)} result:${JSON.stringify(result)}`);
 
 		return result;
 	}

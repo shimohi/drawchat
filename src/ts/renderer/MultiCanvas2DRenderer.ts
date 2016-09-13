@@ -71,12 +71,14 @@ class Renderer implements DrawchatRenderer{
 		if(!context){
 			return;
 		}
-		context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
 		if(!draws || draws.length === 0){
+			context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
 			return;
 		}
-
 		this.transformContainer.setBaseTransform(transform);
+		this.transformContainer.resetNow();
+		this.transformContainer.setTransform(context);
+		context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
 
 		//	切り抜きの設定
 		ClipUtil.setClip(context,this.transformContainer,clip);
@@ -95,6 +97,8 @@ class Renderer implements DrawchatRenderer{
 		if(!context){
 			return;
 		}
+		this.transformContainer.setBaseTransform(transform);
+		this.transformContainer.resetNow();
 		this.renderDraw(context,draws);
 	}
 
@@ -104,6 +108,7 @@ class Renderer implements DrawchatRenderer{
 
 	clear():void {
 		this.canvasContainer.clear();
+		this.transformContainer = new TransformContainer();
 	}
 
 	createImageDataURI():string {

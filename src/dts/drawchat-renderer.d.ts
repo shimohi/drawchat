@@ -50,6 +50,7 @@ declare namespace drawchat.renderer {
 		renderDiff(
 			index:number,
 			draws:Draw[]
+			// transform?:Transform
 		):void;
 
 		// /**

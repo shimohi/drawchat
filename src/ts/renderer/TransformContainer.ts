@@ -22,6 +22,10 @@ export class TransformContainer{
 		transform:Transform
 	):void{
 		this.base = (transform == null ) ? TransformContainer.TRANSFORM_DEFAULT : transform;
+		// this.now = this.base;
+	}
+	resetNow(){
+		this.now = TransformContainer.TRANSFORM_DEFAULT;
 	}
 
 	setTransform(
@@ -34,10 +38,12 @@ export class TransformContainer{
 		}
 		transform1 =  TransformContainer.concat(this.base,transform1);
 		if(!TransformContainer.isChange(this.now,transform1)){
+			// console.log(`transform noChange:${JSON.stringify(transform1)}`);
 			return;
 		}
+
 		this.now = transform1;
-		console.log(`transform:${JSON.stringify(transform1)}`);
+		// console.log(`transform:${JSON.stringify(transform1)}`);
 		context.setTransform(
 			transform1.a,
 			transform1.b,

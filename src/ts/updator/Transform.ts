@@ -82,7 +82,7 @@ export class Transform extends AbstractLayerTransaction implements TransformTran
 			return;
 		}
 		// console.log(JSON.stringify(this.matrix));
-		// this.getLayerBuilder().setTransForm(this.matrix).commit().commit();
+		this.getLayerBuilder().setTransForm(this.matrix).commit().commit();
 		this.matrix = null;
 	}
 

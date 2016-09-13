@@ -10,7 +10,6 @@ export class ModeHandTool implements DrawchatCanvas{
 	}
 
 	private time:number;
-
 	sPointX:number;
 	sPointY:number;
 
@@ -50,8 +49,8 @@ export class ModeHandTool implements DrawchatCanvas{
 		}
 		this.setTranslate(x,y);
 		this.tran.commit(true);
-		// this.tran.restoreSavePoint();
-		// this.tran.translate(x - this.sPointX,y - this.sPointY);
+		this.sPointX = null;
+		this.sPointY = null;
 	}
 
 	private setWait():void {
@@ -77,8 +76,11 @@ export class ModeHandTool implements DrawchatCanvas{
 	}
 
 	private setTranslate(x:number,y:number):void{
+		this.waiting = false;
+		if(this.sPointX == null || this.sPointY == null){
+			return;
+		}
 		console.log(`endPoint(${x},${y}) startPoint(${this.sPointX},${this.sPointY})`);
-		// this.tran.restoreSavePoint();
 		this.tran.translate(x - this.sPointX,y - this.sPointY);
 	}
 

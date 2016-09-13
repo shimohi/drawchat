@@ -323,7 +323,7 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		this.doUpdate(this.getLayerBuilder(),this.savedPath);
 		this.savedPath = [];
 		this.path = [];
-		super.setSavePoint();
+		// super.setSavePoint();
 		super.beforeCommit(duration);
 	}
 
