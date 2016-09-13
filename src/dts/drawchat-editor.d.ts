@@ -120,7 +120,7 @@ declare namespace drawchat.editor {
 		 * レイヤー切り替え
 		 * @param index
 		 */
-		setCurrent(index:number):void;
+		setCurrent(index:number):Promise<any>;
 
 		/**
 		 * 現在レイヤー

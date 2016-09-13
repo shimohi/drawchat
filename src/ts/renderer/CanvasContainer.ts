@@ -1,4 +1,5 @@
 import * as CombineCanvasUtil from "./CombineCanvasUtil";
+import {TransformContainer} from "./TransformContainer";
 
 export class CanvasContainer{
 
@@ -9,6 +10,7 @@ export class CanvasContainer{
 	private parent:Element;
 	private elementList:HTMLCanvasElement[] = [];
 	private contextList:CanvasRenderingContext2D[] = [];
+	private transformList:TransformContainer[] = [];
 
 	width:number;
 	height:number;
@@ -47,6 +49,10 @@ export class CanvasContainer{
 		return this.contextList.length > index ? this.contextList[index] : null;
 	}
 
+	getTransformContainer(index:number):TransformContainer{
+		return this.transformList.length > index ? this.transformList[index] : null;
+	}
+
 	addCanvas():number{
 		let element:HTMLCanvasElement = this.parent.ownerDocument.createElement("canvas");
 		this.getParent().appendChild(element);
@@ -57,6 +63,7 @@ export class CanvasContainer{
 
 		this.elementList.push(element);
 		this.contextList.push(element.getContext("2d"));
+		this.transformList.push(new TransformContainer());
 		return this.elementList.length - 1;
 	}
 
@@ -78,6 +85,7 @@ export class CanvasContainer{
 		}
 		this.contextList.splice(index,1);
 		this.elementList.splice(index,1);
+		this.transformList.splice(index,1);
 	}
 
 	sortCanvas(orders:number[]):void{
@@ -93,6 +101,7 @@ export class CanvasContainer{
 		}
 		let elementList1:HTMLCanvasElement[] = [];
 		let canvasList1:CanvasRenderingContext2D[] = [];
+		let transformList1:TransformContainer[] = [];
 
 		let i = 0 | 0;
 		while(i < orders.length){
@@ -105,6 +114,7 @@ export class CanvasContainer{
 				this.getParent().appendChild(this.elementList[order]);
 				elementList1.push(this.elementList[order]);
 				canvasList1.push(this.contextList[order]);
+				transformList1.push(this.transformList[order]);
 			} catch (e) {
 				console.log(e);
 			}
@@ -112,6 +122,7 @@ export class CanvasContainer{
 		}
 		this.elementList = elementList1;
 		this.contextList = canvasList1;
+		this.transformList = transformList1;
 	}
 
 	clear():void{
@@ -120,6 +131,7 @@ export class CanvasContainer{
 		}
 		this.elementList = [];
 		this.contextList = [];
+		this.transformList = [];
 		let element = this.getParent();
 		if(element == null){
 			return;

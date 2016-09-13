@@ -32,7 +32,7 @@ export class Transform extends AbstractLayerTransaction implements TransformTran
 	}
 
 	translate(tx: number, ty: number): drawchat.updater.TransformTransaction {
-		console.log(`tx:${tx} ty:${ty}`);
+		// console.log(`tx:${tx} ty:${ty}`);
 		this.init();
 		return this.setMatrix(TransformCalculator.translate(this.getTransform(this.layerId),tx,ty));
 	}

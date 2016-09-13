@@ -24,12 +24,13 @@ export class Layers implements DrawchatLayers{
 		return this.updater.getLayers().length;
 	}
 
-	setCurrent(index:number):void {
+	setCurrent(index:number):Promise<any> {
 		let layers = this.updater.getLayers();
 		if(layers == null || layers.length <= index){
 			return;
 		}
 		this.currentId = layers[index];
+		return this.editor.mode.changeMode(this.editor.mode.getMode());
 	}
 
 	getCurrent():number {

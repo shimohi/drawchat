@@ -2,7 +2,6 @@ import Transform = drawchat.Transform;
 export class TransformContainer{
 
 	private static ROUND_DIGITS = 5;
-
 	private static ROUND_NUMBER = Math.pow(10,TransformContainer.ROUND_DIGITS);
 
 	static TRANSFORM_DEFAULT:Transform = {
@@ -19,7 +18,7 @@ export class TransformContainer{
 	private now:Transform = TransformContainer.TRANSFORM_DEFAULT;
 
 	setBaseTransform(
-		transform:Transform
+		transform?:Transform
 	):void{
 		this.base = (transform == null ) ? TransformContainer.TRANSFORM_DEFAULT : transform;
 		// this.now = this.base;

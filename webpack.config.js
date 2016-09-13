@@ -21,13 +21,22 @@ module.exports = [
 		devtool: 'source-map',
 		module: {
 			loaders: [
+				//	TypeScript
 				{
 					test: /\.tsx?$/,
 					loader: 'babel-loader?presets[]=es2015,presets[]=stage-3,presets[]=react!ts-loader',
 					exclude: /(node_modules)/
-				},{
+				},
+
+				//	CSS
+				{
 					test: /(\.scss|\.css)$/,
 					loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass')
+				},
+
+				//	Image
+				{
+					test: /\.(png|jpg|jpeg|gif|bmp)$/, loader: 'url-loader?limit=8192'
 				}
 			],
 			preLoaders: [
@@ -44,11 +53,6 @@ module.exports = [
 		},
 		plugins: [
 			new ExtractTextPlugin('./artifact/app.css', { allChunks: true }),
-			// new webpack.HotModuleReplacementPlugin(),
-			// new webpack.NoErrorsPlugin(),
-			// new webpack.DefinePlugin({
-			// 	'process.env.NODE_ENV': JSON.stringify('development')
-			// })
 		]
 		,
 		externals: {

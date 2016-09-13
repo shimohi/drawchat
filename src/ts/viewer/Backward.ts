@@ -22,6 +22,7 @@ export class Backward{
 			sequencesNow,
 			layers
 		);
+		// console.log(`backward state:${JSON.stringify(updateStateMap)}`);
 
 		//レイヤーの補完
 		Backward.complementLayer(renderer,sequencesNow,updateStateMap);

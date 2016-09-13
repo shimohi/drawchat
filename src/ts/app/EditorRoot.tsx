@@ -22,6 +22,7 @@ export class EditorRootState {
 		this.editor = editor;
 		this.latest = -1;
 		this.colors = [
+			{r:0,g:0,b:0},
 			{r:255,g:255,b:0},
 			{r:255,g:0,b:255},
 			{r:0,g:255,b:255}
@@ -171,8 +172,9 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 							});
 						}}
 						select={(i:number)=>{
-							this.state.editor.layers.setCurrent(i);
-							this.refresh();
+							this.state.editor.layers.setCurrent(i).then(()=>{
+								this.refresh();
+							});
 						}}
 						remove={(i:number)=>{
 							this.state.editor.layers.remove(i).then(()=>{

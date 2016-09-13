@@ -41,7 +41,7 @@ export class TransformCalculator {
 		// result.y = ty1;
 		result.x = round(-tx1);
 		result.y = round(-ty1);
-		console.log(JSON.stringify(result));
+		// console.log(JSON.stringify(result));
 		return result;
 	}
 

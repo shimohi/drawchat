@@ -36,6 +36,7 @@ export class Forward{
 			sequencesNow,
 			layers
 		);
+		// console.log(`forward state:${JSON.stringify(updateStateMap)}`);
 
 		//レイヤーの補完
 		let sequences = Forward.complementLayer(renderer,sequencesNow,updateStateMap);
@@ -55,8 +56,9 @@ export class Forward{
 			}
 			if(
 				updateStateMap[layer.layerId] === UpdateState.UPDATE
-			||	updateStateMap[layer.layerId] === UpdateState.ADD){
-				renderer.renderDiff(i - 1,layer.draws,layer.transform);
+			// ||	updateStateMap[layer.layerId] === UpdateState.ADD
+			){
+				renderer.renderDiff(i - 1,layer.draws);
 				continue;
 			}
 			layer = MapMomentUtil.concatLayer(pastMap[layer.layerId],layer);

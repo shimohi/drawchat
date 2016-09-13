@@ -325,6 +325,8 @@ export class Path extends AbstractLayerTransaction implements DrawPathTransactio
 		this.path = [];
 		// super.setSavePoint();
 		super.beforeCommit(duration);
+		console.log(`commit path`);
+
 	}
 
 	protected afterCancel(): void {

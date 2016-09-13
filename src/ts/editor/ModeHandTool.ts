@@ -80,7 +80,7 @@ export class ModeHandTool implements DrawchatCanvas{
 		if(this.sPointX == null || this.sPointY == null){
 			return;
 		}
-		console.log(`endPoint(${x},${y}) startPoint(${this.sPointX},${this.sPointY})`);
+		// console.log(`endPoint(${x},${y}) startPoint(${this.sPointX},${this.sPointY})`);
 		this.tran.translate(x - this.sPointX,y - this.sPointY);
 	}
 

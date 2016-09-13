@@ -24,7 +24,7 @@ import DOMRendererFactory = drawchat.renderer.DOMRendererFactory;
 class Renderer implements DrawchatRenderer{
 
 	private canvasContainer:CanvasContainer;
-	private transformContainer:TransformContainer = new TransformContainer();
+	// private transformContainer:TransformContainer = new TransformContainer();
 
 	constructor(
 		parent:Element|string,
@@ -71,19 +71,22 @@ class Renderer implements DrawchatRenderer{
 		if(!context){
 			return;
 		}
+		let transformContainer = this.canvasContainer.getTransformContainer(index);
+		transformContainer.setBaseTransform();
+		transformContainer.setTransform(context);
+		context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
 		if(!draws || draws.length === 0){
-			context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
 			return;
 		}
-		this.transformContainer.setBaseTransform(transform);
-		this.transformContainer.resetNow();
-		this.transformContainer.setTransform(context);
-		context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
+
+		transformContainer.setBaseTransform(transform);
+		transformContainer.resetNow();
+		transformContainer.setTransform(context);
+		// context.clearRect(0,0,this.canvasContainer.width,this.canvasContainer.height);
 
 		//	切り抜きの設定
-		ClipUtil.setClip(context,this.transformContainer,clip);
-
-		this.renderDraw(context,draws);
+		ClipUtil.setClip(context,transformContainer,clip);
+		this.renderDraw(context,draws,transformContainer);
 	}
 
 	renderDiff(
@@ -97,9 +100,7 @@ class Renderer implements DrawchatRenderer{
 		if(!context){
 			return;
 		}
-		this.transformContainer.setBaseTransform(transform);
-		this.transformContainer.resetNow();
-		this.renderDraw(context,draws);
+		this.renderDraw(context,draws,this.canvasContainer.getTransformContainer(index));
 	}
 
 	refresh():void {
@@ -108,7 +109,7 @@ class Renderer implements DrawchatRenderer{
 
 	clear():void {
 		this.canvasContainer.clear();
-		this.transformContainer = new TransformContainer();
+		// this.transformContainer = new TransformContainer();
 	}
 
 	createImageDataURI():string {
@@ -135,7 +136,8 @@ class Renderer implements DrawchatRenderer{
 
 	private renderDraw(
 		context:CanvasRenderingContext2D,
-		draws:drawchat.Draw[]
+		draws:drawchat.Draw[],
+		transformContainer:TransformContainer
 	):void{
 		let i = 0|0;
 		while(i < draws.length){
@@ -143,13 +145,13 @@ class Renderer implements DrawchatRenderer{
 
 			//	パス描画
 			if((<GraphicsDraw>draw).graphics){
-				GraphicsUtil.renderGraphics(context,this.transformContainer,(<GraphicsDraw>draw));
+				GraphicsUtil.renderGraphics(context,transformContainer,(<GraphicsDraw>draw));
 				i = (i + 1)|0;
 				continue;
 			}
 
 			//	テキスト描画
-			TextUtil.renderTextDraw(context,this.transformContainer,<TextDraw>draw);
+			TextUtil.renderTextDraw(context,transformContainer,<TextDraw>draw);
 			i = (i + 1)|0;
 		}
 	}
