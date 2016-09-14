@@ -69,13 +69,15 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 			return this.complementMode();
 		}
 		if(this.state.latest >= 0 && this.state.latest < count){
-			layers.setCurrent(this.state.latest);
-			this.refresh();
+			layers.setCurrent(this.state.latest).then(()=>{
+				this.refresh();
+			});
 			return true;
 		}
 		this.state.latest = count - 1;
-		layers.setCurrent(count - 1);
-		this.refresh();
+		layers.setCurrent(count - 1).then(()=>{
+			this.refresh();
+		});
 		return true;
 	}
 
@@ -189,7 +191,7 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 							this.state.colors
 						}
 						onSelect={(color)=>{
-                        	this.state.editor.properties.color = color;
+                        	this.state.editor.properties.color = {r:color.r,g:color.g,b:color.b};
                         	this.refresh();
 						}}
 					/>
