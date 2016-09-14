@@ -31,10 +31,10 @@ export class EditorRootState {
 			new ModeItem(editor.mode.STROKE_MODE,1),
 			new ModeItem(editor.mode.STROKE_MODE,12),
 			new ModeItem(editor.mode.STROKE_MODE,24),
-			new ModeItem(editor.mode.FILL_MODE),
+			// new ModeItem(editor.mode.FILL_MODE),
 			new ModeItem(editor.mode.HAND_TOOL_MODE),
-			new ModeItem(editor.mode.TEXT_MODE),
-			new ModeItem(editor.mode.CLIP_MODE),
+			// new ModeItem(editor.mode.TEXT_MODE),
+			// new ModeItem(editor.mode.CLIP_MODE),
 			new ModeItem(editor.mode.EYEDROPPER_MODE),
 			new ModeItem(editor.mode.ERASER_MODE,24),
 		];
