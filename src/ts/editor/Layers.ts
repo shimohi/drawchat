@@ -20,23 +20,23 @@ export class Layers implements DrawchatLayers{
 		this.editor = editor;
 	}
 
-	layerCount():number {
-		return this.updater.getLayers().length;
+	layerCount():Promise<number> {
+		return Promise.resolve(this.updater.getLayers().length);
 	}
 
 	setCurrent(index:number):Promise<any> {
 		let layers = this.updater.getLayers();
 		if(layers == null || layers.length <= index){
-			return;
+			return Promise.resolve(null);
 		}
 		this.currentId = layers[index];
 		return this.editor.mode.changeMode(this.editor.mode.getMode());
 	}
 
-	getCurrent():number {
-		return this.updater.getLayers().findIndex((layerId:string)=>{
+	getCurrent():Promise<number>{
+		return Promise.resolve(this.updater.getLayers().findIndex((layerId:string)=>{
 			return layerId === this.currentId;
-		});
+		}));
 	}
 
 	show(index:number):void {

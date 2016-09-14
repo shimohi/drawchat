@@ -114,7 +114,7 @@ declare namespace drawchat.editor {
 		/**
 		 * レイヤー数
 		 */
-		layerCount():number;
+		layerCount():Promise<number>;
 
 		/**
 		 * レイヤー切り替え
@@ -125,7 +125,7 @@ declare namespace drawchat.editor {
 		/**
 		 * 現在レイヤー
 		 */
-		getCurrent():number;
+		getCurrent():Promise<number>;
 
 		/**
 		 * 指定レイヤーの表示

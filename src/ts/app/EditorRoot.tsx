@@ -18,6 +18,9 @@ export class EditorRootState {
 	colors:Color[];
 	modeItems:ModeItem[];
 	latest:number;
+	currentLayer:number = -1;
+	layerCount:number = 0;
+	modeChangeFirst:boolean = true;
 	constructor(editor:DrawchatEditor){
 		this.editor = editor;
 		this.latest = -1;
@@ -44,7 +47,9 @@ export class EditorRootState {
 export interface EditorRootProps {
 	editor:DrawchatEditor;
 }
+
 export class EditorRoot extends React.Component<EditorRootProps, EditorRootState> {
+
 	constructor(props:EditorRootProps) {
 		super(props);
 		this.state = new EditorRootState(props.editor);
@@ -54,37 +59,46 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 	 * プロパティの補完
 	 * @returns {boolean}
 	 */
-	private complementProps():boolean{
+	private complementProps():Promise<boolean>{
 		let layers = this.state.editor.layers;
-		let count = layers.layerCount();
-		let current = layers.getCurrent();
-		if(count === 0){
-			layers.addLayer().then(()=>{
+		return Promise.all([layers.layerCount(),layers.getCurrent()]).then((values)=>{
+			let count = values[0];
+			let current = values[1];
+			this.state.layerCount = count;
+			this.state.currentLayer = current;
+			if(count === 0){
+				layers.addLayer().then(()=>{
+					this.refresh();
+				});
+				return true;
+			}
+			if(count >= 0 && current >= 0 && current < count){
+				this.state.latest = current;
+				return this.complementMode();
+			}
+			if(this.state.latest >= 0 && this.state.latest < count){
+				layers.setCurrent(this.state.latest).then(()=>{
+					this.refresh();
+				});
+				return true;
+			}
+			this.state.latest = count - 1;
+			layers.setCurrent(count - 1).then(()=>{
 				this.refresh();
 			});
 			return true;
-		}
-		if(layers.getCurrent() >= 0){
-			this.state.latest = current;
-			return this.complementMode();
-		}
-		if(this.state.latest >= 0 && this.state.latest < count){
-			layers.setCurrent(this.state.latest).then(()=>{
-				this.refresh();
-			});
-			return true;
-		}
-		this.state.latest = count - 1;
-		layers.setCurrent(count - 1).then(()=>{
-			this.refresh();
 		});
-		return true;
 	}
 
 	private complementMode():boolean{
-		if(this.state.editor.mode.getMode() >= 0){
+		let mode = this.state.editor.mode.getMode();
+		if(
+			(mode >= 0 && mode !== this.state.editor.mode.CHANGING)
+		||	(mode === this.state.editor.mode.CHANGING && !this.state.modeChangeFirst)
+		){
 			return false;
 		}
+		this.state.modeChangeFirst = false;
 		this.modeSelect(0);
 		return true;
 	}
@@ -93,15 +107,19 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 	 * 画面リフレッシュ
 	 */
 	refresh():void{
-		if(!this.complementProps()){
-			this.setState(this.state);
-		}
+		this.complementProps().then((doing)=>{
+			if(!doing){
+				this.setState(this.state);
+			}
+		});
 	}
 	/**
 	 * コンポーネントマウント時の処理
 	 */
 	componentDidMount(): void {
-		this.complementProps();
+		this.complementProps().then(()=>{
+			return null;
+		});
 	}
 	modeSelect(index:number):void{
 		this.state.modeItems = this.state.modeItems.map((item,i)=>{
@@ -115,8 +133,8 @@ export class EditorRoot extends React.Component<EditorRootProps, EditorRootState
 	}
 
 	render(){
-		let count = this.state.editor.layers.layerCount();
-		let current = this.state.editor.layers.getCurrent();
+		let count = this.state.layerCount;
+		let current = this.state.currentLayer;
 		return(
 			<div className={styles.container}>
 				<div className={styles.canvasContainer}>

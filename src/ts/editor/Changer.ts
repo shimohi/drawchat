@@ -133,15 +133,19 @@ export class Changer implements DrawchatModeChanger{
 					return this.doChangeMode(this.HAND_TOOL_MODE,new ModeHandTool(tran));
 				});
 			case this.EYEDROPPER_MODE:
-				return Promise.resolve(this.doChangeMode(this.EYEDROPPER_MODE,new ModeEyedropper(
-					this.layers.getCurrent(),
-					this.viewer,
-					this.prop
-				)));
+				return this.layers.getCurrent()
+					.then((current)=>{
+					return Promise.resolve(this.doChangeMode(this.EYEDROPPER_MODE,new ModeEyedropper(
+						current,
+						this.viewer,
+						this.prop
+					)));
+				});
+
 			default:
 				break;
 		}
-		return null;
+		return Promise.resolve(null);
 	}
 
 	isAliveMode(mode: Number): boolean {
