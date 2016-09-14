@@ -55,7 +55,7 @@ export class ColorSelector extends React.Component<ColorSelectorProps, ColorSele
 						this.selectColor(colorValue.color,index);
 					}}/>
 				})}
-				<ColorPalette />
+				{/*<ColorPalette />*/}
 			</div>
 		);
 	}
