@@ -101,6 +101,7 @@ export class ModeText implements DrawchatCanvas{
 			this.tran.setPosition(this.pointX, this.pointY);
 			this.tran.push(this.text);
 		} finally {
+			this.tran.flush();
 			this.viewer.start();
 		}
 	}

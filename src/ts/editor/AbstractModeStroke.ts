@@ -148,6 +148,7 @@ export abstract class AbstractModeStroke<T extends PathTransaction> implements D
 			this.pathDrawer.push(this.lPointX, this.lPointY).doPlot(false,false);
 
 		} finally {
+			this.tran.flush();
 			this.viewer.start();
 		}
 	}

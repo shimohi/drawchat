@@ -25,9 +25,9 @@ export class Transform extends AbstractLayerTransaction implements TransformTran
 	setMatrix(
 		transform:drawchat.Transform
 	):TransformTransaction {
-		this.init();
+		// this.init();
 		this.matrix = transform;
-		this.getLayerBuilder().setTransForm(this.matrix).commit().commit();
+		// this.getLayerBuilder().setTransForm(this.matrix).commit().commit();
 		return this;
 	}
 
@@ -75,6 +75,11 @@ export class Transform extends AbstractLayerTransaction implements TransformTran
 	concat(transform: drawchat.Transform): drawchat.updater.TransformTransaction {
 		this.init();
 		return this.setMatrix(TransformCalculator.concatMatrix(this.getTransform(this.layerId),transform));
+	}
+
+	flush(): void {
+		this.init();
+		this.getLayerBuilder().setTransForm(this.matrix).commit().commit();
 	}
 
 	protected beforeCommit():void {

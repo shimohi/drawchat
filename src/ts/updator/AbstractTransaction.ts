@@ -53,6 +53,7 @@ export abstract class AbstractTransaction implements DrawTransaction{
 		return this.session.isAlive();
 	}
 
+	abstract flush(): void;
 	protected abstract beforeCancel(duration: boolean):void;
 
 	protected abstract afterCancel(duration: boolean):void;

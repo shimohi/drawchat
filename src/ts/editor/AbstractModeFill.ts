@@ -107,6 +107,7 @@ export abstract class AbstractModeFill<T extends PathTransaction> implements Dra
 			}
 			this.pathDrawer.push(this.lPointX, this.lPointY).doPlot(true);
 		} finally {
+			this.tran.flush();
 			this.viewer.start();
 		}
 	}

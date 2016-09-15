@@ -103,8 +103,12 @@ export class ChangeSequence extends AbstractTransaction implements ChangeSequenc
 		return this.doUpdate(result);
 	}
 
+	flush(): void {
+		this.session.addMoment().setSequence(this.sequences).commit();
+	}
+
 	private doUpdate(result:string[]):ChangeSequenceTransaction{
-		this.session.addMoment().setSequence(result).commit();
+		// this.session.addMoment().setSequence(result).commit();
 		this.sequences = result;
 		return this;
 	}

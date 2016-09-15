@@ -49,10 +49,10 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				y:point.y
 			}
 		);
-		this.doUpdate(
-			this.getEditBuilder().setTransForm(transform),
-			this.path
-		);
+		// this.doUpdate(
+		// 	this.getEditBuilder().setTransForm(transform),
+		// 	this.path
+		// );
 		return this;
 	}
 
@@ -81,10 +81,10 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				radius:radius
 			}
 		);
-		this.doUpdate(
-			this.getEditBuilder().setTransForm(transform),
-			this.path
-		);
+		// this.doUpdate(
+		// 	this.getEditBuilder().setTransForm(transform),
+		// 	this.path
+		// );
 		return this;
 	}
 
@@ -111,10 +111,10 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				y:point2.y
 			}
 		);
-		this.doUpdate(
-			this.getEditBuilder().setTransForm(transform),
-			this.path
-		);
+		// this.doUpdate(
+		// 	this.getEditBuilder().setTransForm(transform),
+		// 	this.path
+		// );
 		return this;
 	}
 
@@ -136,10 +136,10 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				y:point1.y
 			}
 		);
-		this.doUpdate(
-			this.getEditBuilder().setTransForm(transform),
-			this.path
-		);
+		// this.doUpdate(
+		// 	this.getEditBuilder().setTransForm(transform),
+		// 	this.path
+		// );
 		return this;
 	}
 
@@ -153,7 +153,6 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 	):ClipTransaction {
 		this.init();
 		// this.transformMap.updateMap(this.history);
-
 		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,cpx1,cpy1);
@@ -171,11 +170,19 @@ export class Clip extends AbstractLayerTransaction implements ClipTransaction{
 				y:point3.y
 			}
 		);
+		// this.doUpdate(
+		// 	this.getEditBuilder().setTransForm(transform),
+		// 	this.path
+		// );
+		return this;
+	}
+
+	flush(): void {
+		this.init();
 		this.doUpdate(
-			this.getEditBuilder().setTransForm(transform),
+			this.getEditBuilder().setTransForm(this.getTransform(this.layerId)),
 			this.path
 		);
-		return this;
 	}
 
 	restoreSavePoint(): void {

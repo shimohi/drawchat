@@ -99,6 +99,11 @@ declare namespace drawchat.updater {
 		commit(duration?:boolean):void;
 
 		/**
+		 * 直前までの変更を履歴に反映する。
+		 */
+		flush():void;
+
+		/**
 		 * savePointを設定する。
 		 */
 		setSavePoint():void;
@@ -334,14 +339,19 @@ declare namespace drawchat.updater {
 		):ClipTransaction;
 
 		/**
-		 * 変更内容をキャンセルする。
+		 * 直前までの変更を履歴に反映する。
 		 */
-		cancel():void;
+		flush():void;
 
-		/**
-		 * 変更内容を確定する。
-		 */
-		commit():void;
+		// /**
+		//  * 変更内容をキャンセルする。
+		//  */
+		// cancel():void;
+		//
+		// /**
+		//  * 変更内容を確定する。
+		//  */
+		// commit():void;
 	}
 
 	/**
@@ -514,15 +524,20 @@ declare namespace drawchat.updater {
 			y:number
 		):DrawPathTransaction;
 
-		/**
-		 * 変更内容をキャンセルする。
-		 */
-		cancel():void;
-
-		/**
-		 * 変更内容を確定する。
-		 */
-		commit():void;
+		// /**
+		//  * 直前までの変更を履歴に反映する。
+		//  */
+		// flush():void;
+		//
+		// /**
+		//  * 変更内容をキャンセルする。
+		//  */
+		// cancel():void;
+		//
+		// /**
+		//  * 変更内容を確定する。
+		//  */
+		// commit():void;
 	}
 
 	/**
@@ -557,14 +572,14 @@ declare namespace drawchat.updater {
 		 * @param index
 		 */
 		toMove(layerId:string,index:number):ChangeSequenceTransaction;
-		/**
-		 * 変更内容をキャンセルする。
-		 */
-		cancel():void;
-		/**
-		 * 変更内容を確定する。
-		 */
-		commit():void;
+		// /**
+		//  * 変更内容をキャンセルする。
+		//  */
+		// cancel():void;
+		// /**
+		//  * 変更内容を確定する。
+		//  */
+		// commit():void;
 	}
 
 	/**
@@ -687,15 +702,15 @@ declare namespace drawchat.updater {
 		 * @param style
 		 */
 		setStyle(style:number):TextTransaction;
-
-		/**
-		 * 変更内容をキャンセルする。
-		 */
-		cancel():void;
-
-		/**
-		 * 変更内容を確定する。
-		 */
-		commit():void;
+		//
+		// /**
+		//  * 変更内容をキャンセルする。
+		//  */
+		// cancel():void;
+		//
+		// /**
+		//  * 変更内容を確定する。
+		//  */
+		// commit():void;
 	}
 }

@@ -37,11 +37,11 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 	setFill(
 		color:string
 	):TextTransaction {
-		this.init();
+		// this.init();
 		this.fill = <Fill>{
 			color:color
 		};
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
@@ -68,7 +68,7 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 				colorStops:colorStops
 			}
 		};
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
@@ -99,20 +99,20 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 				colorStops:colorStops
 			}
 		};
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
 	setStrokeColor(
 		color:string
 	):TextTransaction {
-		this.init();
+		// this.init();
 		this.stroke ={
 			fillStyle:{
 				color:color
 			}
 		};
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
@@ -121,25 +121,25 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 	):TextTransaction {
 		this.init();
 		this.text = this.text == null ? text : this.text + text;
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
 	setBaseline(
 		baseline?:string
 	):TextTransaction {
-		this.init();
+		// this.init();
 		this.baseline = baseline;
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
 	setAlign(
 		align?:string
 	):TextTransaction {
-		this.init();
+		// this.init();
 		this.align = align;
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
@@ -148,7 +148,6 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		y:number
 	):TextTransaction {
 		this.init();
-
 		let transform = this.getTransform(this.layerId);
 		let invert = TransformCalculator.invert(transform);
 		let point1 = TransformCalculator.transform(invert,x,y);
@@ -156,43 +155,48 @@ export class Text extends AbstractLayerTransaction implements TextTransaction{
 		this.x = point1.x;
 		this.y = point1.y;
 
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
 	setFontFamily(fontFamily:string):TextTransaction {
-		this.init();
+		// this.init();
 		this.fontFamily = fontFamily;
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
 	setSize(size:number):TextTransaction {
-		this.init();
+		// this.init();
 		this.size = size;
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
 	setWeight(weight:number):TextTransaction {
-		this.init();
+		// this.init();
 		this.weight = weight;
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
 	setStyle(style:number):TextTransaction {
-		this.init();
+		// this.init();
 		this.style = style;
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
 	}
 
 	setCompositeOperation(compositeOperation: number): drawchat.updater.TextTransaction {
-		this.init();
+		// this.init();
 		this.compositeOperation = compositeOperation;
-		this.doUpdate(this.getEditBuilder());
+		// this.doUpdate(this.getEditBuilder());
 		return this;
+	}
+
+	flush(): void {
+		this.init();
+		this.doUpdate(this.getEditBuilder());
 	}
 
 	protected beforeCommit(duration:boolean):void {
