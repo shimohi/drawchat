@@ -57,13 +57,17 @@ export class SplinePlotter{
 		while(j < ((num - 1)|0)){
 			let p0 = this.input.item(i);
 			let p1 = this.input.item(i + 1);
-			let len = Math.sqrt((p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y));
+
+			let lenX = p0.x - p1.x;
+			let lenY = p0.y - p1.y;
+
 			j = (j + 1) | 0;
-			if(len === 0){
+			if(lenX === 0 && lenY === 0){
 				this.input.remove(i);
 				continue;
 			}
-			this.l[i] = len;
+			// this.l[i] = (lenX === 0 || lenY === 0) ? 0 : Math.sqrt(lenX * lenX + lenY * lenY);
+			this.l[i] = Math.sqrt(lenX * lenX + lenY * lenY);
 			i = (i + 1) | 0;
 		}
 
@@ -160,6 +164,18 @@ export class SplinePlotter{
 		i = 0 | 0;
 		while(i < ((num -1)|0) ){
 			a = this.l[i];
+			// if(
+			// 	this.input.item(i + 1).x - this.input.item(i).x === 0
+			// ||	this.input.item(i + 1).y - this.input.item(i).y === 0
+			// ){
+			// 	this.result.push(
+			// 		this.input.item(i).x,
+			// 		this.input.item(i).y
+			// 	);
+			// 	i = (i + 1) | 0;
+			// 	continue;
+			// }
+
 			_00 =	this.input.item(i).x;
 			_01 =	this._C.item(i).x;
 			_02 =	(this.input.item(i + 1).x - this.input.item(i).x) * 3 / (a * a)
@@ -195,7 +211,7 @@ export class SplinePlotter{
 	}
 
 	private convertNaN(num:number):number{
-		return num === 0 ? 0.1 : num;
+		return num === 0 ? 0.001 : num;
 	}
 }
 

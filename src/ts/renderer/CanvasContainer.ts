@@ -1,45 +1,38 @@
 import * as CombineCanvasUtil from "./CombineCanvasUtil";
 import {TransformContainer} from "./TransformContainer";
+import {ICanvasManager} from "./ICanvasManager";
 
 export class CanvasContainer{
 
 	/**
 	 * 親要素
 	 */
-	private id:string;
-	private parent:Element;
+	private manager:ICanvasManager;
+
+	// private id:string;
+	// private parent:Element;
 	private elementList:HTMLCanvasElement[] = [];
 	private contextList:CanvasRenderingContext2D[] = [];
 	private transformList:TransformContainer[] = [];
 
-	width:number;
-	height:number;
+	// width:number;
+	// height:number;
 
 	constructor(
-		parent:Element|string,
-		width?:number,
-		height?:number
+		manager:ICanvasManager
 	){
-		if(typeof parent === 'string'){
-			this.id = <string>parent;
-			this.width = width;
-			this.height = height;
-			return;
-		}
-		this.parent = <Element>parent;
-		this.width = width ? width : this.parent.clientWidth;
-		this.height = height ? height : this.parent.clientHeight;
+		this.manager = manager;
 	}
 
-	getParent():Element{
-		if(this.parent != null){
-			return this.parent;
-		}
-		this.parent =  document.getElementById(this.id);
-		this.width = this.width ? this.width : this.parent.clientWidth;
-		this.height = this.height ? this.height : this.parent.clientHeight;
-		return this.parent;
-	}
+	// getParent():Element{
+	// 	if(this.parent != null){
+	// 		return this.parent;
+	// 	}
+	// 	this.parent =  document.getElementById(this.id);
+	// 	this.width = this.width ? this.width : this.parent.clientWidth;
+	// 	this.height = this.height ? this.height : this.parent.clientHeight;
+	// 	return this.parent;
+	// }
 
 	getSize():number{
 		return this.elementList.length;
@@ -54,12 +47,13 @@ export class CanvasContainer{
 	}
 
 	addCanvas():number{
-		let element:HTMLCanvasElement = this.parent.ownerDocument.createElement("canvas");
-		this.getParent().appendChild(element);
-
-		element.width = this.width;
-		element.height = this.height;
-		element.style.position = "absolute";
+		let element:HTMLCanvasElement = this.manager.createCanvas();
+		// let element:HTMLCanvasElement = this.parent.ownerDocument.createElement("canvas");
+		// this.getParent().appendChild(element);
+		// element.width = this.width;
+		// element.height = this.height;
+		// element.style.position = "absolute";
+		this.manager.appendChild(element);
 
 		this.elementList.push(element);
 		this.contextList.push(element.getContext("2d"));
@@ -69,17 +63,26 @@ export class CanvasContainer{
 
 	combineDataImage():string{
 		return CombineCanvasUtil.combine(
-			this.width,
-			this.height,
+			this.manager.getWidth(),
+			this.manager.getHeight(),
 			this.elementList[0],
 			this.contextList
 		);
 	}
 
+	get width():number{
+		return this.manager.getWidth();
+	}
+
+	get height():number{
+		return this.manager.getHeight();
+	}
+
 	removeCanvas(index:number):void{
 		let element = this.elementList[index];
 		try {
-			this.getParent().removeChild(element);
+			this.manager.removeChild(element);
+			// this.getParent().removeChild(element);
 		} catch (e) {
 			//	後始末中と重なる可能性があるので無視
 		}
@@ -93,7 +96,8 @@ export class CanvasContainer{
 		//一旦全件削除
 		for(let element of this.elementList){
 			try {
-				this.getParent().removeChild(element);
+				this.manager.removeChild(element);
+				// this.getParent().removeChild(element);
 			} catch (e) {
 				//無視
 				console.log(e);
@@ -111,7 +115,9 @@ export class CanvasContainer{
 				continue;
 			}
 			try {
-				this.getParent().appendChild(this.elementList[order]);
+				this.manager.appendChild(this.elementList[order]);
+				// this.getParent().appendChild(this.elementList[order]);
+
 				elementList1.push(this.elementList[order]);
 				canvasList1.push(this.contextList[order]);
 				transformList1.push(this.transformList[order]);
@@ -126,16 +132,17 @@ export class CanvasContainer{
 	}
 
 	clear():void{
-		if(this.id !== null){
-			this.parent = null;
-		}
+		// if(this.id !== null){
+		// 	this.parent = null;
+		// }
 		this.elementList = [];
 		this.contextList = [];
 		this.transformList = [];
-		let element = this.getParent();
-		if(element == null){
-			return;
-		}
-		while (element.firstChild) element.removeChild(element.firstChild);
+		this.manager.removeChildren();
+		// let element = this.getParent();
+		// if(element == null){
+		// 	return;
+		// }
+		// while (element.firstChild) element.removeChild(element.firstChild);
 	}
 }

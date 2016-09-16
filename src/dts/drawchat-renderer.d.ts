@@ -93,18 +93,18 @@ declare namespace drawchat.renderer {
 		):number[];
 	}
 
-	interface DOMRendererFactory{
-		/**
-		 * 指定された要素配下にRendererコンポーネントを配置する。
-		 * @param parent この要素から見て0,0を左上として描画する。直下要素は空である必要がある。
-		 * 		styleのposition 属性はrelativeにしておく。
-		 * @param width 要素の幅。指定されていない場合はrendererのデフォルト値が指定される。
-		 * @param height 要素の高さ。指定されていない場合はrendererのデフォルト値が指定される。
-		 */
-		createInstance(
-			parent:Element|string,
-			width?:number,
-			height?:number
-		):DrawchatRenderer;
-	}
+	// interface DOMRendererFactory{
+	// 	/**
+	// 	 * 指定された要素配下にRendererコンポーネントを配置する。
+	// 	 * @param parent この要素から見て0,0を左上として描画する。直下要素は空である必要がある。
+	// 	 * 		styleのposition 属性はrelativeにしておく。
+	// 	 * @param width 要素の幅。指定されていない場合はrendererのデフォルト値が指定される。
+	// 	 * @param height 要素の高さ。指定されていない場合はrendererのデフォルト値が指定される。
+	// 	 */
+	// 	createInstance(
+	// 		parent:Element|string,
+	// 		width?:number,
+	// 		height?:number
+	// 	):DrawchatRenderer;
+	// }
 }

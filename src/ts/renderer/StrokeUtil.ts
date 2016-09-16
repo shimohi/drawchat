@@ -32,7 +32,7 @@ export class StrokeUtil{
 		if(!style){
 			context.lineWidth = 1;
 			context.lineCap = "round";
-			context.lineJoin = "miter";
+			context.lineJoin = "round";
 			context.miterLimit =  10.0;
 			return;
 		}
@@ -84,18 +84,18 @@ export class StrokeUtil{
 		joints:number
 	):void{
 		if(!joints){
-			context.lineCap = "round";
+			context.lineJoin = "round";
 			return;
 		}
 		switch(joints){
 			case 0:
-				context.lineCap = "miter";
+				context.lineJoin = "miter";
 				break;
 			case 1:
-				context.lineCap = "round";
+				context.lineJoin = "round";
 				break;
 			case 2:
-				context.lineCap = "bevel";
+				context.lineJoin = "bevel";
 				break;
 		}
 	}

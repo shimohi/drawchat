@@ -19,20 +19,21 @@ import {TransformContainer} from "./TransformContainer";
 import {ClipUtil} from "./ClipUtil";
 import {GraphicsUtil} from "./GraphicsUtil";
 import {TextUtil} from "./TextUtil";
-import DOMRendererFactory = drawchat.renderer.DOMRendererFactory;
+import {ICanvasManager} from "./ICanvasManager";
 
-class Renderer implements DrawchatRenderer{
+export class MultiCanvas2DRenderer implements DrawchatRenderer{
 
 	private canvasContainer:CanvasContainer;
 	// private transformContainer:TransformContainer = new TransformContainer();
 
 	constructor(
-		parent:Element|string,
-		width?:number,
-		height?:number
+		manager:ICanvasManager
+		// parent:Element|string,
+		// width?:number,
+		// height?:number
 	){
 		this.canvasContainer = new CanvasContainer(
-			parent,width,height
+			manager
 		);
 	}
 
@@ -178,15 +179,3 @@ class Renderer implements DrawchatRenderer{
 		return result;
 	}
 }
-
-export class Factory implements DOMRendererFactory{
-	createInstance(
-		parent:Element|string,
-		width?:number,
-		height?:number
-	):DrawchatRenderer{
-		return new Renderer(parent,width,height);
-	}
-}
-export var MultiCanvas2DRenderer:DOMRendererFactory = new Factory();
-export default MultiCanvas2DRenderer;
