@@ -1,0 +1,22 @@
+{
+  "name": "@s2study/draw-api",
+  "version": "0.1.0",
+  "description": "drawchat用定義ファイル",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Y.Saito , T.Suzuki",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S2Study/draw-api.git"
+  },
+  "keywords": [
+    "s2study"
+  ],
+  "bugs": {
+    "url": "https://github.com/S2Study/draw-api/issues"
+  },
+  "homepage": "https://github.com/S2Study/draw-api#readme"
+}
