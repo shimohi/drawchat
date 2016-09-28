@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "es2015",
-    "moduleResolution": "node",
+    "target": "ES5",
+    "module": "commonjs",
+    "moduleResolution":"node",
     "noImplicitAny": true,
-    "declaration":false,
+    "declaration":true,
     "sourceMap": true,
     "inlineSourceMap":false,
     "inlineSources":true,
-    "jsx": "react"
+    "jsx": "react",
+    "lib": ["es5", "es2015.promise"]
   },
   "exclude": [
+    "lib",
     "artifact",
     "node_modules"
   ]

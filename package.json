@@ -1,12 +1,19 @@
 {
   "name": "@s2study/draw-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "drawchat用定義ファイル",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "precompile": "node_modules/.bin/tslint index.ts",
+    "compile": "node_modules/.bin/tsc",
+    "prepublish": "npm run compile"
+  },
   "author": "Y.Saito , T.Suzuki",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.3"
+  },
   "dependencies": {},
   "repository": {
     "type": "git",
