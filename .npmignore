@@ -15,6 +15,7 @@ node_modules/
 bin/
 typings
 /**/src/ts/**/*.ts
+index.ts
 *.class
 *.war
 *.swf

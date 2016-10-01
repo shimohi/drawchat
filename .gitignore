@@ -32,3 +32,6 @@ artifact/
 .classpath
 .tomcatplugin
 test-results.xml
+index.d.ts
+index.js.map
+index.js
