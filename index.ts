@@ -53,9 +53,9 @@ export namespace editor {
 	}
 
 	export interface EventListener<F extends Function> {
-		on(listener: F): void;
-		once(listener: F): void;
-		off(listener: F): void;
+		on(listener: F): DrawEditorEventListeners;
+		once(listener: F): DrawEditorEventListeners;
+		off(listener: F): DrawEditorEventListeners;
 	}
 
 	/**
@@ -73,7 +73,7 @@ export namespace editor {
 	 * モード変更の通知を受け取るリスナーの定義
 	 */
 	export interface ModeChangeListener {
-		( mode: number ): void;
+		( layerNumber: number ): void;
 	}
 	/**
 	 * モード変更通知に関するアクセスを行うインターフェースの定義
