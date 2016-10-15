@@ -348,6 +348,16 @@ export namespace editor {
 		 * イベントリスナー
 		 */
 		readonly events: DrawEditorEventListeners;
+
+		/**
+		 * 画像URIを取得する。
+		 */
+		createImageURI(): Promise<string>;
+
+		/**
+		 * 履歴を計算し、現在のDrawMessageを生成する。
+		 */
+		generateMessage(): Promise<structures.Message>;
 	}
 }
 

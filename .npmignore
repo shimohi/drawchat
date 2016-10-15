@@ -24,6 +24,7 @@ index.ts
 .DS_Store
 .project
 .classpath
+tslint.json
 .tsconfig.json
 .tomcatplugin
 test-results.xml
