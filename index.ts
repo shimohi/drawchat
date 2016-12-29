@@ -1,53 +1,61 @@
 export namespace editor {
+
+	/**
+	 * Color definition
+	 */
 	export interface Color {
 		r: number;
 		g: number;
 		b: number;
 	}
+
+	/**
+	 * Definition of properties to set in the editor.
+	 */
 	export interface DrawEditorProperties {
 
 		/**
-		 * 線の色
+		 * Specify fill or stroke color
 		 */
 		color: Color;
 
 		/**
-		 * 線の太さ
+		 *
 		 */
 		thickness: number;
 
 		/**
-		 * フォントサイズ
+		 * Specify font size in pixel value
 		 */
 		fontSize: number;
 
 		/**
-		 * フォントファミリー
+		 * Font family name
 		 */
 		fontFamily: string;
 
 		/**
-		 * フォントの太さ
+		 * Specify font thickness
 		 */
 		fontWeight: number;
 
 		/**
-		 * フォントスタイル
+		 * Designation of font style such as italic
 		 */
 		fontStyle: string;
 
 		/**
-		 * アルファ値
+		 * Specifying transparency
 		 */
 		alpha: number;
 
 		/**
-		 * パスの種別
-		 * 0: moveTo
-		 * 1: arcTo
-		 * 2: quadraticCurveTo
-		 * 3: lineTo
-		 * 4: bezierCurveTo
+		 * Path types
+		 * 0: moveTo <br />
+		 * 1: arcTo <br />
+		 * 2: quadraticCurveTo <br />
+		 * 3: lineTo <br />
+		 * 4: bezierCurveTo <br />
 		 */
 		pathType: number;
 	}
@@ -373,7 +381,7 @@ export namespace history {
 		/**
 		 * 履歴番号の一覧を取得する。
 		 */
-		getHistoryNumbers(): number[];
+		getHistoryNumbers(): ( number | undefined)[];
 
 		/**
 		 * 現在の履歴番号を取得する。
@@ -395,18 +403,18 @@ export namespace history {
 		 * @param from
 		 * @param to
 		 */
-		getMoments(from: number, to: number, ignoreLocal?: boolean): DrawMoment[];
+		getMoments(from: number, to: number, ignoreLocal?: boolean): ( DrawMoment | undefined)[];
 
 		/**
 		 * 履歴を計算し、現在のDrawMessageを生成する。
 		 */
-		generateMessage(ignoreLocal?: boolean): Message;
+		generateMessage(ignoreLocal?: boolean | null ): Message;
 
 		/**
 		 * 指定されたhistoryNumber時点のレイヤーリストを取得する。
 		 * @param historyNumber
 		 */
-		getLayers(historyNumber?: number, ignoreLocal?: boolean): string[];
+		getLayers(historyNumber?: number | null, ignoreLocal?: boolean | null): ( string | undefined)[];
 
 		/**
 		 * 更新イベントを待ち受けるリスナーを設定する。
@@ -420,13 +428,13 @@ export namespace history {
 		 * 有効な履歴かどうか
 		 * @param historyNumber
 		 */
-		isAvailable(historyNumber?: number): boolean;
+		isAvailable(historyNumber?: number | null ): boolean;
 
 		/**
 		 * 編集セッションを開始する。
 		 * @param noWait 現在ロックしている編集セッションを強制的に解除するかどうか。
 		 */
-		lock(noWait?: boolean): Promise<DrawHistoryEditSession>;
+		lock(noWait?: boolean | null): Promise<DrawHistoryEditSession>;
 	}
 
 	export interface NumberGenerator {
@@ -450,7 +458,7 @@ export namespace history {
 		 * @param historyNumber
 		 * @param clearFuture 指定されたhistoryNumberより先の履歴を削除するかどうか。デフォルト値はfalse
 		 */
-		setHistoryNumberNow(historyNumber: number, clearFuture?: boolean): number;
+		setHistoryNumberNow(historyNumber: number, clearFuture?: boolean | null): number;
 
 		/**
 		 * 履歴をクリアする。
@@ -462,7 +470,7 @@ export namespace history {
 		 * @param layer
 		 * @param isLocal
 		 */
-		addLayer(layer: Layer, isLocal?: boolean): DrawMoment;
+		addLayer(layer: Layer, isLocal?: boolean | null ): DrawMoment;
 
 		/**
 		 * 指定されたIDのレイヤーを削除する。
@@ -486,7 +494,7 @@ export namespace history {
 
 		putLayerMoment(key: string): DrawLayerMomentBuilder;
 
-		setSequence(sequence: string[]): DrawMomentBuilder;
+		setSequence(sequence: ( string | undefined) []): DrawMomentBuilder;
 
 		commit(): DrawMoment;
 	}
@@ -504,14 +512,14 @@ export namespace history {
 		/**
 		 * CanvasId毎の変更マッピング。
 		 */
-		getKeys(): string[];
+		getKeys(): ( string | undefined )[];
 		getLayerMoment(key: string): DrawLayerMoment;
 
 		/**
 		 * Canvasの表示順　背面であるほど小さい添字。
 		 * 更新される毎に全件分設定され、ここにないCanvasは削除扱いとする。
 		 */
-		getSequence(): string[];
+		getSequence(): ( string | undefined )[];
 	}
 
 	export interface DrawLayerMomentBuilder {
@@ -522,7 +530,7 @@ export namespace history {
 
 		addDraw(draw: Draw): DrawLayerMomentBuilder;
 
-		addDraws(draw: Draw[]): DrawLayerMomentBuilder;
+		addDraws(draw: ( Draw | undefined )[]): DrawLayerMomentBuilder;
 
 		commit(): DrawMomentBuilder;
 	}
@@ -553,7 +561,7 @@ export namespace history {
 		/**
 		 * 書き込み履歴（追加分のみ）
 		 */
-		getDraws(): Draw[];
+		getDraws(): ( Draw | undefined )[];
 	}
 }
 
@@ -575,7 +583,7 @@ export namespace renderer {
 		 * レイヤーの前面＞背面の順序を変更する。
 		 * @param order 元の添字を格納したリスト。リストの添字順にソートされる。
 		 */
-		sortLayer(order: number[]): void;
+		sortLayer(order: ( number | undefined )[]): void;
 
 		/**
 		 * 指定された添字のレイヤーを削除する。
@@ -598,9 +606,9 @@ export namespace renderer {
 		 */
 		render(
 			index: number,
-			draws: Draw[],
-			transform?: Transform,
-			clip?: Clip): void;
+			draws: ( Draw | undefined )[],
+			transform?: Transform | null,
+			clip?: Clip | null): void;
 
 		/**
 		 * 指定された添字のレイヤーに対し、差分を描画する。
@@ -609,7 +617,7 @@ export namespace renderer {
 		 */
 		renderDiff(
 			index: number,
-			draws: Draw[]
+			draws: ( Draw | undefined )[]
 		): void;
 
 		/**
@@ -627,14 +635,14 @@ export namespace renderer {
 		 * 引数が指定されていない場合は全件表示。
 		 * @param target
 		 */
-		show(target?: number[]): void;
+		show(target?: ( number | undefined )[] | null): void;
 
 		/**
 		 * 指定された添字のレイヤーを非表示状態に設定する。
 		 * 引数が指定されていない場合は全件非表示。
 		 * @param target
 		 */
-		hide(target?: number[]): void;
+		hide(target?: ( number | undefined )[] | null): void;
 
 		/**
 		 * 指定されたピクセル座標の色成分を取得する。
@@ -643,7 +651,7 @@ export namespace renderer {
 		getPixelColor(
 			x: number,
 			y: number,
-			layerIndex: number): number[];
+			layerIndex: number): ( number | undefined ) [];
 	}
 }
 export namespace structures {
@@ -651,29 +659,29 @@ export namespace structures {
 		message: Message[];
 	}
 	export interface Message {
-		id?: string;
-		seq?: number;
-		author?: string;
-		time?: number;
-		title?: string;
-		canvas?: Layer[];
+		id?: string | null;
+		seq?: number | null;
+		author?: string | null;
+		time?: number | null;
+		title?: string | null;
+		canvas?: ( Layer | undefined )[] | null;
 	}
 	export interface Layer {
-		transform?: Transform;
-		clip?: Clip;
-		draws: Draw[];
+		transform?: Transform | null;
+		clip?: Clip | null;
+		draws: ( Draw | undefined )[];
 	}
 	export interface Transform {
-		a?: number;
-		b?: number;
-		c?: number;
-		d?: number;
-		x?: number;
-		y?: number;
+		a?: number | null;
+		b?: number | null;
+		c?: number | null;
+		d?: number | null;
+		x?: number | null;
+		y?: number | null;
 	}
 	export interface Clip {
-		transform?: Transform;
-		path: PathItem[];
+		transform?: Transform | null;
+		path: ( PathItem | undefined )[];
 	}
 	export interface PathItem {
 		type: number;
@@ -709,29 +717,29 @@ export namespace structures {
 	}
 
 	export interface Draw {
-		transform?: Transform;
+		transform?: Transform | null;
 		compositeOperation: number;
 	}
 	export interface GraphicsDraw extends Draw {
-		graphics: Graphic[];
+		graphics: ( Graphic | undefined )[];
 	}
 	export interface Graphic {
-		fill?: Fill;
-		stroke?: Stroke;
-		path: PathItem[];
+		fill?: Fill | null;
+		stroke?: Stroke | null;
+		path: ( PathItem | undefined )[];
 	}
 
 	export interface Fill {
-		color?: string;
-		linerGradient?: LinerGradient;
-		radialGradient?: RadialGradient;
+		color?: string | null;
+		linerGradient?: LinerGradient | null;
+		radialGradient?: RadialGradient | null;
 	}
 	export interface LinerGradient {
 		x0: number;
 		y0: number;
 		x1: number;
 		y1: number;
-		colorStops?: ColorStop[];
+		colorStops?: ( ColorStop | undefined )[] | null;
 	}
 	export interface ColorStop {
 		offset: number;
@@ -744,23 +752,23 @@ export namespace structures {
 		x1: number;
 		y1: number;
 		r1: number;
-		colorStops?: ColorStop[];
+		colorStops?: ( ColorStop | undefined )[] | null;
 	}
 	export interface Stroke {
-		fillStyle?: Fill;
-		dash?: Dash;
-		style?: StrokeStyle;
+		fillStyle?: Fill | null;
+		dash?: Dash | null;
+		style?: StrokeStyle | null;
 	}
 	export interface Dash {
-		segments?: number[];
-		offset?: number;
+		segments?: ( number | undefined )[] | null;
+		offset?: number | null;
 	}
 	export interface StrokeStyle {
-		thickness?: number;
-		caps?: number;
-		joints?: number;
-		miterLimit?: number;
-		ignoreScale?: number;
+		thickness?: number | null;
+		caps?: number | null;
+		joints?: number | null;
+		miterLimit?: number | null;
+		ignoreScale?: number | null;
 	}
 	export interface TextDraw extends Draw {
 		text: Text;
@@ -768,14 +776,14 @@ export namespace structures {
 	export interface Text {
 		x: number;
 		y: number;
-		fontFamily?: string;
-		size?: number;
-		weight?: number;
-		style?: number;
-		fill?: Fill;
-		stroke?: Stroke;
-		align?: string;
-		baseline?: string;
+		fontFamily?: string | null;
+		size?: number | null;
+		weight?: number | null;
+		style?: number | null;
+		fill?: Fill | null;
+		stroke?: Stroke | null;
+		align?: string | null;
+		baseline?: string | null;
 		text: string;
 	}
 }
@@ -799,7 +807,7 @@ export namespace updater {
 		/**
 		 * レイヤーIDのリストを取得する。
 		 */
-		getLayers(): string[];
+		getLayers(): ( string | undefined )[];
 
 		/**
 		 * 変形トランザクションを開始する。
@@ -807,7 +815,7 @@ export namespace updater {
 		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
 		 * デフォルト値はtrue
 		 */
-		beginTransform(layerId: string, commit?: boolean): Promise<TransformTransaction>;
+		beginTransform(layerId: string, commit?: boolean | null): Promise<TransformTransaction>;
 
 		/**
 		 * 切り抜きトランザクションを開始する。
@@ -815,7 +823,7 @@ export namespace updater {
 		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
 		 * デフォルト値はtrue
 		 */
-		beginClip(layerId: string, commit?: boolean): Promise<ClipTransaction>;
+		beginClip(layerId: string, commit?: boolean | null ): Promise<ClipTransaction>;
 
 		/**
 		 * 描画トランザクションを開始する。
@@ -823,7 +831,7 @@ export namespace updater {
 		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
 		 * デフォルト値はtrue
 		 */
-		beginPath(layerId: string, commit?: boolean): Promise<DrawPathTransaction>;
+		beginPath(layerId: string, commit?: boolean | null ): Promise<DrawPathTransaction>;
 
 		/**
 		 * テキストトランザクションを開始する。
@@ -831,14 +839,14 @@ export namespace updater {
 		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
 		 * デフォルト値はtrue
 		 */
-		beginText(layerId: string, commit?: boolean): Promise<TextTransaction>;
+		beginText(layerId: string, commit?: boolean | null ): Promise<TextTransaction>;
 
 		/**
 		 * 表示順変更トランザクションを開始する。
 		 * @param commit 直前の未コミットトランザクションが存在する場合、コミットするかキャンセルするかどうか。
 		 * デフォルト値はtrue
 		 */
-		beginChangeSequence(commit?: boolean): Promise<ChangeSequenceTransaction>;
+		beginChangeSequence(commit?: boolean | null ): Promise<ChangeSequenceTransaction>;
 
 		/**
 		 * Undoが可能かどうかの判定
@@ -874,12 +882,12 @@ export namespace updater {
 		/**
 		 * 変更内容をキャンセルする。
 		 */
-		cancel(duration?: boolean): void;
+		cancel( duration?: boolean | null ): void;
 
 		/**
 		 * 変更内容を確定する。
 		 */
-		commit(duration?: boolean): void;
+		commit( duration?: boolean | null ): void;
 
 		/**
 		 * 直前までの変更を履歴に反映する。
@@ -1160,7 +1168,7 @@ export namespace updater {
 			y0: number,
 			x1: number,
 			y1: number,
-			colorStops?: ColorStop[]): DrawPathTransaction;
+			colorStops?: ( ColorStop | undefined )[] | null): DrawPathTransaction;
 
 		/**
 		 * 円形グラデーションを設定する。
@@ -1180,7 +1188,7 @@ export namespace updater {
 			x1: number,
 			y1: number,
 			r1: number,
-			colorStops?: ColorStop[]): DrawPathTransaction;
+			colorStops?: ( ColorStop | undefined )[] | null ): DrawPathTransaction;
 
 		/**
 		 * 線の色を設定する。
@@ -1194,8 +1202,8 @@ export namespace updater {
 		 * @param offset
 		 */
 		setStrokeDash(
-			segments?: number[],
-			offset?: number): DrawPathTransaction;
+			segments?: ( number | undefined )[] | null,
+			offset?: number | null): DrawPathTransaction;
 
 		/**
 		 * 線スタイルを設定。
@@ -1206,11 +1214,11 @@ export namespace updater {
 		 * @param ignoreScale
 		 */
 		setStrokeStyle(
-			thickness?: number,
-			caps?: number,
-			joints?: number,
-			miterLimit?: number,
-			ignoreScale?: number): DrawPathTransaction;
+			thickness?: number | null,
+			caps?: number | null,
+			joints?: number | null,
+			miterLimit?: number | null,
+			ignoreScale?: number | null ): DrawPathTransaction;
 
 		/**
 		 * 現在の起点を移動する。何もしなければ最初は0,0
@@ -1354,7 +1362,7 @@ export namespace updater {
 			y0: number,
 			x1: number,
 			y1: number,
-			colorStops?: ColorStop[]): TextTransaction;
+			colorStops?: ( ColorStop | undefined )[] | null): TextTransaction;
 		/**
 		 * テキストの円形グラデーションを設定する。
 		 * 線形・円形グラデーション・ベタ塗りは混在は混在しない。
@@ -1373,7 +1381,7 @@ export namespace updater {
 			x1: number,
 			y1: number,
 			r1: number,
-			colorStops?: ColorStop[]): TextTransaction;
+			colorStops?: ( ColorStop | undefined )[] | null ): TextTransaction;
 		/**
 		 * 線の色を設定する。
 		 * @param color
@@ -1388,12 +1396,12 @@ export namespace updater {
 		 * baselineを設定する。何も設定しなければ通常のベースライン。
 		 * @param baseline
 		 */
-		setBaseline(baseline?: string): TextTransaction;
+		setBaseline(baseline?: string | null ): TextTransaction;
 		/**
 		 * テキストの揃えを設定する。
 		 * @param align
 		 */
-		setAlign(align?: string): TextTransaction;
+		setAlign(align?: string | null ): TextTransaction;
 
 		/**
 		 * フォントファミリーを設定する。
@@ -1444,20 +1452,20 @@ export namespace viewer {
 		 * 引数が指定されていない場合は全件表示。
 		 * @param target
 		 */
-		show(target?: number[]): void;
+		show(target?: ( number | undefined )[] | null ): void;
 
 		/**
 		 * 指定された添字のレイヤーを非表示状態に設定する。
 		 * 引数が指定されていない場合は全件非表示。
 		 * @param target
 		 */
-		hide(target?: number[]): void;
+		hide(target?: ( number | undefined )[] | null ): void;
 
 		/**
 		 * 指定されたピクセル座標の色成分を取得する。
 		 * r,g,b,aの配列を返す。
 		 */
-		getPixelColor(x: number, y: number, layerIndex: number): number[];
+		getPixelColor(x: number, y: number, layerIndex: number): ( number | undefined )[];
 
 		/**
 		 * DrawchatHistoryとの同期を開始する。
@@ -1478,7 +1486,7 @@ export namespace viewer {
 	export interface DrawchatViewerFactory {
 		createInstance(
 			renderer: DrawchatRenderer,
-			core?: DrawHistory): DrawchatViewer;
+			core?: DrawHistory | null): DrawchatViewer;
 	}
 
 	export interface NamedLayer extends Layer {
@@ -1486,6 +1494,6 @@ export namespace viewer {
 	}
 
 	export interface LayerMap {
-		[key: string]: NamedLayer;
+		[key: string]: NamedLayer | null | undefined;
 	}
 }

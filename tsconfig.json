@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "es5",
     "module": "commonjs",
-    "moduleResolution":"node",
     "noImplicitAny": true,
+    "strictNullChecks": true,
     "declaration":true,
     "sourceMap": true,
     "inlineSourceMap":false,
     "inlineSources":true,
     "jsx": "react",
-    "lib": ["es5", "es2015.promise"]
+    "lib": ["es5", "es2015.promise", "dom"]
   },
   "exclude": [
     "lib",
